@@ -1,0 +1,10 @@
+﻿{
+  "dependencies": {
+    "EntityFramework": "6.1.3"
+  },
+  "frameworks": {
+    "net461": { }
+  },
+  "runtimes": { "win": { } },
+  "supports": { }
+}
