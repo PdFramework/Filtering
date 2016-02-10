@@ -1,7 +1,7 @@
 ﻿namespace Framework.QueryBuilder
 {
     using System.Collections.Generic;
-    using Framework.QueryBuilder.SearchTypes;
+    using SearchTypes;
 
     public class CompoundSearchCriteria<TSearchableObject> : SearchCriteriaBuilder<TSearchableObject> where TSearchableObject : class
     {

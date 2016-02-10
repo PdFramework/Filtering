@@ -2,8 +2,8 @@
 {
     using System;
     using System.Linq.Expressions;
-    using Framework.QueryBuilder.SearchCriteria;
-    using Framework.QueryBuilder.SearchTypes;
+    using SearchCriteria;
+    using SearchTypes;
 
     public static class SingleSearchCriteria
     {
@@ -37,11 +37,11 @@
             return searchCriteria.Where(CompoundSearchType.Or, searchablePropterySpecifier);
         }
 
-        internal static SingleSearchCriteria<TSearchableObject, object, object> CreateSingleSearchCriteria<TSearchableObject, TSearchableProperty, TSearchType>(string searchablePropteryName, SearchCriteriaBase<TSearchableProperty, TSearchType> sc) where TSearchableObject : class
+        internal static SingleSearchCriteria<TSearchableObject, TSearchableProperty, TSearchType> CreateSingleSearchCriteria<TSearchableObject, TSearchableProperty, TSearchType>(string searchablePropteryName, SearchCriteriaBase<TSearchableProperty, TSearchType> sc) where TSearchableObject : class
         {
-            return new SingleSearchCriteria<TSearchableObject, object, object>
+            return new SingleSearchCriteria<TSearchableObject, TSearchableProperty, TSearchType>
             {
-                SearchCriteria = new SearchCriteriaBase<object, object>
+                SearchCriteria = new SearchCriteriaBase<TSearchableProperty, TSearchType>
                 {
                     SearchValue = sc.SearchValue,
                     SearchType = sc.SearchType,
@@ -50,11 +50,11 @@
             };
         }
 
-        internal static SingleSearchCriteria<TSearchableObject, object, object> CreateSingleSearchCriteria<TSearchableObject, TSearchableProperty, TSearchType>(Type searchableObjectType, Expression<Func<TSearchableObject, TSearchableProperty>> searchablePropterySpecifier, SearchCriteriaBase<TSearchableProperty, TSearchType> sc) where TSearchableObject : class
+        internal static SingleSearchCriteria<TSearchableObject, TSearchableProperty, TSearchType> CreateSingleSearchCriteria<TSearchableObject, TSearchableProperty, TSearchType>(Type searchableObjectType, Expression<Func<TSearchableObject, TSearchableProperty>> searchablePropterySpecifier, SearchCriteriaBase<TSearchableProperty, TSearchType> sc) where TSearchableObject : class
         {
-            return new SingleSearchCriteria<TSearchableObject, object, object>
+            return new SingleSearchCriteria<TSearchableObject, TSearchableProperty, TSearchType>
             {
-                SearchCriteria = new SearchCriteriaBase<object, object>
+                SearchCriteria = new SearchCriteriaBase<TSearchableProperty, TSearchType>
                 {
                     SearchValue = sc.SearchValue,
                     SearchType = sc.SearchType,
@@ -63,12 +63,12 @@
             };
         }
 
-        private static CompoundSearchCriteria<TSearchableObject> Where<TSearchableObject, TSearchableLeftProperty, TSearchLeftType, TSearchableRightProperty, TSearchRightType>(this SingleSearchCriteria<TSearchableObject, TSearchableLeftProperty, TSearchLeftType> searchCriteria, CompoundSearchType compoundSearchType, string searchablePropteryName, SearchCriteriaBase<TSearchableRightProperty, TSearchRightType> sc) where TSearchableObject : class
+        private static CompoundSearchCriteria<TSearchableObject> Where<TSearchableObject, TSearchableRightProperty, TSearchRightType>(this SearchCriteriaBuilder<TSearchableObject> searchCriteria, CompoundSearchType compoundSearchType, string searchablePropteryName, SearchCriteriaBase<TSearchableRightProperty, TSearchRightType> sc) where TSearchableObject : class
         {
             var compoundSearchCriteria = new CompoundSearchCriteria<TSearchableObject>();
 
-            compoundSearchCriteria.SearchCriterium.Add(searchCriteria as SingleSearchCriteria<TSearchableObject, object, object>);
-            compoundSearchCriteria.SearchCriterium.Add(new SingleSearchCriteria<TSearchableObject, object, object> { SearchCriteria = new SearchCriteriaBase<object, object> { SearchValue = sc.SearchValue, SearchType = sc.SearchType, SearchPropertyName = searchablePropteryName } });
+            compoundSearchCriteria.SearchCriterium.Add(searchCriteria);
+            compoundSearchCriteria.SearchCriterium.Add(new SingleSearchCriteria<TSearchableObject, TSearchableRightProperty, TSearchRightType> { SearchCriteria = new SearchCriteriaBase<TSearchableRightProperty, TSearchRightType> { SearchValue = sc.SearchValue, SearchType = sc.SearchType, SearchPropertyName = searchablePropteryName } });
             compoundSearchCriteria.SearchCombinationTypes.Add(compoundSearchType);
 
             return compoundSearchCriteria;
@@ -78,7 +78,7 @@
         {
             var compoundSearchCriteria = new CompoundSearchCriteria<TSearchableObject>();
 
-            compoundSearchCriteria.SearchCriterium.Add(searchCriteria as SingleSearchCriteria<TSearchableObject, object, object>);
+            compoundSearchCriteria.SearchCriterium.Add(searchCriteria);
             compoundSearchCriteria.SearchCriterium.Add(CreateSingleSearchCriteria(searchCriteria.BaseSearchObjectType, searchablePropterySpecifier, sc));
             compoundSearchCriteria.SearchCombinationTypes.Add(compoundSearchType);
 
@@ -88,7 +88,7 @@
         private static CompoundSearchCriteria<TSearchableObject> Where<TSearchableObject>(this SearchCriteriaBuilder<TSearchableObject> searchCriteria, CompoundSearchType compoundSearchType, Func<SearchCriteriaBuilder<TSearchableObject>, CompoundSearchCriteria<TSearchableObject>> searchablePropterySpecifier) where TSearchableObject : class
         {
             var compoundSearchCriteria = new CompoundSearchCriteria<TSearchableObject>();
-            compoundSearchCriteria.SearchCriterium.Add(searchCriteria as SingleSearchCriteria<TSearchableObject, object, object>);
+            compoundSearchCriteria.SearchCriterium.Add(searchCriteria);
             compoundSearchCriteria.SearchCriterium.Add(searchablePropterySpecifier(searchCriteria));
             compoundSearchCriteria.SearchCombinationTypes.Add(compoundSearchType);
 

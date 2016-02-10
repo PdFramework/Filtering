@@ -1,7 +1,7 @@
 ﻿namespace Framework.QueryBuilder.SearchCriteria
 {
     using System;
-    using Framework.QueryBuilder.SearchTypes;
+    using SearchTypes;
 
     public class DateTimeSearchCriteria : SearchCriteriaBase<DateTime, DateTimeSearchType>
     {

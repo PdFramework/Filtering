@@ -1,6 +1,6 @@
 ﻿namespace Framework.QueryBuilder
 {
-    using Framework.QueryBuilder.SearchCriteria;
+    using SearchCriteria;
 
     public class SingleSearchCriteria<TSearchableObject, TSearchValue, TSearchType> : SearchCriteriaBuilder<TSearchableObject> where TSearchableObject : class
     {

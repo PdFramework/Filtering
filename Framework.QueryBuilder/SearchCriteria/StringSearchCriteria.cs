@@ -1,6 +1,6 @@
 ﻿namespace Framework.QueryBuilder.SearchCriteria
 {
-    using Framework.QueryBuilder.SearchTypes;
+    using SearchTypes;
 
     public class StringSearchCriteria : SearchCriteriaBase<string, StringSearchType>
     {
