@@ -1,4 +1,4 @@
-﻿namespace Framework.Data.Entity.QueryBuilder
+﻿namespace Framework.QueryBuilder.Data.Entity
 {
     using System.Collections.Generic;
 

@@ -2,11 +2,10 @@
 {
     public enum DateTimeSearchType
     {
-        None = 0,
-        Before = 1,
-        BeforeOrEquals = 2,
-        Equals = 3,
-        AfterOrEquals = 4,
-        After = 5
+        Before = 0,
+        BeforeOrEquals = 1,
+        Equals = 2,
+        AfterOrEquals = 3,
+        After = 4
     }
 }

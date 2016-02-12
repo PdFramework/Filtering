@@ -13,5 +13,5 @@
             SearchCriterium = new List<SearchCriteriaBuilder<TSearchableObject>>();
             SearchCombinationTypes = new List<CompoundSearchType>();
         }
-    }
+}
 }

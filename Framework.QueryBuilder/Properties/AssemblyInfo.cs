@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCopyright("Copyright © Peineary Development 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-[assembly: InternalsVisibleTo("Framework.Data.Entity.QueryBuilder")]
+[assembly: InternalsVisibleTo("Framework.QueryBuilder.Data.Entity")]
 [assembly: ComVisible(false)]
 [assembly: Guid("f1f0730e-0602-4a26-9d80-ef8b8277d79b")]
 [assembly: AssemblyVersion("1.0.0.0")]

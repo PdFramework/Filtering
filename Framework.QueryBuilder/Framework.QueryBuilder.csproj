@@ -48,9 +48,13 @@
     <Compile Include="SearchCriteriaBuilder.cs" />
     <Compile Include="SearchCriteria\DateTimeOffsetSearchCriteria.cs" />
     <Compile Include="SearchCriteria\DateTimeSearchCriteria.cs" />
+    <Compile Include="SearchCriteria\DoubleSearchCriteria.cs" />
+    <Compile Include="SearchCriteria\FloatSearchCriteria.cs" />
+    <Compile Include="SearchCriteria\DecimalSearchCriteria.cs" />
     <Compile Include="SearchCriteria\LongSearchCriteria.cs" />
     <Compile Include="SearchCriteria\ShortSearchCriteria.cs" />
     <Compile Include="SearchCriteria\SearchCriteriaBase.cs" />
+    <Compile Include="SearchResult.cs" />
     <Compile Include="SearchTypes\BooleanSearchType.cs" />
     <Compile Include="CompoundSearchCriteria.cs" />
     <Compile Include="SearchTypes\CompoundSearchType.cs" />
@@ -58,6 +62,9 @@
     <Compile Include="SearchTypes\DateTimeSearchType.cs" />
     <Compile Include="SearchCriteria\BooleanSearchCriteria.cs" />
     <Compile Include="SearchCriteria\IntegerSearchCriteria.cs" />
+    <Compile Include="SearchTypes\DoubleSearchType.cs" />
+    <Compile Include="SearchTypes\FloatSearchType.cs" />
+    <Compile Include="SearchTypes\DecimalSearchType.cs" />
     <Compile Include="SearchTypes\LongSearchType.cs" />
     <Compile Include="SearchTypes\ShortSearchType.cs" />
     <Compile Include="SearchTypes\IntegerSearchType.cs" />
@@ -65,6 +72,8 @@
     <Compile Include="SearchCriteria\StringSearchCriteria.cs" />
     <Compile Include="SearchTypes\StringSearchType.cs" />
     <Compile Include="SingleSearchCriteria.cs" />
+    <Compile Include="SortCriteria.cs" />
+    <Compile Include="SortType.cs" />
     <Compile Include="Utilities.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

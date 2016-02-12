@@ -2,11 +2,10 @@
 {
     public enum StringSearchType
     {
-        None = 0,
-        Equals = 1,
-        DoesNotEqual = 2,
-        StartsWith = 3,
-        EndsWith = 4,
-        Contains = 5
+        Equals = 0,
+        DoesNotEqual = 1,
+        StartsWith = 2,
+        EndsWith = 3,
+        Contains = 4
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace Framework.QueryBuilder.SearchCriteria
 {
+    //TODO: add MultiValue Search Criteria Base for IN, NOT IN and BETWEEN
     public class SearchCriteriaBase<TSearchValue, TSearchType>
     {
         internal string SearchPropertyName { get; set; }

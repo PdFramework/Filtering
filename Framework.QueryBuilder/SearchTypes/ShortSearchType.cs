@@ -2,12 +2,11 @@
 {
     public enum ShortSearchType
     {
-        None = 0,
-        LessThan = 1,
-        LessThanOrEquals = 2,
-        Equals = 3,
-        GreaterThanOrEquals = 4,
-        GreaterThan = 5,
-        DoesNotEqual = 6
+        LessThan = 0,
+        LessThanOrEquals = 1,
+        Equals = 2,
+        GreaterThanOrEquals = 3,
+        GreaterThan = 4,
+        DoesNotEqual = 5
     }
 }

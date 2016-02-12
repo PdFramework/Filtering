@@ -2,8 +2,7 @@
 {
     public enum BooleanSearchType
     {
-        None = 0,
-        Equals = 1,
-        DoesNotEqual = 2
+        Equals = 0,
+        DoesNotEqual = 1
     }
 }

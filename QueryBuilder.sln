@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.QueryBuilder", "Framework.QueryBuilder\Framework.QueryBuilder.csproj", "{F1F0730E-0602-4A26-9D80-EF8B8277D79B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.QueryBuilder.UnitTests", "Framework.QueryBuilder.UnitTests\Framework.QueryBuilder.UnitTests.csproj", "{061F73B7-9B32-4DEA-9AF2-B9520C47D04A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Data.Entity.QueryBuilder", "Framework.Data.Entity.QueryBuilder\Framework.Data.Entity.QueryBuilder.csproj", "{2C554E80-B699-4BB4-BA92-D68691209FAB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.QueryBuilder.Data.Entity", "Framework.Data.Entity.QueryBuilder\Framework.QueryBuilder.Data.Entity.csproj", "{2C554E80-B699-4BB4-BA92-D68691209FAB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

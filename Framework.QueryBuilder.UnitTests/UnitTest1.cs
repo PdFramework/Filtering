@@ -1,8 +1,11 @@
 ﻿namespace Framework.QueryBuilder.UnitTests
 {
-    using Framework.QueryBuilder.Extensions;
-    using Framework.QueryBuilder.SearchCriteria;
-    using Framework.QueryBuilder.SearchTypes;
+    using Data.Entity;
+    using Extensions;
+    using SearchCriteria;
+    using SearchTypes;
+    using System.Diagnostics;
+    using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
@@ -13,28 +16,61 @@
         {
             var a = new TestClass().CreateSearchCriteria()
                                    .Where(tc => tc.Id, new IntegerSearchCriteria { SearchType = IntegerSearchType.Equals, SearchValue = 1 })
-                                   .AndWhere(tc => tc.Name, new StringSearchCriteria { SearchType = StringSearchType.StartsWith, SearchValue = "Test"});
+                                   .And(tc => tc.Name, new StringSearchCriteria { SearchType = StringSearchType.StartsWith, SearchValue = "Test"})
+                                   .OrderBy(tc => tc.Id, SortType.Descending);
 
             var b = SearchCriteriaBuilder.CreateSearchCriteria<TestClass>()
                                             .Where(tc => tc.Id, new IntegerSearchCriteria { SearchType = IntegerSearchType.Equals, SearchValue = 1 })
-                                            .AndWhere(tc => tc.Name, new StringSearchCriteria { SearchType = StringSearchType.StartsWith, SearchValue = "Test" });
+                                            .And(tc => tc.Name, new StringSearchCriteria { SearchType = StringSearchType.StartsWith, SearchValue = "Test" });
 
             var c = new SearchCriteriaBuilder<TestClass>()
                             .Where(tc => tc.Id, new IntegerSearchCriteria { SearchType = IntegerSearchType.Equals, SearchValue = 1 })
-                            .AndWhere(tc => tc.Name, new StringSearchCriteria { SearchType = StringSearchType.StartsWith, SearchValue = "Test" })
-                            .OrWhere(tc => tc.IsActive, new BooleanSearchCriteria { SearchType = BooleanSearchType.Equals, SearchValue = true });
+                            .And(tc => tc.Name, new StringSearchCriteria { SearchType = StringSearchType.StartsWith, SearchValue = "Test" })
+                            .Or(tc => tc.IsActive, new BooleanSearchCriteria { SearchType = BooleanSearchType.Equals, SearchValue = true });
 
             var d = new TestClass().CreateSearchCriteria()
                 .Where(tc => tc.Id, new IntegerSearchCriteria {SearchType = IntegerSearchType.Equals, SearchValue = 1})
-                .AndWhere(sc => sc
+                .And(sc => sc
                             .Where(t => t.Id, new IntegerSearchCriteria { SearchType = IntegerSearchType.Equals, SearchValue = 1 })
-                            .OrWhere(t => t.Name, new StringSearchCriteria { SearchType = StringSearchType.StartsWith, SearchValue = "Test" }));
+                            .Or(t => t.Name, new StringSearchCriteria { SearchType = StringSearchType.StartsWith, SearchValue = "Test" }));
 
             var e = new TestClass().CreateSearchCriteria()
                         .Where(tc => tc.Id, new IntegerSearchCriteria { SearchType = IntegerSearchType.Equals, SearchValue = 1 })
-                        .OrWhere(sc => sc
+                        .Or(sc => sc
                                     .Where(t => t.Id, new IntegerSearchCriteria { SearchType = IntegerSearchType.Equals, SearchValue = 1 })
-                                    .AndWhere(t => t.Name, new StringSearchCriteria { SearchType = StringSearchType.StartsWith, SearchValue = "Test" }));
+                                    .And(t => t.Name, new StringSearchCriteria { SearchType = StringSearchType.StartsWith, SearchValue = "Test" }));
+            var f = new TestClass().CreateSearchCriteria()
+                                   .Where(tc => tc.Id, new IntegerSearchCriteria {SearchType = IntegerSearchType.Equals, SearchValue = 1})
+                                   .OrderBy(tc => tc.Id)
+                                   .OrderBy(tc => tc.Name, SortType.Descending).ReturnAllResults();
+        }
+
+        [TestMethod]
+        public void TestMethod2()
+        {
+            var sw = Stopwatch.StartNew();
+            var e = new TestClass().CreateSearchCriteria()
+                        .Where(tc => tc.Id, new IntegerSearchCriteria { SearchType = IntegerSearchType.Equals, SearchValue = 1 })
+                        .Or(sc => sc
+                                    .Where(t => t.Id, new IntegerSearchCriteria { SearchType = IntegerSearchType.Equals, SearchValue = 1 })
+                                    .And(t => t.Name, new StringSearchCriteria { SearchType = StringSearchType.StartsWith, SearchValue = "Test" }));
+
+            //var a = new TestClass().CreateSearchCriteria()
+            //           .Where(tc => tc.Id, new IntegerSearchCriteria { SearchType = IntegerSearchType.Equals, SearchValue = 1 })
+            //           .AndWhere(tc => tc.Name, new StringSearchCriteria { SearchType = StringSearchType.StartsWith, SearchValue = "Test" });
+            var d = sw.Elapsed;
+            using (var context = new TestDbContext())
+            {
+                var a = context.TestObjects.Any(t => t.IsActive);
+            }
+
+            using (var context = new TestDbContext())
+            {
+                var sw2 = Stopwatch.StartNew();
+
+                context.TestObjects.Search(context, e);
+                var f = sw2.Elapsed;
+            }
         }
     }
 }
