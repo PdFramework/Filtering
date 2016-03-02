@@ -45,6 +45,7 @@
     <Compile Include="Extensions\CompoundSearchCriteria.cs" />
     <Compile Include="Extensions\SearchCriteriaBuilder.cs" />
     <Compile Include="Extensions\SingleSearchCriteria.cs" />
+    <Compile Include="IFilterable.cs" />
     <Compile Include="SearchCriteriaBuilder.cs" />
     <Compile Include="SearchCriteria\DateTimeOffsetSearchCriteria.cs" />
     <Compile Include="SearchCriteria\DateTimeSearchCriteria.cs" />

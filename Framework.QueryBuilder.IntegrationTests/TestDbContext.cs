@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity;
 
-namespace Framework.QueryBuilder.UnitTests
+namespace Framework.QueryBuilder.IntegrationTests
 {
     public class TestDbContext : DbContext
     {

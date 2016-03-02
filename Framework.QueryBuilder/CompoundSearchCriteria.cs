@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using SearchTypes;
 
-    public class CompoundSearchCriteria<TSearchableObject> : SearchCriteriaBuilder<TSearchableObject> where TSearchableObject : class
+    public class CompoundSearchCriteria<TSearchableObject> : SearchCriteriaBuilder<TSearchableObject> where TSearchableObject : class, IFilterable
     {
         internal IList<SearchCriteriaBuilder<TSearchableObject>> SearchCriterium { get; set; }
         internal IList<CompoundSearchType> SearchCombinationTypes { get; set; }

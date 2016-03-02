@@ -9,25 +9,25 @@
 
     internal static class QueryBuilderExtensions
     {
-        internal static int? GetTotalNumberOfResults<TSearchable>(this QueryBuilder queryBuilder, SearchCriteriaBuilder<TSearchable> searchCriteria, IObjectContextAdapter dbContext) where TSearchable : class
+        internal static int? GetTotalNumberOfResults<TSearchable>(this QueryBuilder queryBuilder, SearchCriteriaBuilder<TSearchable> searchCriteria, IObjectContextAdapter dbContext) where TSearchable : class, IFilterable
         {
             if (searchCriteria.PageIndex == 0) return null;
 
-            var countQueryBuilder = queryBuilder.CreateCountQueryBuilder(searchCriteria);
+            var countQueryBuilder = queryBuilder.CreateCountQueryBuilder(dbContext, searchCriteria);
 
             return dbContext.ObjectContext.ExecuteStoreQuery<int>(countQueryBuilder.StringBuilder.ToString(), countQueryBuilder.QueryParameters).First();
         }
 
-        internal static async Task<int?> GetTotalNumberOfResultsAsync<TSearchable>(this QueryBuilder queryBuilder, SearchCriteriaBuilder<TSearchable> searchCriteria, IObjectContextAdapter dbContext) where TSearchable : class
+        internal static async Task<int?> GetTotalNumberOfResultsAsync<TSearchable>(this QueryBuilder queryBuilder, SearchCriteriaBuilder<TSearchable> searchCriteria, IObjectContextAdapter dbContext) where TSearchable : class, IFilterable
         {
             if (searchCriteria.PageIndex == 0) return null;
 
-            var countQueryBuilder = queryBuilder.CreateCountQueryBuilder(searchCriteria);
+            var countQueryBuilder = queryBuilder.CreateCountQueryBuilder(dbContext, searchCriteria);
 
             return (await dbContext.ObjectContext.ExecuteStoreQueryAsync<int>(countQueryBuilder.StringBuilder.ToString(), countQueryBuilder.QueryParameters)).First();
         }
 
-        internal static QueryBuilder CreateQueryBuilder<TSearchable>(IObjectContextAdapter dbContext, SearchCriteriaBuilder<TSearchable> searchCriteria) where TSearchable : class
+        internal static QueryBuilder CreateQueryBuilder<TSearchable>(IObjectContextAdapter dbContext, SearchCriteriaBuilder<TSearchable> searchCriteria) where TSearchable : class, IFilterable
         {
             var queryBuilder = new QueryBuilder
             {
@@ -36,14 +36,14 @@
 
             queryBuilder.CreateSelect()
                 .CreateFrom()
-                .CreateWhere(searchCriteria)
+                .CreateWhere(dbContext, searchCriteria)
                 .CreateOrderBy(searchCriteria)
                 .CreateOffset(searchCriteria);
 
             return queryBuilder;
         }
 
-        internal static QueryBuilder CreateCountQueryBuilder<TSearchable>(this QueryBuilder queryBuilder, SearchCriteriaBuilder<TSearchable> searchCriteria) where TSearchable : class
+        internal static QueryBuilder CreateCountQueryBuilder<TSearchable>(this QueryBuilder queryBuilder, IObjectContextAdapter dbContext, SearchCriteriaBuilder<TSearchable> searchCriteria) where TSearchable : class, IFilterable
         {
             var countQueryBuilder = new QueryBuilder
             {
@@ -52,7 +52,7 @@
 
             countQueryBuilder.CreateCountSelect()
                              .CreateFrom()
-                             .CreateWhere(searchCriteria);
+                             .CreateWhere(dbContext, searchCriteria);
 
             return countQueryBuilder;
         }
@@ -81,7 +81,7 @@
             return queryBuilder;
         }
 
-        internal static QueryBuilder CreateOrderBy<TSearchable>(this QueryBuilder queryBuilder, SearchCriteriaBuilder<TSearchable> searchCriteria) where TSearchable : class
+        internal static QueryBuilder CreateOrderBy<TSearchable>(this QueryBuilder queryBuilder, SearchCriteriaBuilder<TSearchable> searchCriteria) where TSearchable : class, IFilterable
         {
             queryBuilder.StringBuilder
                         .SafeSqlAppend("ORDER BY");
@@ -93,7 +93,7 @@
                     var sortDirectionString = sortCriteria.SortType == SortType.Ascending ? "ASC" : "DESC";
 
                     queryBuilder.StringBuilder
-                                .SafeSqlAppend($"{sortCriteria.SortPropertyName} {sortDirectionString}");
+                                .SafeSqlAppend($"[{queryBuilder.DbObjectMapper.ObjectPropertyColumnNameMapper[sortCriteria.SortPropertyName]}] {sortDirectionString}");
 
                     if (searchCriteria.SortCriterium.Count > 1 && searchCriteria.SortCriterium.Last() != sortCriteria)
                     {
@@ -104,13 +104,13 @@
             else
             {
                 queryBuilder.StringBuilder
-                            .SafeSqlAppend(queryBuilder.DbObjectMapper.PrimaryKeyPropertyName);
+                            .SafeSqlAppend($"[{queryBuilder.DbObjectMapper.PrimaryKeyPropertyName}]");
             }
 
             return queryBuilder;
         }
 
-        internal static QueryBuilder CreateOffset<TSearchable>(this QueryBuilder queryBuilder, SearchCriteriaBuilder<TSearchable> searchCriteria) where TSearchable : class
+        internal static QueryBuilder CreateOffset<TSearchable>(this QueryBuilder queryBuilder, SearchCriteriaBuilder<TSearchable> searchCriteria) where TSearchable : class, IFilterable
         {
             if (!searchCriteria.ReturnAllResults)
             {
@@ -121,9 +121,12 @@
             return queryBuilder;
         }
 
-        internal static QueryBuilder CreateWhere<TSearchable>(this QueryBuilder queryBuilder, SearchCriteriaBuilder<TSearchable> searchCriteria) where TSearchable : class
+        internal static QueryBuilder CreateWhere<TSearchable>(this QueryBuilder queryBuilder, IObjectContextAdapter dbContext, SearchCriteriaBuilder<TSearchable> searchCriteria) where TSearchable : class, IFilterable
         {
-            var tmpQueryBuilder = new QueryBuilder().BuildWhere(searchCriteria);
+            var tmpQueryBuilder = new QueryBuilder
+                                  {
+                                      DbObjectMapper = dbContext.MapDbProperties<TSearchable>()
+                                  }.BuildWhere(searchCriteria);
             if (tmpQueryBuilder.StringBuilder.Length > 0)
             {
                 queryBuilder.StringBuilder
@@ -134,7 +137,7 @@
             return queryBuilder;
         }
 
-        internal static QueryBuilder BuildWhere<TSearchable>(this QueryBuilder queryBuilder, SearchCriteriaBuilder<TSearchable> searchCriteria) where TSearchable : class
+        internal static QueryBuilder BuildWhere<TSearchable>(this QueryBuilder queryBuilder, SearchCriteriaBuilder<TSearchable> searchCriteria) where TSearchable : class, IFilterable
         {
             var compoundSearchCriteria = searchCriteria as CompoundSearchCriteria<TSearchable>;
             if (compoundSearchCriteria != null)
@@ -145,73 +148,74 @@
             {
                 string whereClause = null;
                 SqlParameter sqlParameter = null;
+                
                 var integerSearchCriteria = searchCriteria as SingleSearchCriteria<TSearchable, int, IntegerSearchType>;
                 if (integerSearchCriteria != null)
                 {
-                    whereClause = integerSearchCriteria.CreateWhere(queryBuilder.QueryParameters.Count);
+                    whereClause = integerSearchCriteria.CreateWhere(queryBuilder.DbObjectMapper.ObjectPropertyColumnNameMapper, queryBuilder.QueryParameters.Count);
                     sqlParameter = new SqlParameter($"p{queryBuilder.QueryParameters.Count}", integerSearchCriteria.SearchCriteria.SearchValue);
                 }
 
                 var shortSearchCriteria = searchCriteria as SingleSearchCriteria<TSearchable, short, ShortSearchType>;
                 if (shortSearchCriteria != null)
                 {
-                    whereClause = shortSearchCriteria.CreateWhere(queryBuilder.QueryParameters.Count);
+                    whereClause = shortSearchCriteria.CreateWhere(queryBuilder.DbObjectMapper.ObjectPropertyColumnNameMapper, queryBuilder.QueryParameters.Count);
                     sqlParameter = new SqlParameter($"p{queryBuilder.QueryParameters.Count}", shortSearchCriteria.SearchCriteria.SearchValue);
                 }
 
                 var longSearchCriteria = searchCriteria as SingleSearchCriteria<TSearchable, long, LongSearchType>;
                 if (longSearchCriteria != null)
                 {
-                    whereClause = longSearchCriteria.CreateWhere(queryBuilder.QueryParameters.Count);
+                    whereClause = longSearchCriteria.CreateWhere(queryBuilder.DbObjectMapper.ObjectPropertyColumnNameMapper, queryBuilder.QueryParameters.Count);
                     sqlParameter = new SqlParameter($"p{queryBuilder.QueryParameters.Count}", longSearchCriteria.SearchCriteria.SearchValue);
                 }
 
                 var stringSearchCriteria = searchCriteria as SingleSearchCriteria<TSearchable, string, StringSearchType>;
                 if (stringSearchCriteria != null)
                 {
-                    whereClause = stringSearchCriteria.CreateWhere(queryBuilder.QueryParameters.Count);
+                    whereClause = stringSearchCriteria.CreateWhere(queryBuilder.DbObjectMapper.ObjectPropertyColumnNameMapper, queryBuilder.QueryParameters.Count);
                     sqlParameter = new SqlParameter($"p{queryBuilder.QueryParameters.Count}", stringSearchCriteria.SearchCriteria.SearchValue);
                 }
 
                 var booleanSearchCriteria = searchCriteria as SingleSearchCriteria<TSearchable, bool, BooleanSearchType>;
                 if (booleanSearchCriteria != null)
                 {
-                    whereClause = booleanSearchCriteria.CreateWhere(queryBuilder.QueryParameters.Count);
+                    whereClause = booleanSearchCriteria.CreateWhere(queryBuilder.DbObjectMapper.ObjectPropertyColumnNameMapper, queryBuilder.QueryParameters.Count);
                     sqlParameter = new SqlParameter($"p{queryBuilder.QueryParameters.Count}", booleanSearchCriteria.SearchCriteria.SearchValue);
                 }
 
                 var dateTimeSearchCriteria = searchCriteria as SingleSearchCriteria<TSearchable, DateTime, DateTimeSearchType>;
                 if (dateTimeSearchCriteria != null)
                 {
-                    whereClause = dateTimeSearchCriteria.CreateWhere(queryBuilder.QueryParameters.Count);
+                    whereClause = dateTimeSearchCriteria.CreateWhere(queryBuilder.DbObjectMapper.ObjectPropertyColumnNameMapper, queryBuilder.QueryParameters.Count);
                     sqlParameter = new SqlParameter($"p{queryBuilder.QueryParameters.Count}", dateTimeSearchCriteria.SearchCriteria.SearchValue);
                 }
 
                 var dateTimeOffsetSearchCriteria = searchCriteria as SingleSearchCriteria<TSearchable, DateTimeOffset, DateTimeOffsetSearchType>;
                 if (dateTimeOffsetSearchCriteria != null)
                 {
-                    whereClause = dateTimeOffsetSearchCriteria.CreateWhere(queryBuilder.QueryParameters.Count);
+                    whereClause = dateTimeOffsetSearchCriteria.CreateWhere(queryBuilder.DbObjectMapper.ObjectPropertyColumnNameMapper, queryBuilder.QueryParameters.Count);
                     sqlParameter = new SqlParameter($"p{queryBuilder.QueryParameters.Count}", dateTimeOffsetSearchCriteria.SearchCriteria.SearchValue);
                 }
 
                 var decimalSearchCriteria = searchCriteria as SingleSearchCriteria<TSearchable, decimal, DecimalSearchType>;
                 if (decimalSearchCriteria != null)
                 {
-                    whereClause = decimalSearchCriteria.CreateWhere(queryBuilder.QueryParameters.Count);
+                    whereClause = decimalSearchCriteria.CreateWhere(queryBuilder.DbObjectMapper.ObjectPropertyColumnNameMapper, queryBuilder.QueryParameters.Count);
                     sqlParameter = new SqlParameter($"p{queryBuilder.QueryParameters.Count}", decimalSearchCriteria.SearchCriteria.SearchValue);
                 }
 
                 var doubleSearchCriteria = searchCriteria as SingleSearchCriteria<TSearchable, double, DoubleSearchType>;
                 if (doubleSearchCriteria != null)
                 {
-                    whereClause = doubleSearchCriteria.CreateWhere(queryBuilder.QueryParameters.Count);
+                    whereClause = doubleSearchCriteria.CreateWhere(queryBuilder.DbObjectMapper.ObjectPropertyColumnNameMapper, queryBuilder.QueryParameters.Count);
                     sqlParameter = new SqlParameter($"p{queryBuilder.QueryParameters.Count}", doubleSearchCriteria.SearchCriteria.SearchValue);
                 }
 
                 var floatSearchCriteria = searchCriteria as SingleSearchCriteria<TSearchable, float, FloatSearchType>;
                 if (floatSearchCriteria != null)
                 {
-                    whereClause = floatSearchCriteria.CreateWhere(queryBuilder.QueryParameters.Count);
+                    whereClause = floatSearchCriteria.CreateWhere(queryBuilder.DbObjectMapper.ObjectPropertyColumnNameMapper, queryBuilder.QueryParameters.Count);
                     sqlParameter = new SqlParameter($"p{queryBuilder.QueryParameters.Count}", floatSearchCriteria.SearchCriteria.SearchValue);
                 }
 
@@ -227,7 +231,7 @@
             return queryBuilder;
         }
 
-        internal static QueryBuilder BuildWhere<TSearchable>(this QueryBuilder queryBuilder, CompoundSearchCriteria<TSearchable> searchCriteria) where TSearchable : class
+        internal static QueryBuilder BuildWhere<TSearchable>(this QueryBuilder queryBuilder, CompoundSearchCriteria<TSearchable> searchCriteria) where TSearchable : class, IFilterable
         {
             queryBuilder.StringBuilder.SafeSqlAppend("(");
             queryBuilder.BuildWhere(searchCriteria.SearchCriterium[0]);

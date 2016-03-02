@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Framework.QueryBuilder
 {
-    using System;
-
-    public class SearchCriteriaBuilder<TSearchableObject> where TSearchableObject : class
+    public class SearchCriteriaBuilder<TSearchableObject> where TSearchableObject : class, IFilterable
     {
         internal Type BaseSearchObjectType { get; set; }
         internal IList<SortCriteria> SortCriterium { get; set; }
@@ -33,12 +32,24 @@ namespace Framework.QueryBuilder
         /// </summary>
         public bool IncludeTotalCountWithResults { get; set; }
 
-        public SearchCriteriaBuilder()
+        public SearchCriteriaBuilder() : this(0, 10)
+        {
+        }
+
+        public SearchCriteriaBuilder(bool returnAllResults)
         {
             BaseSearchObjectType = typeof(TSearchableObject);
             SortCriterium = new List<SortCriteria>();
-            PageIndex = 0;
-            PageSize = 10;
+            ReturnAllResults = returnAllResults;
+        }
+
+        public SearchCriteriaBuilder(int pageIndex, int pageSize, bool includeTotalCountWithResults = false)
+        {
+            BaseSearchObjectType = typeof(TSearchableObject);
+            SortCriterium = new List<SortCriteria>();
+            PageIndex = pageIndex;
+            PageSize = pageSize;
+            IncludeTotalCountWithResults = includeTotalCountWithResults;
         }
     }
 }

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.QueryBuilder.Unit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.QueryBuilder.Data.Entity", "Framework.Data.Entity.QueryBuilder\Framework.QueryBuilder.Data.Entity.csproj", "{2C554E80-B699-4BB4-BA92-D68691209FAB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.QueryBuilder.IntegrationTests", "Framework.QueryBuilder.IntegrationTests\Framework.QueryBuilder.IntegrationTests.csproj", "{D9E2AF28-9CB7-41E1-96DA-FACD8D6B07CE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{2C554E80-B699-4BB4-BA92-D68691209FAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C554E80-B699-4BB4-BA92-D68691209FAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C554E80-B699-4BB4-BA92-D68691209FAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9E2AF28-9CB7-41E1-96DA-FACD8D6B07CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9E2AF28-9CB7-41E1-96DA-FACD8D6B07CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9E2AF28-9CB7-41E1-96DA-FACD8D6B07CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9E2AF28-9CB7-41E1-96DA-FACD8D6B07CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

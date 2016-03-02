@@ -37,8 +37,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Moq, Version=4.2.1510.2205, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\packages\Moq.4.2.1510.2205\lib\net40\Moq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -53,11 +58,17 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Contstants.cs" />
     <Compile Include="Migrations\201602102056118_init.cs" />
     <Compile Include="Migrations\201602102056118_init.Designer.cs">
       <DependentUpon>201602102056118_init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602291854505_AddedCustomTestClass.cs" />
+    <Compile Include="Migrations\201602291854505_AddedCustomTestClass.Designer.cs">
+      <DependentUpon>201602291854505_AddedCustomTestClass.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="CustomTestClass.cs" />
     <Compile Include="TestClass.cs" />
     <Compile Include="TestDbContext.cs" />
     <Compile Include="UnitTest1.cs" />
@@ -80,6 +91,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201602102056118_init.resx">
       <DependentUpon>201602102056118_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602291854505_AddedCustomTestClass.resx">
+      <DependentUpon>201602291854505_AddedCustomTestClass.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Choose>

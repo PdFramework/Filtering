@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Framework.Data.Entity.QueryBuilder")]
@@ -9,6 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCopyright("Copyright © Peineary Development 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
+[assembly: InternalsVisibleTo("Framework.QueryBuilder.UnitTests")]
 [assembly: ComVisible(false)]
 [assembly: Guid("2c554e80-b699-4bb4-ba92-d68691209fab")]
 [assembly: AssemblyVersion("1.0.0.0")]

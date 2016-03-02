@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class TestClass
+    public class TestClass : IFilterable
     {
         public int Id { get; set; }
         public string Name { get; set; }
