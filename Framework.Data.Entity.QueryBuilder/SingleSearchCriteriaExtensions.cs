@@ -6,11 +6,11 @@
 
     internal static class SingleSearchCriteriaExtensions
     {
-        internal static string CreateWhere<TSearchable>(this SingleSearchCriteria<TSearchable, int, IntegerSearchType> searchCriteria, IDictionary<string, string> propertyNameToColumnNameMapper, int parameterIndex) where TSearchable : class, IFilterable
+        internal static string CreateWhere<TSearchable>(this SingleValueSearchCriteria<TSearchable, int, IntegerSearchType> valueSearchCriteria, IDictionary<string, string> propertyNameToColumnNameMapper, int parameterIndex) where TSearchable : class, IFilterable
         {
-            var columnName = propertyNameToColumnNameMapper[searchCriteria.SearchCriteria.SearchPropertyName];
+            var columnName = propertyNameToColumnNameMapper[valueSearchCriteria.SearchCriteria.SearchPropertyName];
 
-            switch (searchCriteria.SearchCriteria.SearchType)
+            switch (valueSearchCriteria.SearchCriteria.SearchType)
             {
                 case IntegerSearchType.LessThan:
                     return $"[{columnName}] < @p{parameterIndex}";
@@ -25,15 +25,15 @@
                 case IntegerSearchType.DoesNotEqual:
                     return $"[{columnName}] <> @p{parameterIndex}";
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(searchCriteria.SearchCriteria.SearchType), searchCriteria.SearchCriteria.SearchType, null);
+                    throw new ArgumentOutOfRangeException(nameof(valueSearchCriteria.SearchCriteria.SearchType), valueSearchCriteria.SearchCriteria.SearchType, null);
             }
         }
 
-        internal static string CreateWhere<TSearchable>(this SingleSearchCriteria<TSearchable, short, ShortSearchType> searchCriteria, IDictionary<string, string> propertyNameToColumnNameMapper, int parameterIndex) where TSearchable : class, IFilterable
+        internal static string CreateWhere<TSearchable>(this SingleValueSearchCriteria<TSearchable, short, ShortSearchType> valueSearchCriteria, IDictionary<string, string> propertyNameToColumnNameMapper, int parameterIndex) where TSearchable : class, IFilterable
         {
-            var columnName = propertyNameToColumnNameMapper[searchCriteria.SearchCriteria.SearchPropertyName];
+            var columnName = propertyNameToColumnNameMapper[valueSearchCriteria.SearchCriteria.SearchPropertyName];
 
-            switch (searchCriteria.SearchCriteria.SearchType)
+            switch (valueSearchCriteria.SearchCriteria.SearchType)
             {
                 case ShortSearchType.LessThan:
                     return $"[{columnName}] < @p{parameterIndex}";
@@ -48,15 +48,15 @@
                 case ShortSearchType.DoesNotEqual:
                     return $"[{columnName}] <> @p{parameterIndex}";
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(searchCriteria.SearchCriteria.SearchType), searchCriteria.SearchCriteria.SearchType, null);
+                    throw new ArgumentOutOfRangeException(nameof(valueSearchCriteria.SearchCriteria.SearchType), valueSearchCriteria.SearchCriteria.SearchType, null);
             }
         }
 
-        internal static string CreateWhere<TSearchable>(this SingleSearchCriteria<TSearchable, long, LongSearchType> searchCriteria, IDictionary<string, string> propertyNameToColumnNameMapper, int parameterIndex) where TSearchable : class, IFilterable
+        internal static string CreateWhere<TSearchable>(this SingleValueSearchCriteria<TSearchable, long, LongSearchType> valueSearchCriteria, IDictionary<string, string> propertyNameToColumnNameMapper, int parameterIndex) where TSearchable : class, IFilterable
         {
-            var columnName = propertyNameToColumnNameMapper[searchCriteria.SearchCriteria.SearchPropertyName];
+            var columnName = propertyNameToColumnNameMapper[valueSearchCriteria.SearchCriteria.SearchPropertyName];
 
-            switch (searchCriteria.SearchCriteria.SearchType)
+            switch (valueSearchCriteria.SearchCriteria.SearchType)
             {
                 case LongSearchType.LessThan:
                     return $"[{columnName}] < @p{parameterIndex}";
@@ -71,15 +71,15 @@
                 case LongSearchType.DoesNotEqual:
                     return $"[{columnName}] <> @p{parameterIndex}";
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(searchCriteria.SearchCriteria.SearchType), searchCriteria.SearchCriteria.SearchType, null);
+                    throw new ArgumentOutOfRangeException(nameof(valueSearchCriteria.SearchCriteria.SearchType), valueSearchCriteria.SearchCriteria.SearchType, null);
             }
         }
 
-        internal static string CreateWhere<TSearchable>(this SingleSearchCriteria<TSearchable, double, DoubleSearchType> searchCriteria, IDictionary<string, string> propertyNameToColumnNameMapper, int parameterIndex) where TSearchable : class, IFilterable
+        internal static string CreateWhere<TSearchable>(this SingleValueSearchCriteria<TSearchable, double, DoubleSearchType> valueSearchCriteria, IDictionary<string, string> propertyNameToColumnNameMapper, int parameterIndex) where TSearchable : class, IFilterable
         {
-            var columnName = propertyNameToColumnNameMapper[searchCriteria.SearchCriteria.SearchPropertyName];
+            var columnName = propertyNameToColumnNameMapper[valueSearchCriteria.SearchCriteria.SearchPropertyName];
 
-            switch (searchCriteria.SearchCriteria.SearchType)
+            switch (valueSearchCriteria.SearchCriteria.SearchType)
             {
                 case DoubleSearchType.LessThan:
                     return $"[{columnName}] < @p{parameterIndex}";
@@ -94,15 +94,15 @@
                 case DoubleSearchType.DoesNotEqual:
                     return $"[{columnName}] <> @p{parameterIndex}";
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(searchCriteria.SearchCriteria.SearchType), searchCriteria.SearchCriteria.SearchType, null);
+                    throw new ArgumentOutOfRangeException(nameof(valueSearchCriteria.SearchCriteria.SearchType), valueSearchCriteria.SearchCriteria.SearchType, null);
             }
         }
 
-        internal static string CreateWhere<TSearchable>(this SingleSearchCriteria<TSearchable, decimal, DecimalSearchType> searchCriteria, IDictionary<string, string> propertyNameToColumnNameMapper, int parameterIndex) where TSearchable : class, IFilterable
+        internal static string CreateWhere<TSearchable>(this SingleValueSearchCriteria<TSearchable, decimal, DecimalSearchType> valueSearchCriteria, IDictionary<string, string> propertyNameToColumnNameMapper, int parameterIndex) where TSearchable : class, IFilterable
         {
-            var columnName = propertyNameToColumnNameMapper[searchCriteria.SearchCriteria.SearchPropertyName];
+            var columnName = propertyNameToColumnNameMapper[valueSearchCriteria.SearchCriteria.SearchPropertyName];
 
-            switch (searchCriteria.SearchCriteria.SearchType)
+            switch (valueSearchCriteria.SearchCriteria.SearchType)
             {
                 case DecimalSearchType.LessThan:
                     return $"[{columnName}] < @p{parameterIndex}";
@@ -117,15 +117,15 @@
                 case DecimalSearchType.DoesNotEqual:
                     return $"[{columnName}] <> @p{parameterIndex}";
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(searchCriteria.SearchCriteria.SearchType), searchCriteria.SearchCriteria.SearchType, null);
+                    throw new ArgumentOutOfRangeException(nameof(valueSearchCriteria.SearchCriteria.SearchType), valueSearchCriteria.SearchCriteria.SearchType, null);
             }
         }
 
-        internal static string CreateWhere<TSearchable>(this SingleSearchCriteria<TSearchable, float, FloatSearchType> searchCriteria, IDictionary<string, string> propertyNameToColumnNameMapper, int parameterIndex) where TSearchable : class, IFilterable
+        internal static string CreateWhere<TSearchable>(this SingleValueSearchCriteria<TSearchable, float, FloatSearchType> valueSearchCriteria, IDictionary<string, string> propertyNameToColumnNameMapper, int parameterIndex) where TSearchable : class, IFilterable
         {
-            var columnName = propertyNameToColumnNameMapper[searchCriteria.SearchCriteria.SearchPropertyName];
+            var columnName = propertyNameToColumnNameMapper[valueSearchCriteria.SearchCriteria.SearchPropertyName];
 
-            switch (searchCriteria.SearchCriteria.SearchType)
+            switch (valueSearchCriteria.SearchCriteria.SearchType)
             {
                 case FloatSearchType.LessThan:
                     return $"[{columnName}] < @p{parameterIndex}";
@@ -140,15 +140,15 @@
                 case FloatSearchType.DoesNotEqual:
                     return $"[{columnName}] <> @p{parameterIndex}";
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(searchCriteria.SearchCriteria.SearchType), searchCriteria.SearchCriteria.SearchType, null);
+                    throw new ArgumentOutOfRangeException(nameof(valueSearchCriteria.SearchCriteria.SearchType), valueSearchCriteria.SearchCriteria.SearchType, null);
             }
         }
 
-        internal static string CreateWhere<TSearchable>(this SingleSearchCriteria<TSearchable, string, StringSearchType> searchCriteria, IDictionary<string, string> propertyNameToColumnNameMapper, int parameterIndex) where TSearchable : class, IFilterable
+        internal static string CreateWhere<TSearchable>(this SingleValueSearchCriteria<TSearchable, string, StringSearchType> valueSearchCriteria, IDictionary<string, string> propertyNameToColumnNameMapper, int parameterIndex) where TSearchable : class, IFilterable
         {
-            var columnName = propertyNameToColumnNameMapper[searchCriteria.SearchCriteria.SearchPropertyName];
+            var columnName = propertyNameToColumnNameMapper[valueSearchCriteria.SearchCriteria.SearchPropertyName];
 
-            switch (searchCriteria.SearchCriteria.SearchType)
+            switch (valueSearchCriteria.SearchCriteria.SearchType)
             {
                 case StringSearchType.Equals:
                     return $"[{columnName}] = @p{parameterIndex}";
@@ -161,30 +161,30 @@
                 case StringSearchType.Contains:
                     return $"[{columnName}] LIKE '%' + @p{parameterIndex} + '%'";
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(searchCriteria.SearchCriteria.SearchType), searchCriteria.SearchCriteria.SearchType, null);
+                    throw new ArgumentOutOfRangeException(nameof(valueSearchCriteria.SearchCriteria.SearchType), valueSearchCriteria.SearchCriteria.SearchType, null);
             }
         }
 
-        internal static string CreateWhere<TSearchable>(this SingleSearchCriteria<TSearchable, bool, BooleanSearchType> searchCriteria, IDictionary<string, string> propertyNameToColumnNameMapper, int parameterIndex) where TSearchable : class, IFilterable
+        internal static string CreateWhere<TSearchable>(this SingleValueSearchCriteria<TSearchable, bool, BooleanSearchType> valueSearchCriteria, IDictionary<string, string> propertyNameToColumnNameMapper, int parameterIndex) where TSearchable : class, IFilterable
         {
-            var columnName = propertyNameToColumnNameMapper[searchCriteria.SearchCriteria.SearchPropertyName];
+            var columnName = propertyNameToColumnNameMapper[valueSearchCriteria.SearchCriteria.SearchPropertyName];
 
-            switch (searchCriteria.SearchCriteria.SearchType)
+            switch (valueSearchCriteria.SearchCriteria.SearchType)
             {
                 case BooleanSearchType.Equals:
                     return $"[{columnName}] = @p{parameterIndex}";
                 case BooleanSearchType.DoesNotEqual:
                     return $"[{columnName}] <> @p{parameterIndex}";
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(searchCriteria.SearchCriteria.SearchType), searchCriteria.SearchCriteria.SearchType, null);
+                    throw new ArgumentOutOfRangeException(nameof(valueSearchCriteria.SearchCriteria.SearchType), valueSearchCriteria.SearchCriteria.SearchType, null);
             }
         }
 
-        internal static string CreateWhere<TSearchable>(this SingleSearchCriteria<TSearchable, DateTime, DateTimeSearchType> searchCriteria, IDictionary<string, string> propertyNameToColumnNameMapper, int parameterIndex) where TSearchable : class, IFilterable
+        internal static string CreateWhere<TSearchable>(this SingleValueSearchCriteria<TSearchable, DateTime, DateTimeSearchType> valueSearchCriteria, IDictionary<string, string> propertyNameToColumnNameMapper, int parameterIndex) where TSearchable : class, IFilterable
         {
-            var columnName = propertyNameToColumnNameMapper[searchCriteria.SearchCriteria.SearchPropertyName];
+            var columnName = propertyNameToColumnNameMapper[valueSearchCriteria.SearchCriteria.SearchPropertyName];
 
-            switch (searchCriteria.SearchCriteria.SearchType)
+            switch (valueSearchCriteria.SearchCriteria.SearchType)
             {
                 case DateTimeSearchType.Before:
                     return $"[{columnName}] < @p{parameterIndex}";
@@ -197,15 +197,15 @@
                 case DateTimeSearchType.After:
                     return $"[{columnName}] > @p{parameterIndex}";
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(searchCriteria.SearchCriteria.SearchType), searchCriteria.SearchCriteria.SearchType, null);
+                    throw new ArgumentOutOfRangeException(nameof(valueSearchCriteria.SearchCriteria.SearchType), valueSearchCriteria.SearchCriteria.SearchType, null);
             }
         }
 
-        internal static string CreateWhere<TSearchable>(this SingleSearchCriteria<TSearchable, DateTimeOffset, DateTimeOffsetSearchType> searchCriteria, IDictionary<string, string> propertyNameToColumnNameMapper, int parameterIndex) where TSearchable : class, IFilterable
+        internal static string CreateWhere<TSearchable>(this SingleValueSearchCriteria<TSearchable, DateTimeOffset, DateTimeOffsetSearchType> valueSearchCriteria, IDictionary<string, string> propertyNameToColumnNameMapper, int parameterIndex) where TSearchable : class, IFilterable
         {
-            var columnName = propertyNameToColumnNameMapper[searchCriteria.SearchCriteria.SearchPropertyName];
+            var columnName = propertyNameToColumnNameMapper[valueSearchCriteria.SearchCriteria.SearchPropertyName];
 
-            switch (searchCriteria.SearchCriteria.SearchType)
+            switch (valueSearchCriteria.SearchCriteria.SearchType)
             {
                 case DateTimeOffsetSearchType.Before:
                     return $"[{columnName}] < @p{parameterIndex}";
@@ -218,7 +218,7 @@
                 case DateTimeOffsetSearchType.After:
                     return $"[{columnName}] > @p{parameterIndex}";
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(searchCriteria.SearchCriteria.SearchType), searchCriteria.SearchCriteria.SearchType, null);
+                    throw new ArgumentOutOfRangeException(nameof(valueSearchCriteria.SearchCriteria.SearchType), valueSearchCriteria.SearchCriteria.SearchType, null);
             }
         }
     }

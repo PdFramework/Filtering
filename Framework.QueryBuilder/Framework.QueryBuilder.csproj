@@ -52,6 +52,7 @@
     <Compile Include="SearchCriteria\DoubleSearchCriteria.cs" />
     <Compile Include="SearchCriteria\FloatSearchCriteria.cs" />
     <Compile Include="SearchCriteria\DecimalSearchCriteria.cs" />
+    <Compile Include="SearchCriteria\IntegersSearchCriteria.cs" />
     <Compile Include="SearchCriteria\LongSearchCriteria.cs" />
     <Compile Include="SearchCriteria\ShortSearchCriteria.cs" />
     <Compile Include="SearchCriteria\SearchCriteriaBase.cs" />
@@ -66,13 +67,15 @@
     <Compile Include="SearchTypes\DoubleSearchType.cs" />
     <Compile Include="SearchTypes\FloatSearchType.cs" />
     <Compile Include="SearchTypes\DecimalSearchType.cs" />
+    <Compile Include="SearchTypes\IntegersSearchType.cs" />
     <Compile Include="SearchTypes\LongSearchType.cs" />
     <Compile Include="SearchTypes\ShortSearchType.cs" />
     <Compile Include="SearchTypes\IntegerSearchType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearchCriteria\StringSearchCriteria.cs" />
     <Compile Include="SearchTypes\StringSearchType.cs" />
-    <Compile Include="SingleSearchCriteria.cs" />
+    <Compile Include="SetSearchCriteria.cs" />
+    <Compile Include="SingleValueSearchCriteria.cs" />
     <Compile Include="SortCriteria.cs" />
     <Compile Include="SortType.cs" />
     <Compile Include="Utilities.cs" />

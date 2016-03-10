@@ -46,6 +46,7 @@
     <Compile Include="DbObjectMapper.cs" />
     <Compile Include="DynamicQuery.cs" />
     <Compile Include="DbSetExtensions.cs" />
+    <Compile Include="MultipleValuesSearchCriteriaExtensions.cs" />
     <Compile Include="ObjectContextAdapterExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryBuilder.cs" />

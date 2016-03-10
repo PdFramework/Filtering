@@ -1,12 +1,11 @@
-﻿using System.Data.SqlClient;
-
-namespace Framework.QueryBuilder.UnitTests
+﻿namespace Framework.QueryBuilder.UnitTests
 {
     using Data.Entity;
     using Extensions;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using SearchCriteria;
     using SearchTypes;
+    using System.Data.SqlClient;
     using System.Linq;
 
     [TestClass]
@@ -289,6 +288,26 @@ namespace Framework.QueryBuilder.UnitTests
         }
 
         [TestMethod]
+        public void p()
+        {
+            using (var context = new TestDbContext())
+            {
+                var searchCriteria = SearchCriteriaBuilder.CreateSearchCriteria<TestClass>()
+                                                          .Where(tc => tc.Id, new IntegersSearchCriteria { SearchType = IntegersSearchType.In, SearchValue = new [] { 1, 2 } });
+
+                var queryBuilder = QueryBuilderExtensions.CreateQueryBuilder(context, searchCriteria);
+
+                Assert.AreEqual("SELECT [Id] AS [Id], [Name] AS [Name], [StartDateTime] AS [StartDateTime], [EndDateTimeOffset] AS [EndDateTimeOffset], [IsActive] AS [IsActive] FROM [dbo].[TestClasses] WHERE [Id] IN (@p0, @p1) ORDER BY [Id] OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY", queryBuilder.StringBuilder.ToString());
+                //Assert.AreEqual("p0", ((SqlParameter)queryBuilder.QueryParameters[0]).ParameterName);
+                //Assert.AreEqual(1, ((SqlParameter)queryBuilder.QueryParameters[0]).Value);
+                //Assert.AreEqual("p1", ((SqlParameter)queryBuilder.QueryParameters[1]).ParameterName);
+                //Assert.AreEqual(2, ((SqlParameter)queryBuilder.QueryParameters[1]).Value);
+                //Assert.AreEqual("p2", ((SqlParameter)queryBuilder.QueryParameters[2]).ParameterName);
+                //Assert.AreEqual("Foo", ((SqlParameter)queryBuilder.QueryParameters[2]).Value);
+            }
+        }
+
+        [TestMethod]
         public void k()
         {
             const bool returnAllResults = true;
@@ -344,7 +363,7 @@ namespace Framework.QueryBuilder.UnitTests
 
                 var queryBuilder = QueryBuilderExtensions.CreateQueryBuilder(context, searchCriteria);
 
-                Assert.AreEqual($"SELECT [StartDateTime] AS [StartDateTime], [Id] AS [Id], [{Contstants.CustomColumnName}] AS [Name], [EndDateTimeOffset] AS [EndDateTimeOffset], [IsActive] AS [IsActive] FROM [{Contstants.CustomSchemaName}].[{Contstants.CustomTableName}] WHERE ( [Id] = @p0 AND [Name] LIKE @p1 + '%' ) ORDER BY [{Contstants.CustomKeyName}]", queryBuilder.StringBuilder.ToString());
+                Assert.AreEqual($"SELECT [StartDateTime] AS [StartDateTime], [Id] AS [Id], [{Contstants.CustomColumnName}] AS [Name], [EndDateTimeOffset] AS [EndDateTimeOffset], [IsActive] AS [IsActive] FROM [{Contstants.CustomSchemaName}].[{Contstants.CustomTableName}] WHERE ( [Id] = @p0 AND [CleverName] LIKE @p1 + '%' ) ORDER BY [{Contstants.CustomKeyName}]", queryBuilder.StringBuilder.ToString());
                 Assert.AreEqual("p0", ((SqlParameter)queryBuilder.QueryParameters[0]).ParameterName);
                 Assert.AreEqual(1, ((SqlParameter)queryBuilder.QueryParameters[0]).Value);
                 Assert.AreEqual("p1", ((SqlParameter)queryBuilder.QueryParameters[1]).ParameterName);
@@ -363,7 +382,7 @@ namespace Framework.QueryBuilder.UnitTests
 
                 var queryBuilder = QueryBuilderExtensions.CreateQueryBuilder(context, searchCriteria);
 
-                Assert.AreEqual($"SELECT [StartDateTime] AS [StartDateTime], [Id] AS [Id], [{Contstants.CustomColumnName}] AS [Name], [EndDateTimeOffset] AS [EndDateTimeOffset], [IsActive] AS [IsActive] FROM [{Contstants.CustomSchemaName}].[{Contstants.CustomTableName}] WHERE ( [Id] = @p0 OR [Name] LIKE @p1 + '%' ) ORDER BY [{Contstants.CustomKeyName}]", queryBuilder.StringBuilder.ToString());
+                Assert.AreEqual($"SELECT [StartDateTime] AS [StartDateTime], [Id] AS [Id], [{Contstants.CustomColumnName}] AS [Name], [EndDateTimeOffset] AS [EndDateTimeOffset], [IsActive] AS [IsActive] FROM [{Contstants.CustomSchemaName}].[{Contstants.CustomTableName}] WHERE ( [Id] = @p0 OR [CleverName] LIKE @p1 + '%' ) ORDER BY [{Contstants.CustomKeyName}]", queryBuilder.StringBuilder.ToString());
                 Assert.AreEqual("p0", ((SqlParameter)queryBuilder.QueryParameters[0]).ParameterName);
                 Assert.AreEqual(1, ((SqlParameter)queryBuilder.QueryParameters[0]).Value);
                 Assert.AreEqual("p1", ((SqlParameter)queryBuilder.QueryParameters[1]).ParameterName);
