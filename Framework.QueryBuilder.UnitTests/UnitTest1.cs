@@ -7,6 +7,7 @@
     using SearchTypes;
     using System.Data.SqlClient;
     using System.Linq;
+    using SetSearchCriteria;
 
     [TestClass]
     public class UnitTest1
@@ -293,7 +294,7 @@
             using (var context = new TestDbContext())
             {
                 var searchCriteria = SearchCriteriaBuilder.CreateSearchCriteria<TestClass>()
-                                                          .Where(tc => tc.Id, new IntegersSearchCriteria { SearchType = IntegersSearchType.In, SearchValue = new [] { 1, 2 } });
+                                                          .Where(tc => tc.Id, new IntegerSetSearchCriteria { SearchType = IntegersSearchType.In, SearchValue = new [] { 1, 2 } });
 
                 var queryBuilder = QueryBuilderExtensions.CreateQueryBuilder(context, searchCriteria);
 

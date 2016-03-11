@@ -4,25 +4,26 @@
     using System.Linq.Expressions;
     using SearchCriteria;
     using SearchTypes;
+    using SingleValueSearchCriteria;
 
     public static class SingleSearchCriteria
     {
-        public static CompoundSearchCriteria<TSearchableObject> And<TSearchableObject, TSearchableLeftProperty, TSearchLeftType, TSearchableRightProperty, TSearchRightType>(this SingleValueSearchCriteria<TSearchableObject, TSearchableLeftProperty, TSearchLeftType> valueSearchCriteria, string searchablePropteryName, SearchCriteriaBase<TSearchableRightProperty, TSearchRightType> sc) where TSearchableObject : class, IFilterable
+        public static CompoundSearchCriteria<TSearchableObject> And<TSearchableObject, TSearchableLeftProperty, TSearchLeftType, TSearchableRightProperty, TSearchRightType>(this SingleValueSearchCriteriaBase<TSearchableObject, TSearchableLeftProperty, TSearchLeftType> valueSearchCriteriaBase, string searchablePropteryName, SearchCriteriaBase<TSearchableRightProperty, TSearchRightType> sc) where TSearchableObject : class, IFilterable
         {
-            return valueSearchCriteria.Where(CompoundSearchType.And, searchablePropteryName, sc);
+            return valueSearchCriteriaBase.Where(CompoundSearchType.And, searchablePropteryName, sc);
         }
 
-        public static CompoundSearchCriteria<TSearchableObject> And<TSearchableObject, TSearchableLeftProperty, TSearchLeftType, TSearchableRightProperty, TSearchRightType>(this SingleValueSearchCriteria<TSearchableObject, TSearchableLeftProperty, TSearchLeftType> valueSearchCriteria, Expression<Func<TSearchableObject, TSearchableRightProperty>> searchablePropterySpecifier, SearchCriteriaBase<TSearchableRightProperty, TSearchRightType> sc) where TSearchableObject : class, IFilterable
+        public static CompoundSearchCriteria<TSearchableObject> And<TSearchableObject, TSearchableLeftProperty, TSearchLeftType, TSearchableRightProperty, TSearchRightType>(this SingleValueSearchCriteriaBase<TSearchableObject, TSearchableLeftProperty, TSearchLeftType> valueSearchCriteriaBase, Expression<Func<TSearchableObject, TSearchableRightProperty>> searchablePropterySpecifier, SearchCriteriaBase<TSearchableRightProperty, TSearchRightType> sc) where TSearchableObject : class, IFilterable
         {
-            return valueSearchCriteria.Where(CompoundSearchType.And, searchablePropterySpecifier, sc);
+            return valueSearchCriteriaBase.Where(CompoundSearchType.And, searchablePropterySpecifier, sc);
         }
 
-        public static CompoundSearchCriteria<TSearchableObject> And<TSearchableObject, TSearchableLeftProperty, TSearchLeftType>(this SingleValueSearchCriteria<TSearchableObject, TSearchableLeftProperty, TSearchLeftType> valueSearchCriteria, Func<SearchCriteriaBuilder<TSearchableObject>, CompoundSearchCriteria<TSearchableObject>> searchablePropterySpecifier) where TSearchableObject : class, IFilterable
+        public static CompoundSearchCriteria<TSearchableObject> And<TSearchableObject, TSearchableLeftProperty, TSearchLeftType>(this SingleValueSearchCriteriaBase<TSearchableObject, TSearchableLeftProperty, TSearchLeftType> valueSearchCriteriaBase, Func<SearchCriteriaBuilder<TSearchableObject>, CompoundSearchCriteria<TSearchableObject>> searchablePropterySpecifier) where TSearchableObject : class, IFilterable
         {
-            var compoundSearchCriteria = CreateCompoundSearchCriteria(valueSearchCriteria);
+            var compoundSearchCriteria = CreateCompoundSearchCriteria(valueSearchCriteriaBase);
 
-            compoundSearchCriteria.SearchCriterium.Add(valueSearchCriteria);
-            compoundSearchCriteria.SearchCriterium.Add(searchablePropterySpecifier(valueSearchCriteria));
+            compoundSearchCriteria.SearchCriterium.Add(valueSearchCriteriaBase);
+            compoundSearchCriteria.SearchCriterium.Add(searchablePropterySpecifier(valueSearchCriteriaBase));
             compoundSearchCriteria.SearchCombinationTypes.Add(CompoundSearchType.And);
 
             return compoundSearchCriteria;
@@ -41,51 +42,43 @@
             };
         }
 
-        public static CompoundSearchCriteria<TSearchableObject> Or<TSearchableObject, TSearchableLeftProperty, TSearchLeftType, TSearchableRightProperty, TSearchRightType>(this SingleValueSearchCriteria<TSearchableObject, TSearchableLeftProperty, TSearchLeftType> valueSearchCriteria, string searchablePropteryName, SearchCriteriaBase<TSearchableRightProperty, TSearchRightType> sc) where TSearchableObject : class, IFilterable
+        public static CompoundSearchCriteria<TSearchableObject> Or<TSearchableObject, TSearchableLeftProperty, TSearchLeftType, TSearchableRightProperty, TSearchRightType>(this SingleValueSearchCriteriaBase<TSearchableObject, TSearchableLeftProperty, TSearchLeftType> valueSearchCriteriaBase, string searchablePropteryName, SearchCriteriaBase<TSearchableRightProperty, TSearchRightType> sc) where TSearchableObject : class, IFilterable
         {
-            return valueSearchCriteria.Where(CompoundSearchType.Or, searchablePropteryName, sc);
+            return valueSearchCriteriaBase.Where(CompoundSearchType.Or, searchablePropteryName, sc);
         }
 
-        public static CompoundSearchCriteria<TSearchableObject> Or<TSearchableObject, TSearchableLeftProperty, TSearchLeftType, TSearchableRightProperty, TSearchRightType>(this SingleValueSearchCriteria<TSearchableObject, TSearchableLeftProperty, TSearchLeftType> valueSearchCriteria, Expression<Func<TSearchableObject, TSearchableRightProperty>> searchablePropterySpecifier, SearchCriteriaBase<TSearchableRightProperty, TSearchRightType> sc) where TSearchableObject : class, IFilterable
+        public static CompoundSearchCriteria<TSearchableObject> Or<TSearchableObject, TSearchableLeftProperty, TSearchLeftType, TSearchableRightProperty, TSearchRightType>(this SingleValueSearchCriteriaBase<TSearchableObject, TSearchableLeftProperty, TSearchLeftType> valueSearchCriteriaBase, Expression<Func<TSearchableObject, TSearchableRightProperty>> searchablePropterySpecifier, SearchCriteriaBase<TSearchableRightProperty, TSearchRightType> sc) where TSearchableObject : class, IFilterable
         {
-            return valueSearchCriteria.Where(CompoundSearchType.Or, searchablePropterySpecifier, sc);
+            return valueSearchCriteriaBase.Where(CompoundSearchType.Or, searchablePropterySpecifier, sc);
         }
 
-        public static CompoundSearchCriteria<TSearchableObject> Or<TSearchableObject, TSearchableLeftProperty, TSearchLeftType>(this SingleValueSearchCriteria<TSearchableObject, TSearchableLeftProperty, TSearchLeftType> valueSearchCriteria, Func<SearchCriteriaBuilder<TSearchableObject>, CompoundSearchCriteria<TSearchableObject>> searchablePropterySpecifier) where TSearchableObject : class, IFilterable
+        public static CompoundSearchCriteria<TSearchableObject> Or<TSearchableObject, TSearchableLeftProperty, TSearchLeftType>(this SingleValueSearchCriteriaBase<TSearchableObject, TSearchableLeftProperty, TSearchLeftType> valueSearchCriteriaBase, Func<SearchCriteriaBuilder<TSearchableObject>, CompoundSearchCriteria<TSearchableObject>> searchablePropterySpecifier) where TSearchableObject : class, IFilterable
         {
-            var compoundSearchCriteria = CreateCompoundSearchCriteria(valueSearchCriteria);
+            var compoundSearchCriteria = CreateCompoundSearchCriteria(valueSearchCriteriaBase);
 
-            compoundSearchCriteria.SearchCriterium.Add(valueSearchCriteria);
-            compoundSearchCriteria.SearchCriterium.Add(searchablePropterySpecifier(valueSearchCriteria));
+            compoundSearchCriteria.SearchCriterium.Add(valueSearchCriteriaBase);
+            compoundSearchCriteria.SearchCriterium.Add(searchablePropterySpecifier(valueSearchCriteriaBase));
             compoundSearchCriteria.SearchCombinationTypes.Add(CompoundSearchType.Or);
 
             return compoundSearchCriteria;
         }
 
-        internal static SingleValueSearchCriteria<TSearchableObject, TSearchableProperty, TSearchType> CreateSingleSearchCriteria<TSearchableObject, TSearchableProperty, TSearchType>(string searchablePropteryName, SearchCriteriaBase<TSearchableProperty, TSearchType> sc) where TSearchableObject : class, IFilterable
+        internal static SingleValueSearchCriteriaBase<TSearchableObject, TSearchableProperty, TSearchType> CreateSingleSearchCriteria<TSearchableObject, TSearchableProperty, TSearchType>(string searchablePropteryName, SearchCriteriaBase<TSearchableProperty, TSearchType> sc) where TSearchableObject : class, IFilterable
         {
-            return new SingleValueSearchCriteria<TSearchableObject, TSearchableProperty, TSearchType>
-            {
-                SearchCriteria = new SearchCriteriaBase<TSearchableProperty, TSearchType>
-                {
-                    SearchValue = sc.SearchValue,
-                    SearchType = sc.SearchType,
-                    SearchPropertyName = searchablePropteryName
-                }
-            };
+            return sc.CreateSingleValueSearchCriteria<TSearchableObject>(searchablePropteryName, sc.SearchValue, sc.SearchType);
+            //    new SingleValueSearchCriteria<TSearchableObject, TSearchableProperty, TSearchType>
+            //{
+            //    SearchCriteria = sc.CreateSearchCriteriaBase(searchablePropteryName, sc.SearchValue, sc.SearchType)
+            //};
         }
 
-        internal static SingleValueSearchCriteria<TSearchableObject, TSearchableProperty, TSearchType> CreateSingleSearchCriteria<TSearchableObject, TSearchableProperty, TSearchType>(Type searchableObjectType, Expression<Func<TSearchableObject, TSearchableProperty>> searchablePropterySpecifier, SearchCriteriaBase<TSearchableProperty, TSearchType> sc) where TSearchableObject : class, IFilterable
+        internal static SingleValueSearchCriteriaBase<TSearchableObject, TSearchableProperty, TSearchType> CreateSingleSearchCriteria<TSearchableObject, TSearchableProperty, TSearchType>(Type searchableObjectType, Expression<Func<TSearchableObject, TSearchableProperty>> searchablePropterySpecifier, SearchCriteriaBase<TSearchableProperty, TSearchType> sc) where TSearchableObject : class, IFilterable
         {
-            return new SingleValueSearchCriteria<TSearchableObject, TSearchableProperty, TSearchType>
-            {
-                SearchCriteria = new SearchCriteriaBase<TSearchableProperty, TSearchType>
-                {
-                    SearchValue = sc.SearchValue,
-                    SearchType = sc.SearchType,
-                    SearchPropertyName = Utilities.GetPropertyName(searchableObjectType, searchablePropterySpecifier)
-                }
-            };
+            return sc.CreateSingleValueSearchCriteria<TSearchableObject>(Utilities.GetPropertyName(searchableObjectType, searchablePropterySpecifier), sc.SearchValue, sc.SearchType);
+            //return new SingleValueSearchCriteria<TSearchableObject, TSearchableProperty, TSearchType>
+            //{
+            //    SearchCriteria = sc.CreateSearchCriteriaBase(Utilities.GetPropertyName(searchableObjectType, searchablePropterySpecifier), sc.SearchValue, sc.SearchType)
+            //};
         }
     }
 }

@@ -1,12 +1,12 @@
 ﻿namespace Framework.QueryBuilder.Data.Entity
 {
     using System;
-    using System.Collections.Generic;
     using System.Data.Entity.Infrastructure;
-    using System.Data.SqlClient;
     using System.Linq;
     using System.Threading.Tasks;
     using SearchTypes;
+    using SetSearchCriteria;
+    using SingleValueSearchCriteria;
 
     internal static class QueryBuilderExtensions
     {
@@ -147,102 +147,35 @@
             }
             else
             {
-                string whereClause = null;
-                SqlParameter sqlParameter = null;
-                IEnumerable<SqlParameter> sqlParameters = null;
-                
-                var integerSearchCriteria = searchCriteria as SingleValueSearchCriteria<TSearchable, int, IntegerSearchType>;
-                if (integerSearchCriteria != null)
+                var singleValueSearchCriteria = searchCriteria as SingleValueSearchCriteriaBase<TSearchable>;
+                if (singleValueSearchCriteria != null)
                 {
-                    whereClause = integerSearchCriteria.CreateWhere(queryBuilder.DbObjectMapper.ObjectPropertyColumnNameMapper, queryBuilder.QueryParameters.Count);
-                    sqlParameter = new SqlParameter($"p{queryBuilder.QueryParameters.Count}", integerSearchCriteria.SearchCriteria.SearchValue);
-                }
+                    var searchCriteriaBase = singleValueSearchCriteria.SearchCriteria;
+                    var whereClause = searchCriteriaBase.CreateWhere(queryBuilder.DbObjectMapper.ObjectPropertyColumnNameMapper, queryBuilder.QueryParameters.Count);
+                    var sqlParameters = searchCriteriaBase.CreateParameters(queryBuilder.QueryParameters.Count);
 
-                var shortSearchCriteria = searchCriteria as SingleValueSearchCriteria<TSearchable, short, ShortSearchType>;
-                if (shortSearchCriteria != null)
-                {
-                    whereClause = shortSearchCriteria.CreateWhere(queryBuilder.DbObjectMapper.ObjectPropertyColumnNameMapper, queryBuilder.QueryParameters.Count);
-                    sqlParameter = new SqlParameter($"p{queryBuilder.QueryParameters.Count}", shortSearchCriteria.SearchCriteria.SearchValue);
-                }
-
-                var longSearchCriteria = searchCriteria as SingleValueSearchCriteria<TSearchable, long, LongSearchType>;
-                if (longSearchCriteria != null)
-                {
-                    whereClause = longSearchCriteria.CreateWhere(queryBuilder.DbObjectMapper.ObjectPropertyColumnNameMapper, queryBuilder.QueryParameters.Count);
-                    sqlParameter = new SqlParameter($"p{queryBuilder.QueryParameters.Count}", longSearchCriteria.SearchCriteria.SearchValue);
-                }
-
-                var stringSearchCriteria = searchCriteria as SingleValueSearchCriteria<TSearchable, string, StringSearchType>;
-                if (stringSearchCriteria != null)
-                {
-                    whereClause = stringSearchCriteria.CreateWhere(queryBuilder.DbObjectMapper.ObjectPropertyColumnNameMapper, queryBuilder.QueryParameters.Count);
-                    sqlParameter = new SqlParameter($"p{queryBuilder.QueryParameters.Count}", stringSearchCriteria.SearchCriteria.SearchValue);
-                }
-
-                var booleanSearchCriteria = searchCriteria as SingleValueSearchCriteria<TSearchable, bool, BooleanSearchType>;
-                if (booleanSearchCriteria != null)
-                {
-                    whereClause = booleanSearchCriteria.CreateWhere(queryBuilder.DbObjectMapper.ObjectPropertyColumnNameMapper, queryBuilder.QueryParameters.Count);
-                    sqlParameter = new SqlParameter($"p{queryBuilder.QueryParameters.Count}", booleanSearchCriteria.SearchCriteria.SearchValue);
-                }
-
-                var dateTimeSearchCriteria = searchCriteria as SingleValueSearchCriteria<TSearchable, DateTime, DateTimeSearchType>;
-                if (dateTimeSearchCriteria != null)
-                {
-                    whereClause = dateTimeSearchCriteria.CreateWhere(queryBuilder.DbObjectMapper.ObjectPropertyColumnNameMapper, queryBuilder.QueryParameters.Count);
-                    sqlParameter = new SqlParameter($"p{queryBuilder.QueryParameters.Count}", dateTimeSearchCriteria.SearchCriteria.SearchValue);
-                }
-
-                var dateTimeOffsetSearchCriteria = searchCriteria as SingleValueSearchCriteria<TSearchable, DateTimeOffset, DateTimeOffsetSearchType>;
-                if (dateTimeOffsetSearchCriteria != null)
-                {
-                    whereClause = dateTimeOffsetSearchCriteria.CreateWhere(queryBuilder.DbObjectMapper.ObjectPropertyColumnNameMapper, queryBuilder.QueryParameters.Count);
-                    sqlParameter = new SqlParameter($"p{queryBuilder.QueryParameters.Count}", dateTimeOffsetSearchCriteria.SearchCriteria.SearchValue);
-                }
-
-                var decimalSearchCriteria = searchCriteria as SingleValueSearchCriteria<TSearchable, decimal, DecimalSearchType>;
-                if (decimalSearchCriteria != null)
-                {
-                    whereClause = decimalSearchCriteria.CreateWhere(queryBuilder.DbObjectMapper.ObjectPropertyColumnNameMapper, queryBuilder.QueryParameters.Count);
-                    sqlParameter = new SqlParameter($"p{queryBuilder.QueryParameters.Count}", decimalSearchCriteria.SearchCriteria.SearchValue);
-                }
-
-                var doubleSearchCriteria = searchCriteria as SingleValueSearchCriteria<TSearchable, double, DoubleSearchType>;
-                if (doubleSearchCriteria != null)
-                {
-                    whereClause = doubleSearchCriteria.CreateWhere(queryBuilder.DbObjectMapper.ObjectPropertyColumnNameMapper, queryBuilder.QueryParameters.Count);
-                    sqlParameter = new SqlParameter($"p{queryBuilder.QueryParameters.Count}", doubleSearchCriteria.SearchCriteria.SearchValue);
-                }
-
-                var floatSearchCriteria = searchCriteria as SingleValueSearchCriteria<TSearchable, float, FloatSearchType>;
-                if (floatSearchCriteria != null)
-                {
-                    whereClause = floatSearchCriteria.CreateWhere(queryBuilder.DbObjectMapper.ObjectPropertyColumnNameMapper, queryBuilder.QueryParameters.Count);
-                    sqlParameter = new SqlParameter($"p{queryBuilder.QueryParameters.Count}", floatSearchCriteria.SearchCriteria.SearchValue);
-                }
-
-                var integersSearchCriteria = searchCriteria as SetSearchCriteria<TSearchable, IEnumerable<int>, IntegersSearchType>;
-                if (integersSearchCriteria != null)
-                {
-                    whereClause = integersSearchCriteria.CreateWhere(queryBuilder.DbObjectMapper.ObjectPropertyColumnNameMapper, queryBuilder.QueryParameters.Count);
-                    var i = queryBuilder.QueryParameters.Count;
-                    sqlParameters = integersSearchCriteria.SearchCriteria.SearchValue.Select(value => new SqlParameter($"p{i++}", value));
-                }
-
-                //TODO: char, byte
-
-                if (!string.IsNullOrWhiteSpace(whereClause))
-                {
-                    queryBuilder.StringBuilder.SafeSqlAppend(whereClause);
-                    if (sqlParameters == null)
+                    if (!string.IsNullOrWhiteSpace(whereClause))
                     {
-                        queryBuilder.QueryParameters.Add(sqlParameter);
-                    }
-                    else
-                    {
+                        queryBuilder.StringBuilder.SafeSqlAppend(whereClause);
                         queryBuilder.QueryParameters.AddRange(sqlParameters);
                     }
                 }
+
+                var setSearchCriteria = searchCriteria as SetSearchCriteriaBase<TSearchable>;
+                if (setSearchCriteria != null)
+                {
+                    var searchCriteriaBase = setSearchCriteria.SearchCriteria;
+                    var whereClause = searchCriteriaBase.CreateWhere(queryBuilder.DbObjectMapper.ObjectPropertyColumnNameMapper, queryBuilder.QueryParameters.Count);
+                    var sqlParameters = searchCriteriaBase.CreateParameters(queryBuilder.QueryParameters.Count);
+
+                    if (!string.IsNullOrWhiteSpace(whereClause))
+                    {
+                        queryBuilder.StringBuilder.SafeSqlAppend(whereClause);
+                        queryBuilder.QueryParameters.AddRange(sqlParameters);
+                    }
+                }
+
+                //TODO: char, byte
             }
 
             return queryBuilder;
