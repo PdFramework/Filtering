@@ -1,4 +1,6 @@
-﻿namespace Framework.QueryBuilder.UnitTests
+﻿using Framework.QueryBuilder.SetSearchTypes;
+
+namespace Framework.QueryBuilder.UnitTests
 {
     using Data.Entity;
     using Extensions;
@@ -294,7 +296,7 @@
             using (var context = new TestDbContext())
             {
                 var searchCriteria = SearchCriteriaBuilder.CreateSearchCriteria<TestClass>()
-                                                          .Where(tc => tc.Id, new IntegerSetSearchCriteria { SearchType = IntegersSearchType.In, SearchValue = new [] { 1, 2 } });
+                                                          .Where(tc => tc.Id, new IntegerSetSearchCriteria { SearchType = IntegerSetSearchType.In, SearchValue = new [] { 1, 2 } });
 
                 var queryBuilder = QueryBuilderExtensions.CreateQueryBuilder(context, searchCriteria);
 

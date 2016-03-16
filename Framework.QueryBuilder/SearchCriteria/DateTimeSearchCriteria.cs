@@ -28,7 +28,7 @@
 
         public override SingleValueSearchCriteriaBase<TSearchable, DateTime, DateTimeSearchType> CreateSingleValueSearchCriteria<TSearchable>(string searchPropertyName, DateTime value, DateTimeSearchType type)
         {
-            throw new NotImplementedException();
+            return new DateTimeSearchCriteria<TSearchable>(searchPropertyName, value, type);
         }
 
         internal override string CreateWhere(IDictionary<string, string> objectPropertyToColumnNameMapper, int parameterIndex)
@@ -54,7 +54,7 @@
 
         internal override IEnumerable<SqlParameter> CreateParameters(int startingParameterIndex)
         {
-            throw new NotImplementedException();
+            return new[] { new SqlParameter($"p{startingParameterIndex}", SearchValue) };
         }
     }
 }

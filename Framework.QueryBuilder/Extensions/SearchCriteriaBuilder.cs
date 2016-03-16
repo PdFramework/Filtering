@@ -95,19 +95,14 @@
         {
             return CreateSingleSearchCriteria(searchCriteria, Utilities.GetPropertyName(searchCriteria.BaseSearchObjectType, searchablePropterySpecifier), sc);
         }
+        public static SetSearchCriteriaBase<TSearchableObject, IEnumerable<TSearchableProperty>, TSearchType> Where<TSearchableObject, TSearchableProperty, TSearchType>(this SearchCriteriaBuilder<TSearchableObject> searchCriteria, string searchablePropteryName, SearchCriteriaBase<IEnumerable<TSearchableProperty>, TSearchType> sc) where TSearchableObject : class, IFilterable
+        {
+            return CreateSetSearchCriteria(searchCriteria, searchablePropteryName, sc);
+        }
 
         public static SetSearchCriteriaBase<TSearchableObject, IEnumerable<TSearchableProperty>, TSearchType> Where<TSearchableObject, TSearchableProperty, TSearchType>(this SearchCriteriaBuilder<TSearchableObject> searchCriteria, Expression<Func<TSearchableObject, TSearchableProperty>> searchablePropterySpecifier, SearchCriteriaBase<IEnumerable<TSearchableProperty>, TSearchType> sc) where TSearchableObject : class, IFilterable
         {
-            return new SetSearchCriteriaBase<TSearchableObject, IEnumerable<TSearchableProperty>, TSearchType>
-            {
-                SearchCriteria = sc.CreateSearchCriteriaBase(Utilities.GetPropertyName(searchCriteria.BaseSearchObjectType, searchablePropterySpecifier), sc.SearchValue, sc.SearchType),
-                SortCriterium = searchCriteria.SortCriterium,
-                ReturnAllResults = searchCriteria.ReturnAllResults,
-                PageIndex = searchCriteria.PageIndex,
-                IncludeTotalCountWithResults = searchCriteria.IncludeTotalCountWithResults,
-                PageSize = searchCriteria.PageSize,
-                BaseSearchObjectType = searchCriteria.BaseSearchObjectType
-            };
+            return CreateSetSearchCriteria(searchCriteria, Utilities.GetPropertyName(searchCriteria.BaseSearchObjectType, searchablePropterySpecifier), sc);
         }
 
         private static SingleValueSearchCriteriaBase<TSearchableObject, TSearchableProperty, TSearchType> CreateSingleSearchCriteria<TSearchableObject, TSearchableProperty, TSearchType>(SearchCriteriaBuilder<TSearchableObject> searchCriteria, string searchablePropteryName, SearchCriteriaBase<TSearchableProperty, TSearchType> sc) where TSearchableObject : class, IFilterable
@@ -120,6 +115,19 @@
             s.PageSize = searchCriteria.PageSize;
             s.BaseSearchObjectType = searchCriteria.BaseSearchObjectType;
             return s;
+        }
+        private static SetSearchCriteriaBase<TSearchableObject, IEnumerable<TSearchableProperty>, TSearchType> CreateSetSearchCriteria<TSearchableObject, TSearchableProperty, TSearchType>(this SearchCriteriaBuilder<TSearchableObject> searchCriteria, string searchablePropteryName, SearchCriteriaBase<IEnumerable<TSearchableProperty>, TSearchType> sc) where TSearchableObject : class, IFilterable
+        {
+            return new SetSearchCriteriaBase<TSearchableObject, IEnumerable<TSearchableProperty>, TSearchType>
+            {
+                SearchCriteria = sc.CreateSearchCriteriaBase(searchablePropteryName, sc.SearchValue, sc.SearchType),
+                SortCriterium = searchCriteria.SortCriterium,
+                ReturnAllResults = searchCriteria.ReturnAllResults,
+                PageIndex = searchCriteria.PageIndex,
+                IncludeTotalCountWithResults = searchCriteria.IncludeTotalCountWithResults,
+                PageSize = searchCriteria.PageSize,
+                BaseSearchObjectType = searchCriteria.BaseSearchObjectType
+            };
         }
 
         internal static CompoundSearchCriteria<TSearchableObject> Where<TSearchableObject, TSearchableRightProperty, TSearchRightType>(this SearchCriteriaBuilder<TSearchableObject> searchCriteria, CompoundSearchType compoundSearchType, string searchablePropteryName, SearchCriteriaBase<TSearchableRightProperty, TSearchRightType> sc) where TSearchableObject : class, IFilterable
