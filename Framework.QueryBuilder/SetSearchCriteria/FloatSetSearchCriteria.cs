@@ -56,7 +56,7 @@
 
         internal override IEnumerable<SqlParameter> CreateParameters(int startingParameterIndex)
         {
-            return new[] { new SqlParameter($"p{startingParameterIndex}", SearchValue) };
+          return SearchValue.Select(value => new SqlParameter($"p{startingParameterIndex++}", value));
         }
     }
 }
