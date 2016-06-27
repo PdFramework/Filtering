@@ -32,24 +32,18 @@ namespace Framework.QueryBuilder
         /// </summary>
         public bool IncludeTotalCountWithResults { get; set; }
 
-        public SearchCriteriaBuilder() : this(0, 10)
+        public SearchCriteriaBuilder(bool returnAllResults) : this(0, 10, returnAllResults, returnAllResults)
         {
         }
 
-        public SearchCriteriaBuilder(bool returnAllResults)
-        {
-            BaseSearchObjectType = typeof(TSearchableObject);
-            SortCriterium = new List<SortCriteria>();
-            ReturnAllResults = returnAllResults;
-        }
-
-        public SearchCriteriaBuilder(int pageIndex, int pageSize, bool includeTotalCountWithResults = false)
+        public SearchCriteriaBuilder(int pageIndex = 0, int pageSize = 10, bool returnAllResults = false, bool includeTotalCountWithResults = false)
         {
             BaseSearchObjectType = typeof(TSearchableObject);
             SortCriterium = new List<SortCriteria>();
             PageIndex = pageIndex;
             PageSize = pageSize;
             IncludeTotalCountWithResults = includeTotalCountWithResults;
+            ReturnAllResults = returnAllResults;
         }
     }
 }
