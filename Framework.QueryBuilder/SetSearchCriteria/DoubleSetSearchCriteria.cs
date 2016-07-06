@@ -39,14 +39,14 @@
             if (SearchType == DoubleSetSearchType.Between && SearchValue.Count() != 2) throw new ArgumentOutOfRangeException("The 'Between' search type may only be used with exactly 2 values.");
 
             var columnName = objectPropertyToColumnNameMapper[SearchPropertyName];
-            var parametersString = string.Join(", ", SearchValue.Select(value => $"@p{parameterIndex++}"));
+            var parametersString = SearchType == DoubleSetSearchType.Between ? $"@p{parameterIndex++} AND @p{parameterIndex++}" : string.Join(", ", SearchValue.Select(value => $"@p{parameterIndex++}"));
 
             switch (SearchType)
             {
                 case DoubleSetSearchType.In:
                     return $"[{columnName}] IN ({parametersString})";
                 case DoubleSetSearchType.Between:
-                    return $"[{columnName}] BETWEEN ({parametersString})";
+                    return $"[{columnName}] BETWEEN {parametersString}";
                 case DoubleSetSearchType.NotIn:
                     return $"[{columnName}] NOT IN @p{parameterIndex}";
                 default:

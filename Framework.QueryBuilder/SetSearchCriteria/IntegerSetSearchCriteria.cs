@@ -41,14 +41,14 @@ namespace Framework.QueryBuilder.SetSearchCriteria
             if(SearchType == IntegerSetSearchType.Between && SearchValue.Count() != 2) throw new ArgumentOutOfRangeException("The 'Between' search type may only be used with exactly 2 values.");
 
             var columnName = objectPropertyToColumnNameMapper[SearchPropertyName];
-            var parametersString = string.Join(", ", SearchValue.Select(value => $"@p{parameterIndex++}"));
+            var parametersString = SearchType == IntegerSetSearchType.Between ? $"@p{parameterIndex++} AND @p{parameterIndex++}" : string.Join(", ", SearchValue.Select(value => $"@p{parameterIndex++}"));
 
             switch (SearchType)
             {
                 case IntegerSetSearchType.In:
                     return $"[{columnName}] IN ({parametersString})";
                 case IntegerSetSearchType.Between:
-                    return $"[{columnName}] BETWEEN ({parametersString})";
+                    return $"[{columnName}] BETWEEN {parametersString}";
                 case IntegerSetSearchType.NotIn:
                     return $"[{columnName}] NOT IN @p{parameterIndex}";
                 default:
