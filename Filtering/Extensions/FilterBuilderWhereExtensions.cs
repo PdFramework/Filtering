@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using PeinearyDevelopment.Framework.Filtering.FilterCriteria;
 using PeinearyDevelopment.Framework.Filtering.FilterCriteria.Nullables;
@@ -16,10 +15,6 @@ namespace PeinearyDevelopment.Framework.Filtering.Extensions
     {
       var simpleFilterBuilder = new SimpleFilterBuilder<TFilterable>(filterBuilderBase);
       simpleFilterBuilder.FilterCriteria.Add(new CriteriaGroup(filterCriterion));
-      if (filterBuilderBase.FilterCriteria.Any())
-      {
-        filterBuilderBase.FilterCombiners.Add(CompoundFilterType.And);
-      }
 
       return simpleFilterBuilder;
     }

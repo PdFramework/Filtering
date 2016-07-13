@@ -8,6 +8,11 @@ namespace PeinearyDevelopment.Framework.Filtering.Extensions
   {
     public static CriteriaGroup And(this BaseCriterion baseCriterion, BaseCriterion criterion)
     {
+      if (baseCriterion == null)
+      {
+        return new CriteriaGroup(criterion);
+      }
+
       var criteriaGroup = baseCriterion as CriteriaGroup;
       if (criteriaGroup == null)
       {
@@ -21,6 +26,11 @@ namespace PeinearyDevelopment.Framework.Filtering.Extensions
 
     public static CriteriaGroup Or(this BaseCriterion baseCriterion, BaseCriterion criterion)
     {
+      if (baseCriterion == null)
+      {
+        return new CriteriaGroup(criterion);
+      }
+
       var criteriaGroup = baseCriterion as CriteriaGroup;
       if (criteriaGroup == null)
       {
