@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>PeinearyDevelopment.Framework.Filtering</id>
+    <version>$version$</version>
+    <authors>PeinearyDevelopment</authors>
+    <description>The core library for building complex filtering query criteria.</description>
+    <language>en-US</language>
+  </metadata>
+  <files>
+    <file src="bin\$configuration$\PeinearyDevelopment.Framework.Filtering.dll" target="lib\net461" />
+    <file src="bin\$configuration$\PeinearyDevelopment.Framework.Filtering.pdb" target="lib\net461" />
+  </files>
+</package>

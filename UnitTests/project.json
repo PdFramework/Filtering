@@ -1,0 +1,14 @@
+﻿{
+  "dependencies": {
+    "EntityFramework": "6.1.3",
+    "Castle.Core": "3.3.3",
+    "Moq": "4.5.13"
+  },
+  "frameworks": {
+    "net461": {}
+  },
+  "runtimes": {
+    "win": {}
+  },
+  "supports": {}
+}

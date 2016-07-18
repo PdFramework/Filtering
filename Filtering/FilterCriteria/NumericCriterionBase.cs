@@ -8,6 +8,7 @@
   using System.Linq.Expressions;
 
   public abstract class NumericCriterionBase<TFilterable, TNumeric> : BaseCriterion<TFilterable, NumericFilterType, TNumeric> where TFilterable : class, IFilterable
+                                                                                                                              where TNumeric : struct
   {
     protected NumericCriterionBase(string propertyName, NumericFilterType filterType, TNumeric filterValue) : base(propertyName, filterType, filterValue)
     {

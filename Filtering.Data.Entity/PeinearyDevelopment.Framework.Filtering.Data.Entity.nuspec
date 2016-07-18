@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>PeinearyDevelopment.Framework.Filtering.Data.Entity</id>
+    <version>$version$</version>
+    <authors>PeinearyDevelopment</authors>
+    <description>A library for applying complex filtering query criteria created utilizing the core Filtering library to perform queries against Entity Framework.</description>
+    <language>en-US</language>
+    <dependencies>
+      <group targetFramework="net461">
+        <dependency id="EntityFramework" version="6.1.3" />
+        <dependency id="PeinearyDevelopment.Framework.Filtering" version="$version$" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\$configuration$\PeinearyDevelopment.Framework.Filtering.Data.Entity.dll" target="lib\net461" />
+    <file src="bin\$configuration$\PeinearyDevelopment.Framework.Filtering.Data.Entity.pdb" target="lib\net461" />
+  </files>
+</package>

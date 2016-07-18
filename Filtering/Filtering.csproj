@@ -128,6 +128,7 @@
     <None Include="..\CodeAnalysis\FilteringKey.snk">
       <Link>FilteringKey.snk</Link>
     </None>
+    <None Include="PeinearyDevelopment.Framework.Filtering.nuspec" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -94,11 +94,5 @@
       filterBuilder.SortCriteria.Add(new SortCriterion(Utilities.GetPropertyName(typeof(TFilterable), propertyNameExpression), sortType));
       return filterBuilder;
     }
-
-    public static BaseFilterBuilder<TFilterable> Clone<TFilterable, TFilterableBase>(this BaseFilterBuilder<TFilterableBase> filterBuilder) where TFilterable : class, IFilterable
-                                                                                                                                            where TFilterableBase : class, IFilterable
-    {
-      return new FilterBuilder<TFilterable>(filterBuilder);
-    }
   }
 }
