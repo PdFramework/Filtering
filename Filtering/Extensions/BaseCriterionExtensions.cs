@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using PeinearyDevelopment.Framework.Filtering.FilterCriteria;
 using PeinearyDevelopment.Framework.Filtering.FilterTypes;
 
@@ -16,7 +17,7 @@ namespace PeinearyDevelopment.Framework.Filtering.Extensions
       var criteriaGroup = baseCriterion as CriteriaGroup;
       if (criteriaGroup == null)
       {
-        return new CriteriaGroup(new[] { baseCriterion, criterion }, new List<CompoundFilterType> { CompoundFilterType.And });
+        return new CriteriaGroup(new[] { baseCriterion, criterion }.ToList(), new List<CompoundFilterType> { CompoundFilterType.And });
       }
 
       criteriaGroup.Criteria.Add(criterion);
@@ -34,7 +35,7 @@ namespace PeinearyDevelopment.Framework.Filtering.Extensions
       var criteriaGroup = baseCriterion as CriteriaGroup;
       if (criteriaGroup == null)
       {
-        return new CriteriaGroup(new[] { baseCriterion, criterion }, new List<CompoundFilterType> { CompoundFilterType.Or });
+        return new CriteriaGroup(new[] { baseCriterion, criterion }.ToList(), new List<CompoundFilterType> { CompoundFilterType.Or });
       }
 
       criteriaGroup.Criteria.Add(criterion);
