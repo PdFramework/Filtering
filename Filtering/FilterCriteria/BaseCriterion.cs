@@ -13,7 +13,7 @@
     internal abstract string CreateWhere(IDictionary<string, string> objectPropertyToColumnNameMapper, int parameterIndex);
     //TODO: investigate using IEnumerable<DbParameter> as type
     internal abstract IEnumerable<SqlParameter> CreateParameters(int startingParameterIndex);
-    internal string PropertyName { get; set; }
+    public string PropertyName { get; internal set; }
   }
 
   public class BaseCriterion<TFilterable, TFilterType, TFilterValue> : BaseCriterion where TFilterable : class, IFilterable
