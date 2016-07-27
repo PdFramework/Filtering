@@ -1,20 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using PeinearyDevelopment.Framework.Filtering.FilterCriteria;
-using PeinearyDevelopment.Framework.Filtering.FilterCriteria.Nullables;
-using PeinearyDevelopment.Framework.Filtering.FilterCriteria.Nullables.Sets;
-using PeinearyDevelopment.Framework.Filtering.FilterCriteria.Sets;
-using PeinearyDevelopment.Framework.Filtering.FilterTypes;
-
-namespace PeinearyDevelopment.Framework.Filtering.Extensions
+﻿namespace PeinearyDevelopment.Framework.Filtering.Extensions
 {
+  using FilterCriteria;
+  using FilterCriteria.Nullables;
+  using FilterCriteria.Nullables.Sets;
+  using FilterCriteria.Sets;
+  using FilterTypes;
+
+  using System;
+  using System.Collections.Generic;
+  using System.Linq;
+  using System.Linq.Expressions;
+
   public static class FilterBuilderWhereExtensions
   {
     public static SimpleFilterBuilder<TFilterable> Where<TFilterable>(this FilterBuilder<TFilterable> filterBuilderBase, BaseCriterion filterCriterion) where TFilterable : class, IFilterable
     {
       var simpleFilterBuilder = new SimpleFilterBuilder<TFilterable>(filterBuilderBase);
-      simpleFilterBuilder.FilterCriteria.Add(new CriteriaGroup(filterCriterion));
+
+      if (simpleFilterBuilder.FilterCriteria.Criteria.Any())
+      {
+        simpleFilterBuilder.FilterCriteria.Criteria.Add(new CriteriaGroup(filterCriterion));
+      }
+      else
+      {
+        simpleFilterBuilder.FilterCriteria = new CriteriaGroup(filterCriterion);
+      }
 
       return simpleFilterBuilder;
     }

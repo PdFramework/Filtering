@@ -1,10 +1,9 @@
-﻿using System.Globalization;
-
-namespace PeinearyDevelopment.Framework.Filtering.Data.Entity
+﻿namespace PeinearyDevelopment.Framework.Filtering.Data.Entity
 {
   using FilterCriteria;
 
   using System.Data.Entity.Infrastructure;
+  using System.Globalization;
   using System.Linq;
   using System.Threading.Tasks;
 
@@ -119,24 +118,25 @@ namespace PeinearyDevelopment.Framework.Filtering.Data.Entity
     internal static Filter<TFilterable> BuildWhere<TFilterable>(this Filter<TFilterable> filter, BaseFilterBuilder<TFilterable> filterBuilder) where TFilterable : class, IFilterable
     {
       //TODO: char, byte
-      if (filterBuilder.FilterCombiners.Any())
+      if (filterBuilder.FilterCriteria.CompoundFilterTypes.Any())
       {
         filter.SqlQueryStringBuilder.SafeSqlAppend("(");
 
-        for (var i = 0; i < filterBuilder.FilterCriteria.Count; i++)
+        for (var i = 0; i < filterBuilder.FilterCriteria.Criteria.Count; i++)
         {
-          filter.BuildWhere(filterBuilder.FilterCriteria[i]);
           if (i != 0)
           {
-            filter.SqlQueryStringBuilder.SafeSqlAppend(filterBuilder.FilterCombiners[i - 1].ToString());
+            filter.SqlQueryStringBuilder.SafeSqlAppend(filterBuilder.FilterCriteria.CompoundFilterTypes[i - 1].ToString().ToUpper(CultureInfo.InvariantCulture));
           }
+
+          filter.BuildWhere(filterBuilder.FilterCriteria.Criteria[i]);
         }
 
         filter.SqlQueryStringBuilder.SafeSqlAppend(")");
       }
-      else if(filterBuilder.FilterCriteria.Any())
+      else if(filterBuilder.FilterCriteria.Criteria.Any())
       {
-        filter.BuildWhere(filterBuilder.FilterCriteria[0]);
+        filter.BuildWhere(filterBuilder.FilterCriteria.Criteria[0]);
       }
 
       return filter;
@@ -168,14 +168,14 @@ namespace PeinearyDevelopment.Framework.Filtering.Data.Entity
 
         filter.SqlQueryStringBuilder.SafeSqlAppend(")");
       }
-      else
+      else if(criteriaGroup.Criteria.Any())
       {
         var nestedCriteriaGroup = criteriaGroup.Criteria[0] as CriteriaGroup;
         if (nestedCriteriaGroup != null)
         {
           filter.BuildWhere(nestedCriteriaGroup);
         }
-        else
+        else 
         {
           filter.BuildWhere(criteriaGroup.Criteria[0]);
         }
@@ -186,14 +186,22 @@ namespace PeinearyDevelopment.Framework.Filtering.Data.Entity
 
     internal static Filter<TFilterable> BuildWhere<TFilterable>(this Filter<TFilterable> filter, BaseCriterion baseCriterion) where TFilterable : class, IFilterable
     {
-      var whereClause = baseCriterion.CreateWhere(filter.DbObjectMapper.ObjectPropertyColumnNameMapper, filter.Parameters.Count);
-
-      if (!string.IsNullOrWhiteSpace(whereClause))
+      var criteriaGroup = baseCriterion as CriteriaGroup;
+      if (criteriaGroup != null)
       {
-        var @params = baseCriterion.CreateParameters(filter.Parameters.Count);
+        filter.BuildWhere(criteriaGroup);
+      }
+      else
+      {
+        var whereClause = baseCriterion.CreateWhere(filter.DbObjectMapper.ObjectPropertyColumnNameMapper, filter.Parameters.Count);
 
-        filter.SqlQueryStringBuilder.SafeSqlAppend(whereClause);
-        filter.Parameters.AddRange(@params);
+        if (!string.IsNullOrWhiteSpace(whereClause))
+        {
+          var @params = baseCriterion.CreateParameters(filter.Parameters.Count);
+
+          filter.SqlQueryStringBuilder.SafeSqlAppend(whereClause);
+          filter.Parameters.AddRange(@params);
+        }
       }
 
       return filter;

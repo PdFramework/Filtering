@@ -1,17 +1,18 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using PeinearyDevelopment.Framework.Filtering.FilterCriteria;
-using PeinearyDevelopment.Framework.Filtering.FilterTypes;
-
-namespace PeinearyDevelopment.Framework.Filtering.Extensions
+﻿namespace PeinearyDevelopment.Framework.Filtering.Extensions
 {
+  using FilterCriteria;
+  using FilterTypes;
+
+  using System.Collections.Generic;
+  using System.Linq;
+
   public static class BaseCriterionExtensions
   {
-    public static CriteriaGroup And(this BaseCriterion baseCriterion, BaseCriterion criterion)
+    public static BaseCriterion And(this BaseCriterion baseCriterion, BaseCriterion criterion)
     {
       if (baseCriterion == null)
       {
-        return new CriteriaGroup(criterion);
+        return criterion;
       }
 
       var criteriaGroup = baseCriterion as CriteriaGroup;
@@ -25,11 +26,11 @@ namespace PeinearyDevelopment.Framework.Filtering.Extensions
       return criteriaGroup;
     }
 
-    public static CriteriaGroup Or(this BaseCriterion baseCriterion, BaseCriterion criterion)
+    public static BaseCriterion Or(this BaseCriterion baseCriterion, BaseCriterion criterion)
     {
       if (baseCriterion == null)
       {
-        return new CriteriaGroup(criterion);
+        return criterion;
       }
 
       var criteriaGroup = baseCriterion as CriteriaGroup;

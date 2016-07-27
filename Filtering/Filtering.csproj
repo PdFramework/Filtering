@@ -129,6 +129,7 @@
       <Link>FilteringKey.snk</Link>
     </None>
     <None Include="PeinearyDevelopment.Framework.Filtering.nuspec" />
+    <None Include="project.json" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

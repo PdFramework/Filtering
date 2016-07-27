@@ -69,7 +69,7 @@
     <Compile Include="TestObjects\TestObject.cs" />
     <Compile Include="ReadableCompilableRunnableUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="FilterTests.cs" />
     <Compile Include="UnitTest2.cs" />
   </ItemGroup>
   <ItemGroup>

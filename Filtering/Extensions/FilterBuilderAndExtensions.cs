@@ -1,22 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using PeinearyDevelopment.Framework.Filtering.FilterCriteria;
-using PeinearyDevelopment.Framework.Filtering.FilterCriteria.Nullables;
-using PeinearyDevelopment.Framework.Filtering.FilterCriteria.Nullables.Sets;
-using PeinearyDevelopment.Framework.Filtering.FilterCriteria.Sets;
-using PeinearyDevelopment.Framework.Filtering.FilterTypes;
-
-namespace PeinearyDevelopment.Framework.Filtering.Extensions
+﻿namespace PeinearyDevelopment.Framework.Filtering.Extensions
 {
+  using FilterCriteria;
+  using FilterCriteria.Nullables;
+  using FilterCriteria.Nullables.Sets;
+  using FilterCriteria.Sets;
+  using FilterTypes;
+
+  using System;
+  using System.Collections.Generic;
+  using System.Linq.Expressions;
+
   public static class FilterBuilderAndExtensions
   {
     public static CompoundFilterBuilder<TFilterable> And<TFilterable>(this SimpleFilterBuilder<TFilterable> simpleFilterBuilder, BaseCriterion filterCriterion) where TFilterable : class, IFilterable
     {
       var compoundFilterBuilder = new CompoundFilterBuilder<TFilterable>(simpleFilterBuilder);
-      compoundFilterBuilder.FilterCriteria.Last().Criteria.Add(new CriteriaGroup(filterCriterion));
-      compoundFilterBuilder.FilterCriteria.Last().CompoundFilterTypes.Add(CompoundFilterType.And);
+      compoundFilterBuilder.FilterCriteria.Criteria.Add(new CriteriaGroup(filterCriterion));
+      compoundFilterBuilder.FilterCriteria.CompoundFilterTypes.Add(CompoundFilterType.And);
       return compoundFilterBuilder;
     }
 

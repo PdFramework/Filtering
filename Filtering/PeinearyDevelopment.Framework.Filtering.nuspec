@@ -6,6 +6,11 @@
     <authors>PeinearyDevelopment</authors>
     <description>The core library for building complex filtering query criteria.</description>
     <language>en-US</language>
+    <dependencies>
+      <group targetFramework="net461">
+        <dependency id="Newtonsoft.Json" version="9.0.1" />
+      </group>
+    </dependencies>
   </metadata>
   <files>
     <file src="bin\$configuration$\PeinearyDevelopment.Framework.Filtering.dll" target="lib\net461" />

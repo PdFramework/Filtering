@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using PeinearyDevelopment.Framework.Filtering.FilterCriteria;
-using PeinearyDevelopment.Framework.Filtering.FilterTypes;
-
-namespace PeinearyDevelopment.Framework.Filtering
+﻿namespace PeinearyDevelopment.Framework.Filtering
 {
+  using FilterCriteria;
+
+  using System;
+  using System.Collections.Generic;
+  using Newtonsoft.Json;
+
   public abstract class BaseFilterBuilder
   {
     public IList<SortCriterion> SortCriteria { get; }
-    public IList<CriteriaGroup> FilterCriteria { get; }
-    public IList<CompoundFilterType> FilterCombiners { get; }
-
+    [JsonProperty(ItemTypeNameHandling = TypeNameHandling.Auto)]
+    public CriteriaGroup FilterCriteria { get; set; }
     public int PageIndex { get; set; }
     public int PageSize { get; set; }
     public bool ReturnAllResults { get; set; }
@@ -19,9 +19,7 @@ namespace PeinearyDevelopment.Framework.Filtering
     protected BaseFilterBuilder()
     {
       SortCriteria = new List<SortCriterion>();
-      FilterCriteria = new List<CriteriaGroup>();
-      //FilterGroupers?Linkers?Joiners?Combiners?Compounders?
-      FilterCombiners = new List<CompoundFilterType>();
+      FilterCriteria = new CriteriaGroup();
       PageIndex = 0;
       PageSize = 10;
     }
@@ -30,7 +28,6 @@ namespace PeinearyDevelopment.Framework.Filtering
     {
       if (baseFilterBuilder == null) throw new ArgumentNullException(nameof(baseFilterBuilder));
 
-      FilterCombiners = baseFilterBuilder.FilterCombiners;
       FilterCriteria = baseFilterBuilder.FilterCriteria;
       IncludeTotalCountWithResults = baseFilterBuilder.IncludeTotalCountWithResults;
       PageIndex = baseFilterBuilder.PageIndex;

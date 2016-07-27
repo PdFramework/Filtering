@@ -11,7 +11,7 @@ using PeinearyDevelopment.Framework.Filtering.FilterTypes;
 namespace Framework.Filtering.UnitTests
 {
   [TestClass]
-  public class UnitTest1
+  public class FilterTests
   {
     #region MappedProperties
     [TestMethod]
@@ -108,7 +108,7 @@ namespace Framework.Filtering.UnitTests
     #endregion
 
     [TestMethod]
-    public void a()
+    public void Given_AFilterBuilderThatShouldReturnAllResults_When_FilterIsCreated_Then_FilterQueryStringShouldMatchExpectations()
     {
       const bool returnAllResults = true;
 
@@ -123,7 +123,7 @@ namespace Framework.Filtering.UnitTests
     }
 
     [TestMethod]
-    public void b()
+    public void Given_AFilterBuilderThatHasAPageSizeAndPageIndex_When_FilterIsCreated_Then_FilterQueryStringShouldMatchExpectations()
     {
       const int pageIndex = 1;
       const int pageSize = 100;
@@ -138,7 +138,7 @@ namespace Framework.Filtering.UnitTests
     }
 
     [TestMethod]
-    public void c()
+    public void Given_AFilterBuilderThatShouldReturnAllResultsWithAWhereFilter_When_FilterIsCreated_Then_FilterQueryStringShouldMatchExpectations()
     {
       using (var context = new TestDbContext())
       {
@@ -154,7 +154,7 @@ namespace Framework.Filtering.UnitTests
     }
 
     [TestMethod]
-    public void d()
+    public void Given_AFilterBuilderThatShouldReturnAllResultsWithACompoundAndFilter_When_FilterIsCreated_Then_FilterQueryStringShouldMatchExpectations()
     {
       using (var context = new TestDbContext())
       {
@@ -173,7 +173,7 @@ namespace Framework.Filtering.UnitTests
     }
 
     [TestMethod]
-    public void e()
+    public void Given_AFilterBuilderThatShouldReturnAllResultsWithACompoundOrFilter_When_FilterIsCreated_Then_FilterQueryStringShouldMatchExpectations()
     {
       using (var context = new TestDbContext())
       {
@@ -193,7 +193,7 @@ namespace Framework.Filtering.UnitTests
     }
 
     [TestMethod]
-    public void f()
+    public void Given_AFilterBuilderThatShouldReturnAllResultsWithACompoundOrAndNestedAndFilters_When_FilterIsCreated_Then_FilterQueryStringShouldMatchExpectations()
     {
       using (var context = new TestDbContext())
       {
@@ -216,7 +216,7 @@ namespace Framework.Filtering.UnitTests
     }
 
     [TestMethod]
-    public void g()
+    public void Given_AFilterBuilder_When_FilterIsCreated_Then_FilterQueryStringShouldMatchExpectations()
     {
       using (var context = new TestDbContext())
       {
