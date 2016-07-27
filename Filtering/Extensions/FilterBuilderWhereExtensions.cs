@@ -15,18 +15,18 @@
   {
     public static SimpleFilterBuilder<TFilterable> Where<TFilterable>(this FilterBuilder<TFilterable> filterBuilderBase, BaseCriterion filterCriterion) where TFilterable : class, IFilterable
     {
-      var simpleFilterBuilder = new SimpleFilterBuilder<TFilterable>(filterBuilderBase);
+      if(filterBuilderBase == null) throw new ArgumentNullException(nameof(filterBuilderBase));
 
-      if (simpleFilterBuilder.FilterCriteria.Criteria.Any())
+      if (filterBuilderBase.FilterCriteria.Criteria.Any())
       {
-        simpleFilterBuilder.FilterCriteria.Criteria.Add(new CriteriaGroup(filterCriterion));
+        filterBuilderBase.FilterCriteria.Criteria.Add(new CriteriaGroup(filterCriterion));
       }
       else
       {
-        simpleFilterBuilder.FilterCriteria = new CriteriaGroup(filterCriterion);
+        filterBuilderBase.FilterCriteria = new CriteriaGroup(filterCriterion);
       }
 
-      return simpleFilterBuilder;
+      return new SimpleFilterBuilder<TFilterable>(filterBuilderBase);
     }
 
     public static SimpleFilterBuilder<TFilterable> Where<TFilterable>(this FilterBuilder<TFilterable> filterBuilderBase, IList<CompoundFilterType> compoundFilterTypes, params BaseCriterion[] criteria) where TFilterable : class, IFilterable
