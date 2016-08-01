@@ -231,7 +231,7 @@ namespace Framework.Filtering.UnitTests
     }
 
     [TestMethod]
-    public void h()
+    public void Given_AFilterBuilderWithACompoundAndFilter_When_FilterIsCreated_Then_FilterQueryStringShouldMatchExpectations()
     {
       using (var context = new TestDbContext())
       {
@@ -250,7 +250,7 @@ namespace Framework.Filtering.UnitTests
     }
 
     [TestMethod]
-    public void i()
+    public void Given_AFilterBuilderWithACompoundOrFilter_When_FilterIsCreated_Then_FilterQueryStringShouldMatchExpectations()
     {
       using (var context = new TestDbContext())
       {
@@ -269,7 +269,7 @@ namespace Framework.Filtering.UnitTests
     }
 
     [TestMethod]
-    public void j()
+    public void Given_AFilterBuilderWithACompoundOrAndNestedAndFilter_When_FilterIsCreated_Then_FilterQueryStringShouldMatchExpectations()
     {
       using (var context = new TestDbContext())
       {
@@ -291,7 +291,7 @@ namespace Framework.Filtering.UnitTests
     }
 
     [TestMethod]
-    public void p()
+    public void Given_AFilterBuilderWithASetFilter_When_FilterIsCreated_Then_FilterQueryStringShouldMatchExpectations()
     {
       using (var context = new TestDbContext())
       {
@@ -309,7 +309,7 @@ namespace Framework.Filtering.UnitTests
     }
 
     [TestMethod]
-    public void k()
+    public void Given_AFilterBuilderForATypeWithACustomSchemaThatShouldReturnAllResults_When_FilterIsCreated_Then_FilterQueryStringShouldMatchExpectations()
     {
       using (var context = new TestDbContext())
       {
@@ -322,7 +322,7 @@ namespace Framework.Filtering.UnitTests
     }
 
     [TestMethod]
-    public void l()
+    public void Given_AFilterBuilderForATypeWithACustomSchemaThatHasAPageSizeAndPageIndex_When_FilterIsCreated_Then_FilterQueryStringShouldMatchExpectations()
     {
       const int pageIndex = 1;
       const int pageSize = 100;
@@ -337,7 +337,7 @@ namespace Framework.Filtering.UnitTests
     }
 
     [TestMethod]
-    public void m()
+    public void Given_AFilterBuilderForATypeWithACustomSchemaThatShouldReturnAllResultsWithAWhereFilter_When_FilterIsCreated_Then_FilterQueryStringShouldMatchExpectations()
     {
       using (var context = new TestDbContext())
       {
@@ -352,7 +352,7 @@ namespace Framework.Filtering.UnitTests
     }
 
     [TestMethod]
-    public void n()
+    public void Given_AFilterBuilderForATypeWithACustomSchemaThatShouldReturnAllResultsWithACompoundAndFilter_When_FilterIsCreated_Then_FilterQueryStringShouldMatchExpectations()
     {
       using (var context = new TestDbContext())
       {
@@ -372,7 +372,7 @@ namespace Framework.Filtering.UnitTests
     }
 
     [TestMethod]
-    public void o()
+    public void Given_AFilterBuilderForATypeWithACustomSchemaThatShouldReturnAllResultsWithACompoundOrFilter_When_FilterIsCreated_Then_FilterQueryStringShouldMatchExpectations()
     {
       using (var context = new TestDbContext())
       {
@@ -392,7 +392,7 @@ namespace Framework.Filtering.UnitTests
     }
 
     [TestMethod]
-    public void q()
+    public void Given_AFilterBuilderForATypeWithACustomSchemaThatShouldReturnAllResultsWithACompoundOrAndNestedAndFilters_When_FilterIsCreated_Then_FilterQueryStringShouldMatchExpectations()
     {
       using (var context = new TestDbContext())
       {
@@ -415,7 +415,7 @@ namespace Framework.Filtering.UnitTests
     }
 
     [TestMethod]
-    public void r()
+    public void Given_AFilterBuilderForATypeWithACustomSchema_When_FilterIsCreated_Then_FilterQueryStringShouldMatchExpectations()
     {
       using (var context = new TestDbContext())
       {
@@ -430,7 +430,7 @@ namespace Framework.Filtering.UnitTests
     }
 
     [TestMethod]
-    public void s()
+    public void Given_AFilterBuilderWithACompoundAndFilterForATypeWithACustomSchema_When_FilterIsCreated_Then_FilterQueryStringShouldMatchExpectations()
     {
       using (var context = new TestDbContext())
       {
@@ -449,7 +449,7 @@ namespace Framework.Filtering.UnitTests
     }
 
     [TestMethod]
-    public void t()
+    public void Given_AFilterBuilderWithACompoundOrFilterForATypeWithACustomSchema_When_FilterIsCreated_Then_FilterQueryStringShouldMatchExpectations()
     {
       using (var context = new TestDbContext())
       {
@@ -468,7 +468,7 @@ namespace Framework.Filtering.UnitTests
     }
 
     [TestMethod]
-    public void u()
+    public void Given_AFilterBuilderWithACompoundOrAndNestedAndFilterForATypeWithACustomSchema_When_FilterIsCreated_Then_FilterQueryStringShouldMatchExpectations()
     {
       using (var context = new TestDbContext())
       {

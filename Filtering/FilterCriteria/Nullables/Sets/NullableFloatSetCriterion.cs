@@ -8,6 +8,10 @@
 
   public class NullableFloatSetCriterion<TFilterable> : NullableSetCriterionBase<TFilterable, float?> where TFilterable : class, IFilterable
   {
+    public NullableFloatSetCriterion()
+    {
+    }
+
     public NullableFloatSetCriterion(string propertyName, SetFilterType filterType, IEnumerable<float?> filterValue) : base(propertyName, filterType, filterValue)
     {
     }

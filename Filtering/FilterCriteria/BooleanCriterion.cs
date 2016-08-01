@@ -9,6 +9,10 @@
 
   public class BooleanCriterion<TFilterable> : BaseCriterion<TFilterable, BooleanFilterType, bool> where TFilterable : class, IFilterable
   {
+    public BooleanCriterion()
+    {
+    }
+
     public BooleanCriterion(string propertyName, BooleanFilterType filterType, bool filterValue) : base(propertyName, filterType, filterValue)
     {
     }

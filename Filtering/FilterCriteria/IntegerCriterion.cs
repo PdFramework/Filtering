@@ -7,6 +7,10 @@
 
   public class IntegerCriterion<TFilterable> : NumericCriterionBase<TFilterable, int> where TFilterable : class, IFilterable
   {
+    public IntegerCriterion()
+    {
+    }
+
     public IntegerCriterion(string propertyName, NumericFilterType filterType, int filterValue) : base(propertyName, filterType, filterValue)
     {
     }

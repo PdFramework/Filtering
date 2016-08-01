@@ -9,6 +9,10 @@
 
   public class StringCriterion<TFilterable> : BaseCriterion<TFilterable, StringFilterType, string> where TFilterable : class, IFilterable
   {
+    public StringCriterion()
+    {
+    }
+
     public StringCriterion(string propertyName, StringFilterType filterType, string filterValue) : base(propertyName, filterType, filterValue)
     {
     }

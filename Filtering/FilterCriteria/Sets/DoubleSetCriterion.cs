@@ -8,6 +8,10 @@
 
   public class DoubleSetCriterion<TFilterable> : SetCriterionBase<TFilterable, double> where TFilterable : class, IFilterable
   {
+    public DoubleSetCriterion()
+    {
+    }
+
     public DoubleSetCriterion(string propertyName, SetFilterType filterType, IEnumerable<double> filterValue) : base(propertyName, filterType, filterValue)
     {
     }

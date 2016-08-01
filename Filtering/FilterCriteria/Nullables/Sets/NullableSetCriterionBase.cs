@@ -10,6 +10,10 @@
 
   public abstract class NullableSetCriterionBase<TFilterable, TFilterableProperty> : BaseCriterion<TFilterable, TFilterableProperty, SetFilterType, IEnumerable<TFilterableProperty>> where TFilterable : class, IFilterable
   {
+    protected NullableSetCriterionBase()
+    {
+    }
+
     protected NullableSetCriterionBase(string propertyName, SetFilterType filterType, IEnumerable<TFilterableProperty> filterValue) : base(propertyName, filterType, filterValue)
     {
     }

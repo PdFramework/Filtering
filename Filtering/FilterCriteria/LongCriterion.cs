@@ -7,6 +7,10 @@
 
   public class LongCriterion<TFilterable> : NumericCriterionBase<TFilterable, long> where TFilterable : class, IFilterable
   {
+    public LongCriterion()
+    {
+    }
+
     public LongCriterion(string propertyName, NumericFilterType filterType, long filterValue) : base(propertyName, filterType, filterValue)
     {
     }

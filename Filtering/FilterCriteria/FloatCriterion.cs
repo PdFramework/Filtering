@@ -7,6 +7,10 @@
 
   public class FloatCriterion<TFilterable> : NumericCriterionBase<TFilterable, float> where TFilterable : class, IFilterable
   {
+    public FloatCriterion()
+    {
+    }
+
     public FloatCriterion(string propertyName, NumericFilterType filterType, float filterValue) : base(propertyName, filterType, filterValue)
     {
     }

@@ -7,6 +7,10 @@
 
   public class NullableDateTimeCriterion<TFilterable> : NullableDateTimeCriterionBase<TFilterable, DateTime?> where TFilterable : class, IFilterable
   {
+    public NullableDateTimeCriterion()
+    {
+    }
+
     public NullableDateTimeCriterion(string propertyName, DateTimeFilterType filterType, DateTime? filterValue) : base(propertyName, filterType, filterValue)
     {
     }

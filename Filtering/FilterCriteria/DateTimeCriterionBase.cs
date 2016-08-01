@@ -9,6 +9,10 @@
 
   public abstract class DateTimeCriterionBase<TFilterable, TDateTime> : BaseCriterion<TFilterable, DateTimeFilterType, TDateTime> where TFilterable : class, IFilterable
   {
+    protected DateTimeCriterionBase()
+    {
+    }
+
     protected DateTimeCriterionBase(string propertyName, DateTimeFilterType filterType, TDateTime filterValue) : base(propertyName, filterType, filterValue)
     {
     }

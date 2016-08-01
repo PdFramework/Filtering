@@ -41,7 +41,6 @@
   {
     internal Type FilterableObjectType { get; set; }
 
-
     protected BaseFilterBuilder()
     {
       FilterableObjectType = typeof(TFilterable);

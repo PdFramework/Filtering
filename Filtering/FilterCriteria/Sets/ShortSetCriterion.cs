@@ -8,6 +8,10 @@
 
   public class ShortSetCriterion<TFilterable> : SetCriterionBase<TFilterable, short> where TFilterable : class, IFilterable
   {
+    public ShortSetCriterion()
+    {
+    }
+
     public ShortSetCriterion(string propertyName, SetFilterType filterType, IEnumerable<short> filterValue) : base(propertyName, filterType, filterValue)
     {
     }

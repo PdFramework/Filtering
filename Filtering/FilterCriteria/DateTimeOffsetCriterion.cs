@@ -7,6 +7,10 @@
 
   public class DateTimeOffsetCriterion<TFilterable> : DateTimeCriterionBase<TFilterable, DateTimeOffset> where TFilterable : class, IFilterable
   {
+    public DateTimeOffsetCriterion()
+    {
+    }
+
     public DateTimeOffsetCriterion(string propertyName, DateTimeFilterType filterType, DateTimeOffset filterValue) : base(propertyName, filterType, filterValue)
     {
     }

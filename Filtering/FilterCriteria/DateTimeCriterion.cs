@@ -7,6 +7,10 @@
 
   public class DateTimeCriterion<TFilterable> : DateTimeCriterionBase<TFilterable, DateTime> where TFilterable : class, IFilterable
   {
+    public DateTimeCriterion()
+    {
+    }
+
     public DateTimeCriterion(string propertyName, DateTimeFilterType filterType, DateTime filterValue) : base(propertyName, filterType, filterValue)
     {
     }

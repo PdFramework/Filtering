@@ -9,6 +9,10 @@
 
   public abstract class NullableNumericCriterionBase<TFilterable, TNumeric> : BaseCriterion<TFilterable, NumericFilterType, TNumeric> where TFilterable : class, IFilterable
   {
+    protected NullableNumericCriterionBase()
+    {
+    }
+
     protected NullableNumericCriterionBase(string propertyName, NumericFilterType filterType, TNumeric filterValue) : base(propertyName, filterType, filterValue)
     {
     }

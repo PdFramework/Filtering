@@ -7,9 +7,14 @@
   using System.Data.SqlClient;
   using System.Linq.Expressions;
 
+  // TODO: look to replace all short, int, long, decimal, float, double types with a more generic numeric type
   public abstract class NumericCriterionBase<TFilterable, TNumeric> : BaseCriterion<TFilterable, NumericFilterType, TNumeric> where TFilterable : class, IFilterable
                                                                                                                               where TNumeric : struct
   {
+    protected NumericCriterionBase()
+    {
+    }
+
     protected NumericCriterionBase(string propertyName, NumericFilterType filterType, TNumeric filterValue) : base(propertyName, filterType, filterValue)
     {
     }

@@ -8,6 +8,10 @@
 
   public class LongSetCriterion<TFilterable> : SetCriterionBase<TFilterable, long> where TFilterable : class, IFilterable
   {
+    public LongSetCriterion()
+    {
+    }
+
     public LongSetCriterion(string propertyName, SetFilterType filterType, IEnumerable<long> filterValue) : base(propertyName, filterType, filterValue)
     {
     }

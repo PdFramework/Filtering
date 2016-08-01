@@ -61,12 +61,6 @@
     <Compile Include="StringBuilderExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Filtering\Filtering.csproj">
-      <Project>{90DB5DA9-F39F-4D07-B27F-79A974B20A15}</Project>
-      <Name>Filtering</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="..\CodeAnalysis\FilteringKey.snk">
       <Link>FilteringKey.snk</Link>
     </None>
@@ -77,6 +71,12 @@
     <CodeAnalysisDictionary Include="..\CodeAnalysis\Dictionary.xml">
       <Link>Dictionary.xml</Link>
     </CodeAnalysisDictionary>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Filtering\Filtering.csproj">
+      <Project>{90DB5DA9-F39F-4D07-B27F-79A974B20A15}</Project>
+      <Name>Filtering</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -8,6 +8,10 @@
 
   public class NullableLongSetCriterion<TFilterable> : NullableSetCriterionBase<TFilterable, long?> where TFilterable : class, IFilterable
   {
+    public NullableLongSetCriterion()
+    {
+    }
+
     public NullableLongSetCriterion(string propertyName, SetFilterType filterType, IEnumerable<long?> filterValue) : base(propertyName, filterType, filterValue)
     {
     }

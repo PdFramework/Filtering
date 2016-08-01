@@ -7,6 +7,10 @@
 
   public class DecimalCriterion<TFilterable> : NumericCriterionBase<TFilterable, decimal> where TFilterable : class, IFilterable
   {
+    public DecimalCriterion()
+    {
+    }
+
     public DecimalCriterion(string propertyName, NumericFilterType filterType, decimal filterValue) : base(propertyName, filterType, filterValue)
     {
     }

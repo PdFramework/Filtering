@@ -7,6 +7,10 @@
 
   public class NullableDecimalCriterion<TFilterable> : NullableNumericCriterionBase<TFilterable, decimal?> where TFilterable : class, IFilterable
   {
+    public NullableDecimalCriterion()
+    {
+    }
+
     public NullableDecimalCriterion(string propertyName, NumericFilterType filterType, decimal? filterValue) : base(propertyName, filterType, filterValue)
     {
     }

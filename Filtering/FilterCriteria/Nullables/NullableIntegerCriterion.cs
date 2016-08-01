@@ -7,6 +7,10 @@
 
   public class NullableIntegerCriterion<TFilterable> : NullableNumericCriterionBase<TFilterable, int?> where TFilterable : class, IFilterable
   {
+    public NullableIntegerCriterion()
+    {
+    }
+
     public NullableIntegerCriterion(string propertyName, NumericFilterType filterType, int? filterValue) : base(propertyName, filterType, filterValue)
     {
     }

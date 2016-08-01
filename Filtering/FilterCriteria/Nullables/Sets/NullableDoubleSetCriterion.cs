@@ -8,6 +8,10 @@
 
   public class NullableDoubleSetCriterion<TFilterable> : NullableSetCriterionBase<TFilterable, double?> where TFilterable : class, IFilterable
   {
+    public NullableDoubleSetCriterion()
+    {
+    }
+
     public NullableDoubleSetCriterion(string propertyName, SetFilterType filterType, IEnumerable<double?> filterValue) : base(propertyName, filterType, filterValue)
     {
     }

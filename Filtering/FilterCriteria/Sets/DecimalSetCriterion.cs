@@ -8,6 +8,10 @@
 
   public class DecimalSetCriterion<TFilterable> : SetCriterionBase<TFilterable, decimal> where TFilterable : class, IFilterable
   {
+    public DecimalSetCriterion()
+    {
+    }
+
     public DecimalSetCriterion(string propertyName, SetFilterType filterType, IEnumerable<decimal> filterValue) : base(propertyName, filterType, filterValue)
     {
     }

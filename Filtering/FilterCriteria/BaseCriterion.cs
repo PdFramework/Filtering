@@ -28,7 +28,9 @@
     [JsonProperty(ItemTypeNameHandling = TypeNameHandling.Auto)]
     public new TFilterValue FilterValue { get; set; }
 
-    public BaseCriterion() { }
+    public BaseCriterion()
+    {
+    }
 
     public BaseCriterion(string propertyName, TFilterType filterType, TFilterValue filterValue)
     {
@@ -53,7 +55,9 @@
     [JsonProperty(ItemTypeNameHandling = TypeNameHandling.Auto)]
     public new TFilterValue FilterValue { get; set; }
 
-    public BaseCriterion() { }
+    public BaseCriterion()
+    {
+    }
 
     public BaseCriterion(string propertyName, TFilterType filterType, TFilterValue filterValue)
     {

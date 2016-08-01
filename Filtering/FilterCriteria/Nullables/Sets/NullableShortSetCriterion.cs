@@ -8,6 +8,10 @@
 
   public class NullableShortSetCriterion<TFilterable> : NullableSetCriterionBase<TFilterable, short?> where TFilterable : class, IFilterable
   {
+    public NullableShortSetCriterion()
+    {
+    }
+
     public NullableShortSetCriterion(string propertyName, SetFilterType filterType, IEnumerable<short?> filterValue) : base(propertyName, filterType, filterValue)
     {
     }

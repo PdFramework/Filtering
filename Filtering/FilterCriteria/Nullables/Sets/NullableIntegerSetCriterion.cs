@@ -8,6 +8,10 @@
 
   public class NullableIntegerSetCriterion<TFilterable> : NullableSetCriterionBase<TFilterable, int?> where TFilterable : class, IFilterable
   {
+    public NullableIntegerSetCriterion()
+    {
+    }
+
     public NullableIntegerSetCriterion(string propertyName, SetFilterType filterType, IEnumerable<int?> filterValue) : base(propertyName, filterType, filterValue)
     {
     }

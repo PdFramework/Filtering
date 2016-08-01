@@ -7,6 +7,10 @@
 
   public class NullableShortCriterion<TFilterable> : NullableNumericCriterionBase<TFilterable, short?> where TFilterable : class, IFilterable
   {
+    public NullableShortCriterion()
+    {
+    }
+
     public NullableShortCriterion(string propertyName, NumericFilterType filterType, short? filterValue) : base(propertyName, filterType, filterValue)
     {
     }

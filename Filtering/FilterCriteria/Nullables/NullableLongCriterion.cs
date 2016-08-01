@@ -7,6 +7,10 @@
 
   public class NullableLongCriterion<TFilterable> : NullableNumericCriterionBase<TFilterable, long?> where TFilterable : class, IFilterable
   {
+    public NullableLongCriterion()
+    {
+    }
+
     public NullableLongCriterion(string propertyName, NumericFilterType filterType, long? filterValue) : base(propertyName, filterType, filterValue)
     {
     }

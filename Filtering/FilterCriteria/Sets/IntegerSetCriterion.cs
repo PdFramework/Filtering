@@ -8,6 +8,10 @@
 
   public class IntegerSetCriterion<TFilterable> : SetCriterionBase<TFilterable, int> where TFilterable : class, IFilterable
   {
+    public IntegerSetCriterion()
+    {
+    }
+
     public IntegerSetCriterion(string propertyName, SetFilterType filterType, IEnumerable<int> filterValue) : base(propertyName, filterType, filterValue)
     {
     }
