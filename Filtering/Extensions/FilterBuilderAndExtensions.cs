@@ -131,25 +131,29 @@
     }
     #endregion
 
-    #region decimal
-    public static CompoundFilterBuilder<TFilterable> And<TFilterable>(this SimpleFilterBuilder<TFilterable> simpleFilterBuilder, Expression<Func<TFilterable, decimal>> propertyNameExpression, NumericFilterType filterType, decimal filterValue) where TFilterable : class, IFilterable
+    #region numeric
+    public static CompoundFilterBuilder<TFilterable> And<TFilterable, TNumeric>(this SimpleFilterBuilder<TFilterable> simpleFilterBuilder, Expression<Func<TFilterable, TNumeric>> propertyNameExpression, NumericFilterType filterType, TNumeric filterValue) where TFilterable : class, IFilterable
+                                                                                                                                                                                                                                                                where TNumeric : struct
     {
-      return simpleFilterBuilder.And(new DecimalCriterion<TFilterable>(propertyNameExpression, filterType, filterValue));
+      return simpleFilterBuilder.And(new NumericCriterion<TFilterable, TNumeric>(propertyNameExpression, filterType, filterValue));
     }
 
-    public static CompoundFilterBuilder<TFilterable> And<TFilterable>(this SimpleFilterBuilder<TFilterable> simpleFilterBuilder, string propertyName, NumericFilterType filterType, decimal filterValue) where TFilterable : class, IFilterable
+    public static CompoundFilterBuilder<TFilterable> And<TFilterable, TNumeric>(this SimpleFilterBuilder<TFilterable> simpleFilterBuilder, string propertyName, NumericFilterType filterType, TNumeric filterValue) where TFilterable : class, IFilterable
+                                                                                                                                                                                                                    where TNumeric : struct
     {
-      return simpleFilterBuilder.And(new DecimalCriterion<TFilterable>(propertyName, filterType, filterValue));
+      return simpleFilterBuilder.And(new NumericCriterion<TFilterable, TNumeric>(propertyName, filterType, filterValue));
     }
 
-    public static CompoundFilterBuilder<TFilterable> And<TFilterable>(this SimpleFilterBuilder<TFilterable> simpleFilterBuilder, Expression<Func<TFilterable, decimal>> propertyNameExpression, SetFilterType filterType, IEnumerable<decimal> filterValue) where TFilterable : class, IFilterable
+    public static CompoundFilterBuilder<TFilterable> And<TFilterable, TNumeric>(this SimpleFilterBuilder<TFilterable> simpleFilterBuilder, Expression<Func<TFilterable, TNumeric>> propertyNameExpression, SetFilterType filterType, IEnumerable<TNumeric> filterValue) where TFilterable : class, IFilterable
+                                                                                                                                                                                                                                                                        where TNumeric : struct
     {
-      return simpleFilterBuilder.And(new DecimalSetCriterion<TFilterable>(propertyNameExpression, filterType, filterValue));
+      return simpleFilterBuilder.And(new NumericSetCriterion<TFilterable, TNumeric>(propertyNameExpression, filterType, filterValue));
     }
 
-    public static CompoundFilterBuilder<TFilterable> And<TFilterable>(this SimpleFilterBuilder<TFilterable> simpleFilterBuilder, string propertyName, SetFilterType filterType, IEnumerable<decimal> filterValue) where TFilterable : class, IFilterable
+    public static CompoundFilterBuilder<TFilterable> And<TFilterable, TNumeric>(this SimpleFilterBuilder<TFilterable> simpleFilterBuilder, string propertyName, SetFilterType filterType, IEnumerable<TNumeric> filterValue) where TFilterable : class, IFilterable
+                                                                                                                                                                                                                             where TNumeric : struct
     {
-      return simpleFilterBuilder.And(new DecimalSetCriterion<TFilterable>(propertyName, filterType, filterValue));
+      return simpleFilterBuilder.And(new NumericSetCriterion<TFilterable, TNumeric>(propertyName, filterType, filterValue));
     }
 
     public static CompoundFilterBuilder<TFilterable> And<TFilterable>(this SimpleFilterBuilder<TFilterable> simpleFilterBuilder, Expression<Func<TFilterable, decimal?>> propertyNameExpression, NumericFilterType filterType, decimal? filterValue) where TFilterable : class, IFilterable
@@ -174,26 +178,6 @@
     #endregion
 
     #region double
-    public static CompoundFilterBuilder<TFilterable> And<TFilterable>(this SimpleFilterBuilder<TFilterable> simpleFilterBuilder, Expression<Func<TFilterable, double>> propertyNameExpression, NumericFilterType filterType, double filterValue) where TFilterable : class, IFilterable
-    {
-      return simpleFilterBuilder.And(new DoubleCriterion<TFilterable>(propertyNameExpression, filterType, filterValue));
-    }
-
-    public static CompoundFilterBuilder<TFilterable> And<TFilterable>(this SimpleFilterBuilder<TFilterable> simpleFilterBuilder, string propertyName, NumericFilterType filterType, double filterValue) where TFilterable : class, IFilterable
-    {
-      return simpleFilterBuilder.And(new DoubleCriterion<TFilterable>(propertyName, filterType, filterValue));
-    }
-
-    public static CompoundFilterBuilder<TFilterable> And<TFilterable>(this SimpleFilterBuilder<TFilterable> simpleFilterBuilder, Expression<Func<TFilterable, double>> propertyNameExpression, SetFilterType filterType, IEnumerable<double> filterValue) where TFilterable : class, IFilterable
-    {
-      return simpleFilterBuilder.And(new DoubleSetCriterion<TFilterable>(propertyNameExpression, filterType, filterValue));
-    }
-
-    public static CompoundFilterBuilder<TFilterable> And<TFilterable>(this SimpleFilterBuilder<TFilterable> simpleFilterBuilder, string propertyName, SetFilterType filterType, IEnumerable<double> filterValue) where TFilterable : class, IFilterable
-    {
-      return simpleFilterBuilder.And(new DoubleSetCriterion<TFilterable>(propertyName, filterType, filterValue));
-    }
-
     public static CompoundFilterBuilder<TFilterable> And<TFilterable>(this SimpleFilterBuilder<TFilterable> simpleFilterBuilder, Expression<Func<TFilterable, double?>> propertyNameExpression, NumericFilterType filterType, double? filterValue) where TFilterable : class, IFilterable
     {
       return simpleFilterBuilder.And(new NullableDoubleCriterion<TFilterable>(propertyNameExpression, filterType, filterValue));
@@ -216,26 +200,6 @@
     #endregion
 
     #region float
-    public static CompoundFilterBuilder<TFilterable> And<TFilterable>(this SimpleFilterBuilder<TFilterable> simpleFilterBuilder, Expression<Func<TFilterable, float>> propertyNameExpression, NumericFilterType filterType, float filterValue) where TFilterable : class, IFilterable
-    {
-      return simpleFilterBuilder.And(new FloatCriterion<TFilterable>(propertyNameExpression, filterType, filterValue));
-    }
-
-    public static CompoundFilterBuilder<TFilterable> And<TFilterable>(this SimpleFilterBuilder<TFilterable> simpleFilterBuilder, string propertyName, NumericFilterType filterType, float filterValue) where TFilterable : class, IFilterable
-    {
-      return simpleFilterBuilder.And(new FloatCriterion<TFilterable>(propertyName, filterType, filterValue));
-    }
-
-    public static CompoundFilterBuilder<TFilterable> And<TFilterable>(this SimpleFilterBuilder<TFilterable> simpleFilterBuilder, Expression<Func<TFilterable, float>> propertyNameExpression, SetFilterType filterType, IEnumerable<float> filterValue) where TFilterable : class, IFilterable
-    {
-      return simpleFilterBuilder.And(new FloatSetCriterion<TFilterable>(propertyNameExpression, filterType, filterValue));
-    }
-
-    public static CompoundFilterBuilder<TFilterable> And<TFilterable>(this SimpleFilterBuilder<TFilterable> simpleFilterBuilder, string propertyName, SetFilterType filterType, IEnumerable<float> filterValue) where TFilterable : class, IFilterable
-    {
-      return simpleFilterBuilder.And(new FloatSetCriterion<TFilterable>(propertyName, filterType, filterValue));
-    }
-
     public static CompoundFilterBuilder<TFilterable> And<TFilterable>(this SimpleFilterBuilder<TFilterable> simpleFilterBuilder, Expression<Func<TFilterable, float?>> propertyNameExpression, NumericFilterType filterType, float? filterValue) where TFilterable : class, IFilterable
     {
       return simpleFilterBuilder.And(new NullableFloatCriterion<TFilterable>(propertyNameExpression, filterType, filterValue));
@@ -258,26 +222,6 @@
     #endregion
 
     #region int
-    public static CompoundFilterBuilder<TFilterable> And<TFilterable>(this SimpleFilterBuilder<TFilterable> simpleFilterBuilder, Expression<Func<TFilterable, int>> propertyNameExpression, NumericFilterType filterType, int filterValue) where TFilterable : class, IFilterable
-    {
-      return simpleFilterBuilder.And(new IntegerCriterion<TFilterable>(propertyNameExpression, filterType, filterValue));
-    }
-
-    public static CompoundFilterBuilder<TFilterable> And<TFilterable>(this SimpleFilterBuilder<TFilterable> simpleFilterBuilder, string propertyName, NumericFilterType filterType, int filterValue) where TFilterable : class, IFilterable
-    {
-      return simpleFilterBuilder.And(new IntegerCriterion<TFilterable>(propertyName, filterType, filterValue));
-    }
-
-    public static CompoundFilterBuilder<TFilterable> And<TFilterable>(this SimpleFilterBuilder<TFilterable> simpleFilterBuilder, Expression<Func<TFilterable, int>> propertyNameExpression, SetFilterType filterType, IEnumerable<int> filterValue) where TFilterable : class, IFilterable
-    {
-      return simpleFilterBuilder.And(new IntegerSetCriterion<TFilterable>(propertyNameExpression, filterType, filterValue));
-    }
-
-    public static CompoundFilterBuilder<TFilterable> And<TFilterable>(this SimpleFilterBuilder<TFilterable> simpleFilterBuilder, string propertyName, SetFilterType filterType, IEnumerable<int> filterValue) where TFilterable : class, IFilterable
-    {
-      return simpleFilterBuilder.And(new IntegerSetCriterion<TFilterable>(propertyName, filterType, filterValue));
-    }
-
     public static CompoundFilterBuilder<TFilterable> And<TFilterable>(this SimpleFilterBuilder<TFilterable> simpleFilterBuilder, Expression<Func<TFilterable, int?>> propertyNameExpression, NumericFilterType filterType, int? filterValue) where TFilterable : class, IFilterable
     {
       return simpleFilterBuilder.And(new NullableIntegerCriterion<TFilterable>(propertyNameExpression, filterType, filterValue));
@@ -300,26 +244,6 @@
     #endregion
 
     #region long
-    public static CompoundFilterBuilder<TFilterable> And<TFilterable>(this SimpleFilterBuilder<TFilterable> simpleFilterBuilder, Expression<Func<TFilterable, long>> propertyNameExpression, NumericFilterType filterType, long filterValue) where TFilterable : class, IFilterable
-    {
-      return simpleFilterBuilder.And(new LongCriterion<TFilterable>(propertyNameExpression, filterType, filterValue));
-    }
-
-    public static CompoundFilterBuilder<TFilterable> And<TFilterable>(this SimpleFilterBuilder<TFilterable> simpleFilterBuilder, string propertyName, NumericFilterType filterType, long filterValue) where TFilterable : class, IFilterable
-    {
-      return simpleFilterBuilder.And(new LongCriterion<TFilterable>(propertyName, filterType, filterValue));
-    }
-
-    public static CompoundFilterBuilder<TFilterable> And<TFilterable>(this SimpleFilterBuilder<TFilterable> simpleFilterBuilder, Expression<Func<TFilterable, long>> propertyNameExpression, SetFilterType filterType, IEnumerable<long> filterValue) where TFilterable : class, IFilterable
-    {
-      return simpleFilterBuilder.And(new LongSetCriterion<TFilterable>(propertyNameExpression, filterType, filterValue));
-    }
-
-    public static CompoundFilterBuilder<TFilterable> And<TFilterable>(this SimpleFilterBuilder<TFilterable> simpleFilterBuilder, string propertyName, SetFilterType filterType, IEnumerable<long> filterValue) where TFilterable : class, IFilterable
-    {
-      return simpleFilterBuilder.And(new LongSetCriterion<TFilterable>(propertyName, filterType, filterValue));
-    }
-
     public static CompoundFilterBuilder<TFilterable> And<TFilterable>(this SimpleFilterBuilder<TFilterable> simpleFilterBuilder, Expression<Func<TFilterable, long?>> propertyNameExpression, NumericFilterType filterType, long? filterValue) where TFilterable : class, IFilterable
     {
       return simpleFilterBuilder.And(new NullableLongCriterion<TFilterable>(propertyNameExpression, filterType, filterValue));
@@ -342,26 +266,6 @@
     #endregion
 
     #region short
-    public static CompoundFilterBuilder<TFilterable> And<TFilterable>(this SimpleFilterBuilder<TFilterable> simpleFilterBuilder, Expression<Func<TFilterable, short>> propertyNameExpression, NumericFilterType filterType, short filterValue) where TFilterable : class, IFilterable
-    {
-      return simpleFilterBuilder.And(new ShortCriterion<TFilterable>(propertyNameExpression, filterType, filterValue));
-    }
-
-    public static CompoundFilterBuilder<TFilterable> And<TFilterable>(this SimpleFilterBuilder<TFilterable> simpleFilterBuilder, string propertyName, NumericFilterType filterType, short filterValue) where TFilterable : class, IFilterable
-    {
-      return simpleFilterBuilder.And(new ShortCriterion<TFilterable>(propertyName, filterType, filterValue));
-    }
-
-    public static CompoundFilterBuilder<TFilterable> And<TFilterable>(this SimpleFilterBuilder<TFilterable> simpleFilterBuilder, Expression<Func<TFilterable, short>> propertyNameExpression, SetFilterType filterType, IEnumerable<short> filterValue) where TFilterable : class, IFilterable
-    {
-      return simpleFilterBuilder.And(new ShortSetCriterion<TFilterable>(propertyNameExpression, filterType, filterValue));
-    }
-
-    public static CompoundFilterBuilder<TFilterable> And<TFilterable>(this SimpleFilterBuilder<TFilterable> simpleFilterBuilder, string propertyName, SetFilterType filterType, IEnumerable<short> filterValue) where TFilterable : class, IFilterable
-    {
-      return simpleFilterBuilder.And(new ShortSetCriterion<TFilterable>(propertyName, filterType, filterValue));
-    }
-
     public static CompoundFilterBuilder<TFilterable> And<TFilterable>(this SimpleFilterBuilder<TFilterable> simpleFilterBuilder, Expression<Func<TFilterable, short?>> propertyNameExpression, NumericFilterType filterType, short? filterValue) where TFilterable : class, IFilterable
     {
       return simpleFilterBuilder.And(new NullableShortCriterion<TFilterable>(propertyNameExpression, filterType, filterValue));

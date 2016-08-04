@@ -43,7 +43,7 @@
     {
     }
 
-    internal override string CreateWhere(IDictionary<string, string> objectPropertyToColumnNameMapper, int parameterIndex) { throw new NotImplementedException(); }
+    internal override string CreateWhere(IDictionary<string, string> objectPropertyToColumnNameMapper, int parameterIndex) { throw new NotImplementedException($"The library is unaware of how to turn {PropertyName} of type {typeof(TFilterValue)} into a where clause."); }
     internal override IEnumerable<SqlParameter> CreateParameters(int startingParameterIndex) { throw new NotImplementedException(); }
   }
 
@@ -70,7 +70,7 @@
     {
     }
 
-    internal override string CreateWhere(IDictionary<string, string> objectPropertyToColumnNameMapper, int parameterIndex) { throw new NotImplementedException(); }
+    internal override string CreateWhere(IDictionary<string, string> objectPropertyToColumnNameMapper, int parameterIndex) { throw new NotImplementedException($"The library is unaware of how to turn {PropertyName} of type {typeof(TFilterValue)} into a where clause."); }
     internal override IEnumerable<SqlParameter> CreateParameters(int startingParameterIndex) { throw new NotImplementedException(); }
   }
 }

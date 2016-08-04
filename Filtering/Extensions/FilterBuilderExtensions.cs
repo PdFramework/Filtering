@@ -25,7 +25,7 @@
     {
       if (filterBuilder == null) throw new ArgumentNullException(nameof(filterBuilder));
 
-      filterBuilder.PageSize = numberToTake;
+      filterBuilder.Take = numberToTake;
       return filterBuilder;
     }
 
@@ -33,23 +33,23 @@
     {
       if(filterBuilder == null) throw new ArgumentNullException(nameof(filterBuilder));
 
-      filterBuilder.PageSize = numberToTake;
+      filterBuilder.Take = numberToTake;
       return filterBuilder;
     }
 
-    public static BaseFilterBuilder SkipPages(this BaseFilterBuilder filterBuilder, int pagesToSkip)
+    public static BaseFilterBuilder SkipPages(this BaseFilterBuilder filterBuilder, int recordsToSkip)
     {
       if (filterBuilder == null) throw new ArgumentNullException(nameof(filterBuilder));
 
-      filterBuilder.PageIndex = pagesToSkip;
+      filterBuilder.Skip = recordsToSkip;
       return filterBuilder;
     }
 
-    public static BaseFilterBuilder<TFilterable> SkipPages<TFilterable>(this BaseFilterBuilder<TFilterable> filterBuilder, int pagesToSkip) where TFilterable : class, IFilterable
+    public static BaseFilterBuilder<TFilterable> SkipPages<TFilterable>(this BaseFilterBuilder<TFilterable> filterBuilder, int recordsToSkip) where TFilterable : class, IFilterable
     {
       if (filterBuilder == null) throw new ArgumentNullException(nameof(filterBuilder));
 
-      filterBuilder.PageIndex = pagesToSkip;
+      filterBuilder.Skip = recordsToSkip;
       return filterBuilder;
     }
 

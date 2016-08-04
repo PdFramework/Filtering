@@ -129,11 +129,11 @@ namespace Framework.Filtering.UnitTests
       const int pageSize = 100;
       using (var context = new TestDbContext())
       {
-        var filterBuilder = new FilterBuilder<TestClass> { PageIndex = pageIndex, PageSize = pageSize };
+        var filterBuilder = new FilterBuilder<TestClass> { Skip = pageIndex, Take = pageSize };
 
         var filter = new Filter<TestClass>(context, filterBuilder);
 
-        Assert.AreEqual($"SELECT [Id] AS [Id], [Name] AS [Name], [StartDateTime] AS [StartDateTime], [EndDateTimeOffset] AS [EndDateTimeOffset], [IsActive] AS [IsActive] FROM [dbo].[TestClasses] ORDER BY [Id] OFFSET {pageIndex * pageSize} ROWS FETCH NEXT {pageSize} ROWS ONLY", filter.SqlQueryStringBuilder.ToString());
+        Assert.AreEqual($"SELECT [Id] AS [Id], [Name] AS [Name], [StartDateTime] AS [StartDateTime], [EndDateTimeOffset] AS [EndDateTimeOffset], [IsActive] AS [IsActive] FROM [dbo].[TestClasses] ORDER BY [Id] OFFSET {pageIndex} ROWS FETCH NEXT {pageSize} ROWS ONLY", filter.SqlQueryStringBuilder.ToString());
       }
     }
 
@@ -199,7 +199,7 @@ namespace Framework.Filtering.UnitTests
       {
         var filterBuilder = new FilterBuilder<TestClass>()
                                                   .Where(tc => tc.Id, NumericFilterType.Equals, 1)
-                                                  .Or(new IntegerCriterion<TestClass>(t => t.Id, NumericFilterType.Equals, 2)
+                                                  .Or(new NumericCriterion<TestObject, int>(t => t.Id, NumericFilterType.Equals, 2)
                                                             .And(new StringCriterion<TestClass>(t => t.Name, StringFilterType.StartsWith, "Foo")))
                                                   .ReturnAllResults();
 
@@ -275,7 +275,7 @@ namespace Framework.Filtering.UnitTests
       {
         var filterBuilder = new FilterBuilder<TestClass>()
                                                   .Where(tc => tc.Id, NumericFilterType.Equals, 1)
-                                                  .Or(new IntegerCriterion<TestClass>(t => t.Id, NumericFilterType.Equals, 2)
+                                                  .Or(new NumericCriterion<TestObject, int>(t => t.Id, NumericFilterType.Equals, 2)
                                                             .And(new StringCriterion<TestClass>(t => t.Name, StringFilterType.StartsWith, "Foo")));
 
         var filter = new Filter<TestClass>(context, filterBuilder);
@@ -332,7 +332,7 @@ namespace Framework.Filtering.UnitTests
 
         var filter = new Filter<CustomTestClass>(context, filterBuilder);
 
-        Assert.AreEqual($"SELECT [StartDateTime] AS [StartDateTime], [Id] AS [Id], [{Contstants.CustomColumnName}] AS [Name], [EndDateTimeOffset] AS [EndDateTimeOffset], [IsActive] AS [IsActive] FROM [{Contstants.CustomSchemaName}].[{Contstants.CustomTableName}] ORDER BY [{Contstants.CustomKeyName}] OFFSET {pageIndex * pageSize} ROWS FETCH NEXT {pageSize} ROWS ONLY", filter.SqlQueryStringBuilder.ToString());
+        Assert.AreEqual($"SELECT [StartDateTime] AS [StartDateTime], [Id] AS [Id], [{Contstants.CustomColumnName}] AS [Name], [EndDateTimeOffset] AS [EndDateTimeOffset], [IsActive] AS [IsActive] FROM [{Contstants.CustomSchemaName}].[{Contstants.CustomTableName}] ORDER BY [{Contstants.CustomKeyName}] OFFSET {pageIndex} ROWS FETCH NEXT {pageSize} ROWS ONLY", filter.SqlQueryStringBuilder.ToString());
       }
     }
 
@@ -398,7 +398,7 @@ namespace Framework.Filtering.UnitTests
       {
         var filterBuilder = new FilterBuilder<CustomTestClass>()
                                                   .Where(tc => tc.Id, NumericFilterType.Equals, 1)
-                                                  .Or(new IntegerCriterion<CustomTestClass>(t => t.Id, NumericFilterType.Equals, 2)
+                                                  .Or(new NumericCriterion<TestObject, int>(t => t.Id, NumericFilterType.Equals, 2)
                                                             .And(new StringCriterion<CustomTestClass>(t => t.Name, StringFilterType.StartsWith, "Foo")))
                                                   .ReturnAllResults();
 
@@ -474,7 +474,7 @@ namespace Framework.Filtering.UnitTests
       {
         var filterBuilder = new FilterBuilder<CustomTestClass>()
                                                   .Where(tc => tc.Id, NumericFilterType.Equals, 1)
-                                                  .Or(new IntegerCriterion<CustomTestClass>(t => t.Id, NumericFilterType.Equals, 2)
+                                                  .Or(new NumericCriterion<TestObject, int>(t => t.Id, NumericFilterType.Equals, 2)
                                                             .And(new StringCriterion<CustomTestClass>(t => t.Name, StringFilterType.StartsWith, "Foo")));
 
         var filter = new Filter<CustomTestClass>(context, filterBuilder);

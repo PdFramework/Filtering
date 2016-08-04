@@ -11,20 +11,19 @@
   {
     internal static int? GetTotalNumberOfResults<TFilterable>(this Filter<TFilterable> filter, BaseFilterBuilder<TFilterable> filterBuilder, IObjectContextAdapter dbContext) where TFilterable : class, IFilterable
     {
-      if (filterBuilder.PageIndex < 1) return null;
+      if (filterBuilder.Skip != 0) return null;
 
       var countQueryBuilder = new Filter<TFilterable>(filter.DbObjectMapper).CreateCountQueryBuilder(dbContext, filterBuilder);
-
-      return dbContext.ObjectContext.ExecuteStoreQuery<int>(countQueryBuilder.SqlQueryStringBuilder.ToString(), countQueryBuilder.Parameters).First();
+      return dbContext.ObjectContext.ExecuteStoreQuery<int>(countQueryBuilder.SqlQueryStringBuilder.ToString(), countQueryBuilder.Parameters.ToArray()).First();
     }
 
     internal static async Task<int?> GetTotalNumberOfResultsAsync<TFilterable>(this Filter<TFilterable> filter, BaseFilterBuilder<TFilterable> filterBuilder, IObjectContextAdapter dbContext) where TFilterable : class, IFilterable
     {
-      if (filterBuilder.PageIndex < 1) return null;
+      if (filterBuilder.Skip != 0) return null;
 
       var countQueryBuilder = new Filter<TFilterable>(filter.DbObjectMapper).CreateCountQueryBuilder(dbContext, filterBuilder);
 
-      return (await dbContext.ObjectContext.ExecuteStoreQueryAsync<int>(countQueryBuilder.SqlQueryStringBuilder.ToString(), countQueryBuilder.Parameters)).First();
+      return (await dbContext.ObjectContext.ExecuteStoreQueryAsync<int>(countQueryBuilder.SqlQueryStringBuilder.ToString(), countQueryBuilder.Parameters.ToArray())).First();
     }
 
     internal static Filter<TFilterable> CreateCountQueryBuilder<TFilterable>(this Filter<TFilterable> filter, IObjectContextAdapter dbContext, BaseFilterBuilder<TFilterable> filterBuilder) where TFilterable : class, IFilterable
@@ -94,7 +93,7 @@
       if (!filterBuilder.ReturnAllResults)
       {
         filter.SqlQueryStringBuilder
-              .SafeSqlAppend($"OFFSET {filterBuilder.PageIndex * filterBuilder.PageSize} ROWS FETCH NEXT {filterBuilder.PageSize} ROWS ONLY");
+              .SafeSqlAppend($"OFFSET {filterBuilder.Skip} ROWS FETCH NEXT {filterBuilder.Take} ROWS ONLY");
       }
 
       return filter;

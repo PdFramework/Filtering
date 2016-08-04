@@ -7,19 +7,18 @@
   using System.Data.SqlClient;
   using System.Linq.Expressions;
 
-  // TODO: look to replace all short, int, long, decimal, float, double types with a more generic numeric type
-  public abstract class NumericCriterionBase<TFilterable, TNumeric> : BaseCriterion<TFilterable, NumericFilterType, TNumeric> where TFilterable : class, IFilterable
-                                                                                                                              where TNumeric : struct
+  public class NumericCriterion<TFilterable, TNumeric> : BaseCriterion<TFilterable, NumericFilterType, TNumeric> where TFilterable : class, IFilterable
+                                                                                                                 where TNumeric : struct
   {
-    protected NumericCriterionBase()
+    public NumericCriterion()
     {
     }
 
-    protected NumericCriterionBase(string propertyName, NumericFilterType filterType, TNumeric filterValue) : base(propertyName, filterType, filterValue)
+    public NumericCriterion(string propertyName, NumericFilterType filterType, TNumeric filterValue) : base(propertyName, filterType, filterValue)
     {
     }
 
-    protected NumericCriterionBase(Expression<Func<TFilterable, TNumeric>> propertyNameExpression, NumericFilterType filterType, TNumeric filterValue) : base(propertyNameExpression, filterType, filterValue)
+    public NumericCriterion(Expression<Func<TFilterable, TNumeric>> propertyNameExpression, NumericFilterType filterType, TNumeric filterValue) : base(propertyNameExpression, filterType, filterValue)
     {
     }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Framework.Filtering.UnitTests.TestObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PeinearyDevelopment.Framework.Filtering;
@@ -290,9 +291,9 @@ namespace Framework.Filtering.UnitTests
     public void DecimalTests()
     {
       var a = new FilterBuilder<TestObject>()
-                           .Where(new DecimalCriterion<TestObject>(to => to.DecimalProperty, NumericFilterType.Equals, 1))
-                           .And(new DecimalCriterion<TestObject>(to => to.DecimalProperty, NumericFilterType.Equals, 1))
-                           .Or(new DecimalCriterion<TestObject>(to => to.DecimalProperty, NumericFilterType.Equals, 1));
+                           .Where(new NumericCriterion<TestObject, decimal>(to => to.DecimalProperty, NumericFilterType.Equals, 1))
+                           .And(new NumericCriterion<TestObject, decimal>(to => to.DecimalProperty, NumericFilterType.Equals, 1))
+                           .Or(new NumericCriterion<TestObject, decimal>(to => to.DecimalProperty, NumericFilterType.Equals, 1));
       var b = new FilterBuilder<TestObject>()
                            .Where(to => to.DecimalProperty, NumericFilterType.Equals, 1)
                            .And(to => to.DecimalProperty, NumericFilterType.Equals, 1)
@@ -316,9 +317,9 @@ namespace Framework.Filtering.UnitTests
                            .Or("NullableDecimalProperty", NumericFilterType.Equals, null);
 
       var g = new FilterBuilder<TestObject>()
-                           .Where(new DecimalCriterion<TestObject>(to => to.DecimalProperty, NumericFilterType.Equals, 1))
-                           .Or(new DecimalCriterion<TestObject>(to => to.DecimalProperty, NumericFilterType.Equals, 1))
-                           .And(new DecimalCriterion<TestObject>(to => to.DecimalProperty, NumericFilterType.Equals, 1));
+                           .Where(new NumericCriterion<TestObject, decimal>(to => to.DecimalProperty, NumericFilterType.Equals, 1))
+                           .Or(new NumericCriterion<TestObject, decimal>(to => to.DecimalProperty, NumericFilterType.Equals, 1))
+                           .And(new NumericCriterion<TestObject, decimal>(to => to.DecimalProperty, NumericFilterType.Equals, 1));
       var h = new FilterBuilder<TestObject>()
                            .Where(to => to.DecimalProperty, NumericFilterType.Equals, 1)
                            .Or(to => to.DecimalProperty, NumericFilterType.Equals, 1)
@@ -342,9 +343,9 @@ namespace Framework.Filtering.UnitTests
                            .And("NullableDecimalProperty", NumericFilterType.Equals, null);
 
       var m = new FilterBuilder<TestObject>()
-                           .Where(new DecimalSetCriterion<TestObject>(to => to.DecimalProperty, SetFilterType.In, new[] { (decimal)1 }))
-                           .And(new DecimalSetCriterion<TestObject>(to => to.DecimalProperty, SetFilterType.In, new[] { (decimal)1 }))
-                           .Or(new DecimalSetCriterion<TestObject>(to => to.DecimalProperty, SetFilterType.In, new[] { (decimal)1 }));
+                           .Where(new NumericSetCriterion<TestObject, decimal>(to => to.DecimalProperty, SetFilterType.In, new[] { (decimal)1 }))
+                           .And(new NumericSetCriterion<TestObject, decimal>(to => to.DecimalProperty, SetFilterType.In, new[] { (decimal)1 }))
+                           .Or(new NumericSetCriterion<TestObject, decimal>(to => to.DecimalProperty, SetFilterType.In, new[] { (decimal)1 }));
       var n = new FilterBuilder<TestObject>()
                            .Where(to => to.DecimalProperty, SetFilterType.In, new[] { (decimal)1 })
                            .And(to => to.DecimalProperty, SetFilterType.In, new[] { (decimal)1 })
@@ -368,9 +369,9 @@ namespace Framework.Filtering.UnitTests
                            .Or("NullableDecimalProperty", SetFilterType.In, new[] { (decimal?)null });
 
       var s = new FilterBuilder<TestObject>()
-                           .Where(new DecimalSetCriterion<TestObject>(to => to.DecimalProperty, SetFilterType.In, new[] { (decimal)1 }))
-                           .Or(new DecimalSetCriterion<TestObject>(to => to.DecimalProperty, SetFilterType.In, new[] { (decimal)1 }))
-                           .And(new DecimalSetCriterion<TestObject>(to => to.DecimalProperty, SetFilterType.In, new[] { (decimal)1 }));
+                           .Where(new NumericSetCriterion<TestObject, decimal>(to => to.DecimalProperty, SetFilterType.In, new[] { (decimal)1 }))
+                           .Or(new NumericSetCriterion<TestObject, decimal>(to => to.DecimalProperty, SetFilterType.In, new[] { (decimal)1 }))
+                           .And(new NumericSetCriterion<TestObject, decimal>(to => to.DecimalProperty, SetFilterType.In, new[] { (decimal)1 }));
       var t = new FilterBuilder<TestObject>()
                            .Where(to => to.DecimalProperty, SetFilterType.In, new[] { (decimal)1 })
                            .Or(to => to.DecimalProperty, SetFilterType.In, new[] { (decimal)1 })
@@ -398,9 +399,9 @@ namespace Framework.Filtering.UnitTests
     public void DoubleTests()
     {
       var a = new FilterBuilder<TestObject>()
-                           .Where(new DoubleCriterion<TestObject>(to => to.DoubleProperty, NumericFilterType.Equals, 1))
-                           .And(new DoubleCriterion<TestObject>(to => to.DoubleProperty, NumericFilterType.Equals, 1))
-                           .Or(new DoubleCriterion<TestObject>(to => to.DoubleProperty, NumericFilterType.Equals, 1));
+                           .Where(new NumericCriterion<TestObject, double>(to => to.DoubleProperty, NumericFilterType.Equals, 1))
+                           .And(new NumericCriterion<TestObject, double>(to => to.DoubleProperty, NumericFilterType.Equals, 1))
+                           .Or(new NumericCriterion<TestObject, double>(to => to.DoubleProperty, NumericFilterType.Equals, 1));
       var b = new FilterBuilder<TestObject>()
                            .Where(to => to.DoubleProperty, NumericFilterType.Equals, 1)
                            .And(to => to.DoubleProperty, NumericFilterType.Equals, 1)
@@ -424,9 +425,9 @@ namespace Framework.Filtering.UnitTests
                            .Or("NullableDoubleProperty", NumericFilterType.Equals, null);
 
       var g = new FilterBuilder<TestObject>()
-                           .Where(new DoubleCriterion<TestObject>(to => to.DoubleProperty, NumericFilterType.Equals, 1))
-                           .Or(new DoubleCriterion<TestObject>(to => to.DoubleProperty, NumericFilterType.Equals, 1))
-                           .And(new DoubleCriterion<TestObject>(to => to.DoubleProperty, NumericFilterType.Equals, 1));
+                           .Where(new NumericCriterion<TestObject, double>(to => to.DoubleProperty, NumericFilterType.Equals, 1))
+                           .Or(new NumericCriterion<TestObject, double >(to => to.DoubleProperty, NumericFilterType.Equals, 1))
+                           .And(new NumericCriterion<TestObject, double>(to => to.DoubleProperty, NumericFilterType.Equals, 1));
       var h = new FilterBuilder<TestObject>()
                            .Where(to => to.DoubleProperty, NumericFilterType.Equals, 1)
                            .Or(to => to.DoubleProperty, NumericFilterType.Equals, 1)
@@ -450,9 +451,9 @@ namespace Framework.Filtering.UnitTests
                            .And("NullableDoubleProperty", NumericFilterType.Equals, null);
 
       var m = new FilterBuilder<TestObject>()
-                     .Where(new DoubleSetCriterion<TestObject>(to => to.DoubleProperty, SetFilterType.In, new[] { 1.0 }))
-                     .And(new DoubleSetCriterion<TestObject>(to => to.DoubleProperty, SetFilterType.In, new[] { 1.0 }))
-                     .Or(new DoubleSetCriterion<TestObject>(to => to.DoubleProperty, SetFilterType.In, new[] { 1.0 }));
+                     .Where(new NumericSetCriterion<TestObject, double>(to => to.DoubleProperty, SetFilterType.In, new[] { 1.0 }))
+                     .And(new NumericSetCriterion<TestObject, double>(to => to.DoubleProperty, SetFilterType.In, new[] { 1.0 }))
+                     .Or(new NumericSetCriterion<TestObject, double>(to => to.DoubleProperty, SetFilterType.In, new[] { 1.0 }));
       var n = new FilterBuilder<TestObject>()
                            .Where(to => to.DoubleProperty, SetFilterType.In, new[] { 1.0 })
                            .And(to => to.DoubleProperty, SetFilterType.In, new[] { 1.0 })
@@ -476,9 +477,9 @@ namespace Framework.Filtering.UnitTests
                            .Or("NullableDoubleProperty", SetFilterType.In, new[] { (double?)null });
 
       var s = new FilterBuilder<TestObject>()
-                           .Where(new DoubleSetCriterion<TestObject>(to => to.DoubleProperty, SetFilterType.In, new[] { 1.0 }))
-                           .Or(new DoubleSetCriterion<TestObject>(to => to.DoubleProperty, SetFilterType.In, new[] { 1.0 }))
-                           .And(new DoubleSetCriterion<TestObject>(to => to.DoubleProperty, SetFilterType.In, new[] { 1.0 }));
+                           .Where(new NumericSetCriterion<TestObject, double>(to => to.DoubleProperty, SetFilterType.In, new[] { 1.0 }))
+                           .Or(new NumericSetCriterion<TestObject, double>(to => to.DoubleProperty, SetFilterType.In, new[] { 1.0 }))
+                           .And(new NumericSetCriterion<TestObject, double>(to => to.DoubleProperty, SetFilterType.In, new[] { 1.0 }));
       var t = new FilterBuilder<TestObject>()
                            .Where(to => to.DoubleProperty, SetFilterType.In, new[] { 1.0 })
                            .Or(to => to.DoubleProperty, SetFilterType.In, new[] { 1.0 })
@@ -506,9 +507,9 @@ namespace Framework.Filtering.UnitTests
     public void FloatTests()
     {
       var a = new FilterBuilder<TestObject>()
-                           .Where(new FloatCriterion<TestObject>(to => to.FloatProperty, NumericFilterType.Equals, 1))
-                           .And(new FloatCriterion<TestObject>(to => to.FloatProperty, NumericFilterType.Equals, 1))
-                           .Or(new FloatCriterion<TestObject>(to => to.FloatProperty, NumericFilterType.Equals, 1));
+                           .Where(new NumericCriterion<TestObject, float>(to => to.FloatProperty, NumericFilterType.Equals, 1))
+                           .And(new NumericCriterion<TestObject, float>(to => to.FloatProperty, NumericFilterType.Equals, 1))
+                           .Or(new NumericCriterion<TestObject, float>(to => to.FloatProperty, NumericFilterType.Equals, 1));
       var b = new FilterBuilder<TestObject>()
                            .Where(to => to.FloatProperty, NumericFilterType.Equals, 1)
                            .And(to => to.FloatProperty, NumericFilterType.Equals, 1)
@@ -532,9 +533,9 @@ namespace Framework.Filtering.UnitTests
                            .Or("NullableFloatProperty", NumericFilterType.Equals, null);
 
       var g = new FilterBuilder<TestObject>()
-                           .Where(new FloatCriterion<TestObject>(to => to.FloatProperty, NumericFilterType.Equals, 1))
-                           .Or(new FloatCriterion<TestObject>(to => to.FloatProperty, NumericFilterType.Equals, 1))
-                           .And(new FloatCriterion<TestObject>(to => to.FloatProperty, NumericFilterType.Equals, 1));
+                           .Where(new NumericCriterion<TestObject, float>(to => to.FloatProperty, NumericFilterType.Equals, 1))
+                           .Or(new NumericCriterion<TestObject, float>(to => to.FloatProperty, NumericFilterType.Equals, 1))
+                           .And(new NumericCriterion<TestObject, float>(to => to.FloatProperty, NumericFilterType.Equals, 1));
       var h = new FilterBuilder<TestObject>()
                            .Where(to => to.FloatProperty, NumericFilterType.Equals, 1)
                            .Or(to => to.FloatProperty, NumericFilterType.Equals, 1)
@@ -558,9 +559,9 @@ namespace Framework.Filtering.UnitTests
                            .And("NullableFloatProperty", NumericFilterType.Equals, null);
 
       var m = new FilterBuilder<TestObject>()
-                           .Where(new FloatSetCriterion<TestObject>(to => to.FloatProperty, SetFilterType.In, new[] { (float)1 }))
-                           .And(new FloatSetCriterion<TestObject>(to => to.FloatProperty, SetFilterType.In, new[] { (float)1 }))
-                           .Or(new FloatSetCriterion<TestObject>(to => to.FloatProperty, SetFilterType.In, new[] { (float)1 }));
+                           .Where(new NumericSetCriterion<TestObject, float>(to => to.FloatProperty, SetFilterType.In, new[] { (float)1 }))
+                           .And(new NumericSetCriterion<TestObject, float>(to => to.FloatProperty, SetFilterType.In, new[] { (float)1 }))
+                           .Or(new NumericSetCriterion<TestObject, float>(to => to.FloatProperty, SetFilterType.In, new[] { (float)1 }));
       var n = new FilterBuilder<TestObject>()
                            .Where(to => to.FloatProperty, SetFilterType.In, new[] { (float)1 })
                            .And(to => to.FloatProperty, SetFilterType.In, new[] { (float)1 })
@@ -584,9 +585,9 @@ namespace Framework.Filtering.UnitTests
                            .Or("NullableFloatProperty", SetFilterType.In, new[] { (float?)null });
 
       var s = new FilterBuilder<TestObject>()
-                           .Where(new FloatSetCriterion<TestObject>(to => to.FloatProperty, SetFilterType.In, new[] { (float)1 }))
-                           .Or(new FloatSetCriterion<TestObject>(to => to.FloatProperty, SetFilterType.In, new[] { (float)1 }))
-                           .And(new FloatSetCriterion<TestObject>(to => to.FloatProperty, SetFilterType.In, new[] { (float)1 }));
+                           .Where(new NumericSetCriterion<TestObject, float>(to => to.FloatProperty, SetFilterType.In, new[] { (float)1 }))
+                           .Or(new NumericSetCriterion<TestObject, float>(to => to.FloatProperty, SetFilterType.In, new[] { (float)1 }))
+                           .And(new NumericSetCriterion<TestObject, float>(to => to.FloatProperty, SetFilterType.In, new[] { (float)1 }));
       var t = new FilterBuilder<TestObject>()
                            .Where(to => to.FloatProperty, SetFilterType.In, new[] { (float)1 })
                            .Or(to => to.FloatProperty, SetFilterType.In, new[] { (float)1 })
@@ -614,9 +615,9 @@ namespace Framework.Filtering.UnitTests
     public void IntegerTests()
     {
       var a = new FilterBuilder<TestObject>()
-                           .Where(new IntegerCriterion<TestObject>(to => to.IntegerProperty, NumericFilterType.Equals, 1))
-                           .And(new IntegerCriterion<TestObject>(to => to.IntegerProperty, NumericFilterType.Equals, 1))
-                           .Or(new IntegerCriterion<TestObject>(to => to.IntegerProperty, NumericFilterType.Equals, 1));
+                           .Where(new NumericCriterion<TestObject, int>(to => to.IntegerProperty, NumericFilterType.Equals, 1))
+                           .And(new NumericCriterion<TestObject, int>(to => to.IntegerProperty, NumericFilterType.Equals, 1))
+                           .Or(new NumericCriterion<TestObject, int>(to => to.IntegerProperty, NumericFilterType.Equals, 1));
       var b = new FilterBuilder<TestObject>()
                            .Where(to => to.IntegerProperty, NumericFilterType.Equals, 1)
                            .And(to => to.IntegerProperty, NumericFilterType.Equals, 1)
@@ -640,9 +641,9 @@ namespace Framework.Filtering.UnitTests
                            .Or("NullableIntegerProperty", NumericFilterType.Equals, null);
 
       var g = new FilterBuilder<TestObject>()
-                           .Where(new IntegerCriterion<TestObject>(to => to.IntegerProperty, NumericFilterType.Equals, 1))
-                           .Or(new IntegerCriterion<TestObject>(to => to.IntegerProperty, NumericFilterType.Equals, 1))
-                           .And(new IntegerCriterion<TestObject>(to => to.IntegerProperty, NumericFilterType.Equals, 1));
+                           .Where(new NumericCriterion<TestObject, int>(to => to.IntegerProperty, NumericFilterType.Equals, 1))
+                           .Or(new NumericCriterion<TestObject, int>(to => to.IntegerProperty, NumericFilterType.Equals, 1))
+                           .And(new NumericCriterion<TestObject, int>(to => to.IntegerProperty, NumericFilterType.Equals, 1));
       var h = new FilterBuilder<TestObject>()
                            .Where(to => to.IntegerProperty, NumericFilterType.Equals, 1)
                            .Or(to => to.IntegerProperty, NumericFilterType.Equals, 1)
@@ -666,9 +667,9 @@ namespace Framework.Filtering.UnitTests
                            .And("NullableIntegerProperty", NumericFilterType.Equals, null);
 
       var m = new FilterBuilder<TestObject>()
-                           .Where(new IntegerSetCriterion<TestObject>(to => to.IntegerProperty, SetFilterType.In, new[] { 1 }))
-                           .And(new IntegerSetCriterion<TestObject>(to => to.IntegerProperty, SetFilterType.In, new[] { 1 }))
-                           .Or(new IntegerSetCriterion<TestObject>(to => to.IntegerProperty, SetFilterType.In, new[] { 1 }));
+                           .Where(new NumericSetCriterion<TestObject, int>(to => to.IntegerProperty, SetFilterType.In, new[] { 1 }))
+                           .And(new NumericSetCriterion<TestObject, int>(to => to.IntegerProperty, SetFilterType.In, new[] { 1 }))
+                           .Or(new NumericSetCriterion<TestObject, int>(to => to.IntegerProperty, SetFilterType.In, new[] { 1 }));
       var n = new FilterBuilder<TestObject>()
                            .Where(to => to.IntegerProperty, SetFilterType.In, new[] { 1 })
                            .And(to => to.IntegerProperty, SetFilterType.In, new[] { 1 })
@@ -692,9 +693,9 @@ namespace Framework.Filtering.UnitTests
                            .Or("NullableIntegerProperty", SetFilterType.In, new[] { (int?)null });
 
       var s = new FilterBuilder<TestObject>()
-                           .Where(new IntegerSetCriterion<TestObject>(to => to.IntegerProperty, SetFilterType.In, new[] { 1 }))
-                           .Or(new IntegerSetCriterion<TestObject>(to => to.IntegerProperty, SetFilterType.In, new[] { 1 }))
-                           .And(new IntegerSetCriterion<TestObject>(to => to.IntegerProperty, SetFilterType.In, new[] { 1 }));
+                           .Where(new NumericSetCriterion<TestObject, int>(to => to.IntegerProperty, SetFilterType.In, new[] { 1 }))
+                           .Or(new NumericSetCriterion<TestObject, int>(to => to.IntegerProperty, SetFilterType.In, new[] { 1 }))
+                           .And(new NumericSetCriterion<TestObject, int>(to => to.IntegerProperty, SetFilterType.In, new[] { 1 }));
       var t = new FilterBuilder<TestObject>()
                            .Where(to => to.IntegerProperty, SetFilterType.In, new[] { 1 })
                            .Or(to => to.IntegerProperty, SetFilterType.In, new[] { 1 })
@@ -722,9 +723,9 @@ namespace Framework.Filtering.UnitTests
     public void LongTests()
     {
       var a = new FilterBuilder<TestObject>()
-                           .Where(new LongCriterion<TestObject>(to => to.LongProperty, NumericFilterType.Equals, 1))
-                           .And(new LongCriterion<TestObject>(to => to.LongProperty, NumericFilterType.Equals, 1))
-                           .Or(new LongCriterion<TestObject>(to => to.LongProperty, NumericFilterType.Equals, 1));
+                           .Where(new NumericCriterion<TestObject, long>(to => to.LongProperty, NumericFilterType.Equals, 1))
+                           .And(new NumericCriterion<TestObject, long>(to => to.LongProperty, NumericFilterType.Equals, 1))
+                           .Or(new NumericCriterion<TestObject, long>(to => to.LongProperty, NumericFilterType.Equals, 1));
       var b = new FilterBuilder<TestObject>()
                            .Where(to => to.LongProperty, NumericFilterType.Equals, 1)
                            .And(to => to.LongProperty, NumericFilterType.Equals, 1)
@@ -747,9 +748,9 @@ namespace Framework.Filtering.UnitTests
                            .And("NullableLongProperty", NumericFilterType.Equals, null)
                            .Or("NullableLongProperty", NumericFilterType.Equals, null);
       var g = new FilterBuilder<TestObject>()
-                           .Where(new LongCriterion<TestObject>(to => to.LongProperty, NumericFilterType.Equals, 1))
-                           .Or(new LongCriterion<TestObject>(to => to.LongProperty, NumericFilterType.Equals, 1))
-                           .And(new LongCriterion<TestObject>(to => to.LongProperty, NumericFilterType.Equals, 1));
+                           .Where(new NumericCriterion<TestObject, long>(to => to.LongProperty, NumericFilterType.Equals, 1))
+                           .Or(new NumericCriterion<TestObject, long>(to => to.LongProperty, NumericFilterType.Equals, 1))
+                           .And(new NumericCriterion<TestObject, long>(to => to.LongProperty, NumericFilterType.Equals, 1));
       var h = new FilterBuilder<TestObject>()
                            .Where(to => to.LongProperty, NumericFilterType.Equals, 1)
                            .Or(to => to.LongProperty, NumericFilterType.Equals, 1)
@@ -773,9 +774,9 @@ namespace Framework.Filtering.UnitTests
                            .And("NullableLongProperty", NumericFilterType.Equals, null);
 
       var m = new FilterBuilder<TestObject>()
-                     .Where(new LongSetCriterion<TestObject>(to => to.LongProperty, SetFilterType.In, new[] { (long)1 }))
-                     .And(new LongSetCriterion<TestObject>(to => to.LongProperty, SetFilterType.In, new[] { (long)1 }))
-                     .Or(new LongSetCriterion<TestObject>(to => to.LongProperty, SetFilterType.In, new[] { (long)1 }));
+                     .Where(new NumericSetCriterion<TestObject, long>(to => to.LongProperty, SetFilterType.In, new[] { (long)1 }))
+                     .And(new NumericSetCriterion<TestObject, long>(to => to.LongProperty, SetFilterType.In, new[] { (long)1 }))
+                     .Or(new NumericSetCriterion<TestObject, long>(to => to.LongProperty, SetFilterType.In, new[] { (long)1 }));
       var n = new FilterBuilder<TestObject>()
                            .Where(to => to.LongProperty, SetFilterType.In, new[] { (long)1 })
                            .And(to => to.LongProperty, SetFilterType.In, new[] { (long)1 })
@@ -798,9 +799,9 @@ namespace Framework.Filtering.UnitTests
                            .And("NullableLongProperty", SetFilterType.In, new[] { (long?)null })
                            .Or("NullableLongProperty", SetFilterType.In, new[] { (long?)null });
       var s = new FilterBuilder<TestObject>()
-                           .Where(new LongSetCriterion<TestObject>(to => to.LongProperty, SetFilterType.In, new[] { (long)1 }))
-                           .Or(new LongSetCriterion<TestObject>(to => to.LongProperty, SetFilterType.In, new[] { (long)1 }))
-                           .And(new LongSetCriterion<TestObject>(to => to.LongProperty, SetFilterType.In, new[] { (long)1 }));
+                           .Where(new NumericSetCriterion<TestObject, long>(to => to.LongProperty, SetFilterType.In, new[] { (long)1 }))
+                           .Or(new NumericSetCriterion<TestObject, long>(to => to.LongProperty, SetFilterType.In, new[] { (long)1 }))
+                           .And(new NumericSetCriterion<TestObject, long>(to => to.LongProperty, SetFilterType.In, new[] { (long)1 }));
       var t = new FilterBuilder<TestObject>()
                            .Where(to => to.LongProperty, SetFilterType.In, new[] { (long)1 })
                            .Or(to => to.LongProperty, SetFilterType.In, new[] { (long)1 })
@@ -828,9 +829,9 @@ namespace Framework.Filtering.UnitTests
     public void ShortTests()
     {
       var a = new FilterBuilder<TestObject>()
-                           .Where(new ShortCriterion<TestObject>(to => to.ShortProperty, NumericFilterType.Equals, 1))
-                           .And(new ShortCriterion<TestObject>(to => to.ShortProperty, NumericFilterType.Equals, 1))
-                           .Or(new ShortCriterion<TestObject>(to => to.ShortProperty, NumericFilterType.Equals, 1));
+                           .Where(new NumericCriterion<TestObject, short>(to => to.ShortProperty, NumericFilterType.Equals, 1))
+                           .And(new NumericCriterion<TestObject, short>(to => to.ShortProperty, NumericFilterType.Equals, 1))
+                           .Or(new NumericCriterion<TestObject, short>(to => to.ShortProperty, NumericFilterType.Equals, 1));
       var b = new FilterBuilder<TestObject>()
                            .Where(to => to.ShortProperty, NumericFilterType.Equals, (short)1)
                            .And(to => to.ShortProperty, NumericFilterType.Equals, (short)1)
@@ -854,9 +855,9 @@ namespace Framework.Filtering.UnitTests
                            .Or("NullableShortProperty", NumericFilterType.Equals, null);
 
       var g = new FilterBuilder<TestObject>()
-                           .Where(new ShortCriterion<TestObject>(to => to.ShortProperty, NumericFilterType.Equals, 1))
-                           .Or(new ShortCriterion<TestObject>(to => to.ShortProperty, NumericFilterType.Equals, 1))
-                           .And(new ShortCriterion<TestObject>(to => to.ShortProperty, NumericFilterType.Equals, 1));
+                           .Where(new NumericCriterion<TestObject, short>(to => to.ShortProperty, NumericFilterType.Equals, 1))
+                           .Or(new NumericCriterion<TestObject, short>(to => to.ShortProperty, NumericFilterType.Equals, 1))
+                           .And(new NumericCriterion<TestObject, short>(to => to.ShortProperty, NumericFilterType.Equals, 1));
       var h = new FilterBuilder<TestObject>()
                            .Where(to => to.ShortProperty, NumericFilterType.Equals, (short)1)
                            .Or(to => to.ShortProperty, NumericFilterType.Equals, (short)1)
@@ -880,9 +881,9 @@ namespace Framework.Filtering.UnitTests
                            .And("NullableShortProperty", NumericFilterType.Equals, null);
 
       var m = new FilterBuilder<TestObject>()
-                           .Where(new ShortSetCriterion<TestObject>(to => to.ShortProperty, SetFilterType.In, new[] { (short)1 }))
-                           .And(new ShortSetCriterion<TestObject>(to => to.ShortProperty, SetFilterType.In, new[] { (short)1 }))
-                           .Or(new ShortSetCriterion<TestObject>(to => to.ShortProperty, SetFilterType.In, new[] { (short)1 }));
+                           .Where(new NumericSetCriterion<TestObject, short>(to => to.ShortProperty, SetFilterType.In, new[] { (short)1 }))
+                           .And(new NumericSetCriterion<TestObject, short>(to => to.ShortProperty, SetFilterType.In, new[] { (short)1 }))
+                           .Or(new NumericSetCriterion<TestObject, short>(to => to.ShortProperty, SetFilterType.In, new[] { (short)1 }));
       var n = new FilterBuilder<TestObject>()
                            .Where(to => to.ShortProperty, SetFilterType.In, new[] { (short)1 })
                            .And(to => to.ShortProperty, SetFilterType.In, new[] { (short)1 })
@@ -906,9 +907,9 @@ namespace Framework.Filtering.UnitTests
                            .Or("NullableShortProperty", SetFilterType.In, new[] { (short?)null });
 
       var s = new FilterBuilder<TestObject>()
-                           .Where(new ShortSetCriterion<TestObject>(to => to.ShortProperty, SetFilterType.In, new[] { (short)1 }))
-                           .Or(new ShortSetCriterion<TestObject>(to => to.ShortProperty, SetFilterType.In, new[] { (short)1 }))
-                           .And(new ShortSetCriterion<TestObject>(to => to.ShortProperty, SetFilterType.In, new[] { (short)1 }));
+                           .Where(new NumericSetCriterion<TestObject, short>(to => to.ShortProperty, SetFilterType.In, new[] { (short)1 }))
+                           .Or(new NumericSetCriterion<TestObject, short>(to => to.ShortProperty, SetFilterType.In, new[] { (short)1 }))
+                           .And(new NumericSetCriterion<TestObject, short>(to => to.ShortProperty, SetFilterType.In, new[] { (short)1 }));
       var t = new FilterBuilder<TestObject>()
                            .Where(to => to.ShortProperty, SetFilterType.In, new[] { (short)1 })
                            .Or(to => to.ShortProperty, SetFilterType.In, new[] { (short)1 })

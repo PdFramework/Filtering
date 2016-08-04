@@ -67,7 +67,7 @@
     <Compile Include="FilterCriteria\Nullables\NullableDateTimeCriterionBase.cs" />
     <Compile Include="FilterCriteria\Nullables\NullableNumericCriterionBase.cs" />
     <Compile Include="FilterCriteria\Nullables\Sets\NullableSetCriterionBase.cs" />
-    <Compile Include="FilterCriteria\NumericCriterionBase.cs" />
+    <Compile Include="FilterCriteria\NumericCriterion.cs" />
     <Compile Include="FilterCriteria\Nullables\NullableBooleanCriterion.cs" />
     <Compile Include="FilterCriteria\Nullables\NullableDateTimeCriterion.cs" />
     <Compile Include="FilterCriteria\Nullables\NullableDateTimeOffsetCriterion.cs" />
@@ -79,11 +79,7 @@
     <Compile Include="FilterCriteria\Nullables\NullableShortCriterion.cs" />
     <Compile Include="FilterCriteria\Sets\DateTimeSetCriterion.cs" />
     <Compile Include="FilterCriteria\Sets\DateTimeOffsetSetCriterion.cs" />
-    <Compile Include="FilterCriteria\Sets\DecimalSetCriterion.cs" />
-    <Compile Include="FilterCriteria\Sets\DoubleSetCriterion.cs" />
-    <Compile Include="FilterCriteria\Sets\FloatSetCriterion.cs" />
-    <Compile Include="FilterCriteria\Sets\IntegerSetCriterion.cs" />
-    <Compile Include="FilterCriteria\Sets\LongSetCriterion.cs" />
+    <Compile Include="FilterCriteria\Sets\NumericSetCriterion.cs" />
     <Compile Include="FilterCriteria\Nullables\Sets\NullableDateTimeOffsetSetCriterion.cs" />
     <Compile Include="FilterCriteria\Nullables\Sets\NullableDateTimeSetCriterion.cs" />
     <Compile Include="FilterCriteria\Nullables\Sets\NullableDecimalSetCriterion.cs" />
@@ -93,14 +89,7 @@
     <Compile Include="FilterCriteria\Nullables\Sets\NullableLongSetCriterion.cs" />
     <Compile Include="FilterCriteria\Nullables\Sets\NullableShortSetCriterion.cs" />
     <Compile Include="FilterCriteria\Sets\SetCriterionBase.cs" />
-    <Compile Include="FilterCriteria\Sets\ShortSetCriterion.cs" />
     <Compile Include="FilterCriteria\Sets\StringSetCriterion.cs" />
-    <Compile Include="FilterCriteria\ShortCriterion.cs" />
-    <Compile Include="FilterCriteria\LongCriterion.cs" />
-    <Compile Include="FilterCriteria\IntegerCriterion.cs" />
-    <Compile Include="FilterCriteria\FloatCriterion.cs" />
-    <Compile Include="FilterCriteria\DoubleCriterion.cs" />
-    <Compile Include="FilterCriteria\DecimalCriterion.cs" />
     <Compile Include="FilterCriteria\DateTimeOffsetCriterion.cs" />
     <Compile Include="FilterCriteria\DateTimeCriterion.cs" />
     <Compile Include="FilterCriteria\BooleanCriterion.cs" />

@@ -26,7 +26,7 @@ namespace Framework.Filtering.UnitTests
                                  .And(to => to.LongProperty, NumericFilterType.GreaterThanOrEquals, 94879348)
                                  .And(new StringCriterion<TestObject>(to => to.StringProperty, StringFilterType.Contains, "foo")
                                           .And(new DateTimeCriterion<TestObject>(to => to.DateTimeProperty, DateTimeFilterType.After, DateTime.MinValue)
-                                                  .Or(new FloatCriterion<TestObject>(to => to.FloatProperty, NumericFilterType.Equals, 390))
+                                                  .Or(new NumericCriterion<TestObject, float>(to => to.FloatProperty, NumericFilterType.Equals, 390))
                                           )
                                   );
 

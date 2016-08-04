@@ -1,16 +1,20 @@
 ﻿namespace PeinearyDevelopment.Framework.Filtering
 {
-  using System.Collections.Generic;
+    using System.Collections.Generic;
 
-  public class ResultSet<TFilterable> where TFilterable : class, IFilterable
-  {
-    public int? TotalNumberOfResults { get; }
-    public IList<TFilterable> Results { get; }
-
-    public ResultSet(int? totalNumberOfResults, IList<TFilterable> results)
+    public class ResultSet<TFilterable> where TFilterable : class, IFilterable
     {
-      TotalNumberOfResults = totalNumberOfResults;
-      Results = results;
+        public int? TotalNumberOfResults { get; }
+        public IEnumerable<TFilterable> Results { get; }
+
+        public ResultSet()
+        {
+        }
+
+        public ResultSet(int? totalNumberOfResults, IEnumerable<TFilterable> results)
+        {
+            TotalNumberOfResults = totalNumberOfResults;
+            Results = results;
+        }
     }
-  }
 }

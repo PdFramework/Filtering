@@ -138,27 +138,31 @@
     {
       return filterBuilderBase.Where(new NullableDateTimeOffsetSetCriterion<TFilterable>(propertyName, filterType, filterValue));
     }
-    #endregion
+        #endregion
 
-    #region decimal
-    public static SimpleFilterBuilder<TFilterable> Where<TFilterable>(this FilterBuilder<TFilterable> filterBuilderBase, Expression<Func<TFilterable, decimal>> propertyNameExpression, NumericFilterType filterType, decimal filterValue) where TFilterable : class, IFilterable
+    #region numeric
+    public static SimpleFilterBuilder<TFilterable> Where<TFilterable, TNumeric>(this FilterBuilder<TFilterable> simpleFilterBuilder, Expression<Func<TFilterable, TNumeric>> propertyNameExpression, NumericFilterType filterType, TNumeric filterValue) where TFilterable : class, IFilterable
+                                                                                                                                                                                                                                                          where TNumeric : struct
     {
-      return filterBuilderBase.Where(new DecimalCriterion<TFilterable>(propertyNameExpression, filterType, filterValue));
+        return simpleFilterBuilder.Where(new NumericCriterion<TFilterable, TNumeric>(propertyNameExpression, filterType, filterValue));
     }
 
-    public static SimpleFilterBuilder<TFilterable> Where<TFilterable>(this FilterBuilder<TFilterable> filterBuilderBase, string propertyName, NumericFilterType filterType, decimal filterValue) where TFilterable : class, IFilterable
+    public static SimpleFilterBuilder<TFilterable> Where<TFilterable, TNumeric>(this FilterBuilder<TFilterable> simpleFilterBuilder, string propertyName, NumericFilterType filterType, TNumeric filterValue) where TFilterable : class, IFilterable
+                                                                                                                                                                                                              where TNumeric : struct
     {
-      return filterBuilderBase.Where(new DecimalCriterion<TFilterable>(propertyName, filterType, filterValue));
+        return simpleFilterBuilder.Where(new NumericCriterion<TFilterable, TNumeric>(propertyName, filterType, filterValue));
     }
 
-    public static SimpleFilterBuilder<TFilterable> Where<TFilterable>(this FilterBuilder<TFilterable> filterBuilderBase, Expression<Func<TFilterable, decimal>> propertyNameExpression, SetFilterType filterType, IEnumerable<decimal> filterValue) where TFilterable : class, IFilterable
+    public static SimpleFilterBuilder<TFilterable> Where<TFilterable, TNumeric>(this FilterBuilder<TFilterable> simpleFilterBuilder, Expression<Func<TFilterable, TNumeric>> propertyNameExpression, SetFilterType filterType, IEnumerable<TNumeric> filterValue) where TFilterable : class, IFilterable
+                                                                                                                                                                                                                                                                  where TNumeric : struct
     {
-      return filterBuilderBase.Where(new DecimalSetCriterion<TFilterable>(propertyNameExpression, filterType, filterValue));
+      return simpleFilterBuilder.Where(new NumericSetCriterion<TFilterable, TNumeric>(propertyNameExpression, filterType, filterValue));
     }
 
-    public static SimpleFilterBuilder<TFilterable> Where<TFilterable>(this FilterBuilder<TFilterable> filterBuilderBase, string propertyName, SetFilterType filterType, IEnumerable<decimal> filterValue) where TFilterable : class, IFilterable
+    public static SimpleFilterBuilder<TFilterable> Where<TFilterable, TNumeric>(this FilterBuilder<TFilterable> simpleFilterBuilder, string propertyName, SetFilterType filterType, IEnumerable<TNumeric> filterValue) where TFilterable : class, IFilterable
+                                                                                                                                                                                                                       where TNumeric : struct
     {
-      return filterBuilderBase.Where(new DecimalSetCriterion<TFilterable>(propertyName, filterType, filterValue));
+      return simpleFilterBuilder.Where(new NumericSetCriterion<TFilterable, TNumeric>(propertyName, filterType, filterValue));
     }
 
     public static SimpleFilterBuilder<TFilterable> Where<TFilterable>(this FilterBuilder<TFilterable> filterBuilderBase, Expression<Func<TFilterable, decimal?>> propertyNameExpression, NumericFilterType filterType, decimal? filterValue) where TFilterable : class, IFilterable
@@ -183,26 +187,6 @@
     #endregion
 
     #region double
-    public static SimpleFilterBuilder<TFilterable> Where<TFilterable>(this FilterBuilder<TFilterable> filterBuilderBase, Expression<Func<TFilterable, double>> propertyNameExpression, NumericFilterType filterType, double filterValue) where TFilterable : class, IFilterable
-    {
-      return filterBuilderBase.Where(new DoubleCriterion<TFilterable>(propertyNameExpression, filterType, filterValue));
-    }
-
-    public static SimpleFilterBuilder<TFilterable> Where<TFilterable>(this FilterBuilder<TFilterable> filterBuilderBase, string propertyName, NumericFilterType filterType, double filterValue) where TFilterable : class, IFilterable
-    {
-      return filterBuilderBase.Where(new DoubleCriterion<TFilterable>(propertyName, filterType, filterValue));
-    }
-
-    public static SimpleFilterBuilder<TFilterable> Where<TFilterable>(this FilterBuilder<TFilterable> filterBuilderBase, Expression<Func<TFilterable, double>> propertyNameExpression, SetFilterType filterType, IEnumerable<double> filterValue) where TFilterable : class, IFilterable
-    {
-      return filterBuilderBase.Where(new DoubleSetCriterion<TFilterable>(propertyNameExpression, filterType, filterValue));
-    }
-
-    public static SimpleFilterBuilder<TFilterable> Where<TFilterable>(this FilterBuilder<TFilterable> filterBuilderBase, string propertyName, SetFilterType filterType, IEnumerable<double> filterValue) where TFilterable : class, IFilterable
-    {
-      return filterBuilderBase.Where(new DoubleSetCriterion<TFilterable>(propertyName, filterType, filterValue));
-    }
-
     public static SimpleFilterBuilder<TFilterable> Where<TFilterable>(this FilterBuilder<TFilterable> filterBuilderBase, Expression<Func<TFilterable, double?>> propertyNameExpression, NumericFilterType filterType, double? filterValue) where TFilterable : class, IFilterable
     {
       return filterBuilderBase.Where(new NullableDoubleCriterion<TFilterable>(propertyNameExpression, filterType, filterValue));
@@ -225,26 +209,6 @@
     #endregion
 
     #region float
-    public static SimpleFilterBuilder<TFilterable> Where<TFilterable>(this FilterBuilder<TFilterable> filterBuilderBase, Expression<Func<TFilterable, float>> propertyNameExpression, NumericFilterType filterType, float filterValue) where TFilterable : class, IFilterable
-    {
-      return filterBuilderBase.Where(new FloatCriterion<TFilterable>(propertyNameExpression, filterType, filterValue));
-    }
-
-    public static SimpleFilterBuilder<TFilterable> Where<TFilterable>(this FilterBuilder<TFilterable> filterBuilderBase, string propertyName, NumericFilterType filterType, float filterValue) where TFilterable : class, IFilterable
-    {
-      return filterBuilderBase.Where(new FloatCriterion<TFilterable>(propertyName, filterType, filterValue));
-    }
-
-    public static SimpleFilterBuilder<TFilterable> Where<TFilterable>(this FilterBuilder<TFilterable> filterBuilderBase, Expression<Func<TFilterable, float>> propertyNameExpression, SetFilterType filterType, IEnumerable<float> filterValue) where TFilterable : class, IFilterable
-    {
-      return filterBuilderBase.Where(new FloatSetCriterion<TFilterable>(propertyNameExpression, filterType, filterValue));
-    }
-
-    public static SimpleFilterBuilder<TFilterable> Where<TFilterable>(this FilterBuilder<TFilterable> filterBuilderBase, string propertyName, SetFilterType filterType, IEnumerable<float> filterValue) where TFilterable : class, IFilterable
-    {
-      return filterBuilderBase.Where(new FloatSetCriterion<TFilterable>(propertyName, filterType, filterValue));
-    }
-
     public static SimpleFilterBuilder<TFilterable> Where<TFilterable>(this FilterBuilder<TFilterable> filterBuilderBase, Expression<Func<TFilterable, float?>> propertyNameExpression, NumericFilterType filterType, float? filterValue) where TFilterable : class, IFilterable
     {
       return filterBuilderBase.Where(new NullableFloatCriterion<TFilterable>(propertyNameExpression, filterType, filterValue));
@@ -267,26 +231,6 @@
     #endregion
 
     #region int
-    public static SimpleFilterBuilder<TFilterable> Where<TFilterable>(this FilterBuilder<TFilterable> filterBuilderBase, Expression<Func<TFilterable, int>> propertyNameExpression, NumericFilterType filterType, int filterValue) where TFilterable : class, IFilterable
-    {
-      return filterBuilderBase.Where(new IntegerCriterion<TFilterable>(propertyNameExpression, filterType, filterValue));
-    }
-
-    public static SimpleFilterBuilder<TFilterable> Where<TFilterable>(this FilterBuilder<TFilterable> filterBuilderBase, string propertyName, NumericFilterType filterType, int filterValue) where TFilterable : class, IFilterable
-    {
-      return filterBuilderBase.Where(new IntegerCriterion<TFilterable>(propertyName, filterType, filterValue));
-    }
-
-    public static SimpleFilterBuilder<TFilterable> Where<TFilterable>(this FilterBuilder<TFilterable> filterBuilderBase, Expression<Func<TFilterable, int>> propertyNameExpression, SetFilterType filterType, IEnumerable<int> filterValue) where TFilterable : class, IFilterable
-    {
-      return filterBuilderBase.Where(new IntegerSetCriterion<TFilterable>(propertyNameExpression, filterType, filterValue));
-    }
-
-    public static SimpleFilterBuilder<TFilterable> Where<TFilterable>(this FilterBuilder<TFilterable> filterBuilderBase, string propertyName, SetFilterType filterType, IEnumerable<int> filterValue) where TFilterable : class, IFilterable
-    {
-      return filterBuilderBase.Where(new IntegerSetCriterion<TFilterable>(propertyName, filterType, filterValue));
-    }
-
     public static SimpleFilterBuilder<TFilterable> Where<TFilterable>(this FilterBuilder<TFilterable> filterBuilderBase, Expression<Func<TFilterable, int?>> propertyNameExpression, NumericFilterType filterType, int? filterValue) where TFilterable : class, IFilterable
     {
       return filterBuilderBase.Where(new NullableIntegerCriterion<TFilterable>(propertyNameExpression, filterType, filterValue));
@@ -309,26 +253,6 @@
     #endregion
 
     #region long
-    public static SimpleFilterBuilder<TFilterable> Where<TFilterable>(this FilterBuilder<TFilterable> filterBuilderBase, Expression<Func<TFilterable, long>> propertyNameExpression, NumericFilterType filterType, long filterValue) where TFilterable : class, IFilterable
-    {
-      return filterBuilderBase.Where(new LongCriterion<TFilterable>(propertyNameExpression, filterType, filterValue));
-    }
-
-    public static SimpleFilterBuilder<TFilterable> Where<TFilterable>(this FilterBuilder<TFilterable> filterBuilderBase, string propertyName, NumericFilterType filterType, long filterValue) where TFilterable : class, IFilterable
-    {
-      return filterBuilderBase.Where(new LongCriterion<TFilterable>(propertyName, filterType, filterValue));
-    }
-
-    public static SimpleFilterBuilder<TFilterable> Where<TFilterable>(this FilterBuilder<TFilterable> filterBuilderBase, Expression<Func<TFilterable, long>> propertyNameExpression, SetFilterType filterType, IEnumerable<long> filterValue) where TFilterable : class, IFilterable
-    {
-      return filterBuilderBase.Where(new LongSetCriterion<TFilterable>(propertyNameExpression, filterType, filterValue));
-    }
-
-    public static SimpleFilterBuilder<TFilterable> Where<TFilterable>(this FilterBuilder<TFilterable> filterBuilderBase, string propertyName, SetFilterType filterType, IEnumerable<long> filterValue) where TFilterable : class, IFilterable
-    {
-      return filterBuilderBase.Where(new LongSetCriterion<TFilterable>(propertyName, filterType, filterValue));
-    }
-
     public static SimpleFilterBuilder<TFilterable> Where<TFilterable>(this FilterBuilder<TFilterable> filterBuilderBase, Expression<Func<TFilterable, long?>> propertyNameExpression, NumericFilterType filterType, long? filterValue) where TFilterable : class, IFilterable
     {
       return filterBuilderBase.Where(new NullableLongCriterion<TFilterable>(propertyNameExpression, filterType, filterValue));
@@ -351,26 +275,6 @@
     #endregion
 
     #region short
-    public static SimpleFilterBuilder<TFilterable> Where<TFilterable>(this FilterBuilder<TFilterable> filterBuilderBase, Expression<Func<TFilterable, short>> propertyNameExpression, NumericFilterType filterType, short filterValue) where TFilterable : class, IFilterable
-    {
-      return filterBuilderBase.Where(new ShortCriterion<TFilterable>(propertyNameExpression, filterType, filterValue));
-    }
-
-    public static SimpleFilterBuilder<TFilterable> Where<TFilterable>(this FilterBuilder<TFilterable> filterBuilderBase, string propertyName, NumericFilterType filterType, short filterValue) where TFilterable : class, IFilterable
-    {
-      return filterBuilderBase.Where(new ShortCriterion<TFilterable>(propertyName, filterType, filterValue));
-    }
-
-    public static SimpleFilterBuilder<TFilterable> Where<TFilterable>(this FilterBuilder<TFilterable> filterBuilderBase, Expression<Func<TFilterable, short>> propertyNameExpression, SetFilterType filterType, IEnumerable<short> filterValue) where TFilterable : class, IFilterable
-    {
-      return filterBuilderBase.Where(new ShortSetCriterion<TFilterable>(propertyNameExpression, filterType, filterValue));
-    }
-
-    public static SimpleFilterBuilder<TFilterable> Where<TFilterable>(this FilterBuilder<TFilterable> filterBuilderBase, string propertyName, SetFilterType filterType, IEnumerable<short> filterValue) where TFilterable : class, IFilterable
-    {
-      return filterBuilderBase.Where(new ShortSetCriterion<TFilterable>(propertyName, filterType, filterValue));
-    }
-
     public static SimpleFilterBuilder<TFilterable> Where<TFilterable>(this FilterBuilder<TFilterable> filterBuilderBase, Expression<Func<TFilterable, short?>> propertyNameExpression, NumericFilterType filterType, short? filterValue) where TFilterable : class, IFilterable
     {
       return filterBuilderBase.Where(new NullableShortCriterion<TFilterable>(propertyNameExpression, filterType, filterValue));
