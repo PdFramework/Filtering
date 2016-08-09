@@ -11,7 +11,7 @@
   {
     internal static int? GetTotalNumberOfResults<TFilterable>(this Filter<TFilterable> filter, BaseFilterBuilder<TFilterable> filterBuilder, IObjectContextAdapter dbContext) where TFilterable : class, IFilterable
     {
-      if (filterBuilder.Skip != 0) return null;
+      if (!filterBuilder.IncludeTotalCountWithResults || filterBuilder.Skip != 0) return null;
 
       var countQueryBuilder = new Filter<TFilterable>(filter.DbObjectMapper).CreateCountQueryBuilder(dbContext, filterBuilder);
       return dbContext.ObjectContext.ExecuteStoreQuery<int>(countQueryBuilder.SqlQueryStringBuilder.ToString(), countQueryBuilder.Parameters.ToArray()).First();
@@ -19,7 +19,7 @@
 
     internal static async Task<int?> GetTotalNumberOfResultsAsync<TFilterable>(this Filter<TFilterable> filter, BaseFilterBuilder<TFilterable> filterBuilder, IObjectContextAdapter dbContext) where TFilterable : class, IFilterable
     {
-      if (filterBuilder.Skip != 0) return null;
+      if (!filterBuilder.IncludeTotalCountWithResults || filterBuilder.Skip != 0) return null;
 
       var countQueryBuilder = new Filter<TFilterable>(filter.DbObjectMapper).CreateCountQueryBuilder(dbContext, filterBuilder);
 
