@@ -1,6 +1,6 @@
 ﻿namespace PeinearyDevelopment.Framework.Filtering.FilterTypes
 {
-    public enum StringFilterType
+  public enum StringFilterType
   {
         Equals = 0,
         DoesNotEqual = 1,

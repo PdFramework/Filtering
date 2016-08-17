@@ -93,7 +93,7 @@
       if (!filterBuilder.ReturnAllResults)
       {
         filter.SqlQueryStringBuilder
-              .SafeSqlAppend($"OFFSET {filterBuilder.Skip} ROWS FETCH NEXT {filterBuilder.Take} ROWS ONLY");
+              .SafeSqlAppend($"OFFSET {filterBuilder.Skip} ROWS FETCH NEXT {filterBuilder.Take + 1} ROWS ONLY");
       }
 
       return filter;
