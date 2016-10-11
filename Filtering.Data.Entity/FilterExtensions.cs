@@ -59,6 +59,26 @@
       return filter;
     }
 
+    internal static Filter<TFilterable> CreatePaginationFrom<TFilterable>(this Filter<TFilterable> filter, IObjectContextAdapter dbContext, BaseFilterBuilder<TFilterable> filterBuilder) where TFilterable : class, IFilterable
+    {
+        filter.SqlQueryStringBuilder
+                .SafeSqlAppend("FROM (");
+        filter.CreateSelect();
+        filter.SqlQueryStringBuilder
+              .Append(",")
+              .SafeSqlAppend("ROW_NUMBER() OVER(");
+        filter.CreateOrderBy(filterBuilder);
+        filter.SqlQueryStringBuilder
+              .SafeSqlAppend(") AS [row_num]");
+        filter.CreateFrom()
+              .CreateWhere(dbContext, filterBuilder);
+        filter.SqlQueryStringBuilder
+              .SafeSqlAppend(") as T")
+              .SafeSqlAppend($"WHERE [row_num] BETWEEN {filterBuilder.Skip + 1} AND {filterBuilder.Skip + filterBuilder.Take + 1}");
+
+        return filter;
+    }
+
     internal static Filter<TFilterable> CreateOrderBy<TFilterable>(this Filter<TFilterable> filter, BaseFilterBuilder<TFilterable> filterBuilder) where TFilterable : class, IFilterable
     {
       filter.SqlQueryStringBuilder

@@ -2,13 +2,12 @@
 {
   using System;
   using System.Data.Entity;
-  using System.Data.Entity.Infrastructure;
   using System.Linq;
   using System.Threading.Tasks;
 
   public static class DbSetExtensions
   {
-    public static ResultSet<TFilterable> Search<TFilterable>(this DbSet<TFilterable> dbSet, IObjectContextAdapter dbContext, BaseFilterBuilder<TFilterable> filterCriteria) where TFilterable : class, IFilterable
+    public static ResultSet<TFilterable> Search<TFilterable>(this DbSet<TFilterable> dbSet, DbContext dbContext, BaseFilterBuilder<TFilterable> filterCriteria) where TFilterable : class, IFilterable
     {
       if (dbSet == null) throw new ArgumentNullException(nameof(dbSet));
       if (filterCriteria == null) throw new ArgumentNullException(nameof(filterCriteria));
