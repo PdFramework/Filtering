@@ -1,5 +1,6 @@
 ﻿namespace PeinearyDevelopment.Framework.Filtering.Data.Entity
 {
+    using Filtering;
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Linq;

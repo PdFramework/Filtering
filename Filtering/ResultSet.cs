@@ -6,11 +6,11 @@
     public class ResultSet<TFilterable> where TFilterable : class, IFilterable
     {
         [JsonProperty(ItemTypeNameHandling = TypeNameHandling.Auto)]
-        public int? TotalNumberOfResults { get; }
+        public int? TotalNumberOfResults { get; set; }
         [JsonProperty(ItemTypeNameHandling = TypeNameHandling.Auto)]
-        public IEnumerable<TFilterable> Results { get; }
+        public IEnumerable<TFilterable> Results { get; set; }
         [JsonProperty(ItemTypeNameHandling = TypeNameHandling.Auto)]
-        public bool HasMoreResults { get; }
+        public bool HasMoreResults { get; set; }
 
         public ResultSet()
         {
