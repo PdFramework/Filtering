@@ -37,7 +37,7 @@
         case SetFilterType.Between:
           return $"[{columnName}] BETWEEN {parametersString}";
         case SetFilterType.NotIn:
-          return $"[{columnName}] NOT IN @p{parameterIndex}";
+          return $"[{columnName}] NOT IN ({parametersString})";
         default:
           throw new NotImplementedException();
       }
